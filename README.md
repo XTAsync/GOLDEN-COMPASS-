@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.svg" alt="GOLDEN-COMPASS- logo" width="180" />
+</p>
+
 # Golden Compass
 
 Kenya-focused retail investment platform by Axiom. Analyse + Demo mode: real payments and real investing stay disabled until compliance sign-off.
