@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
-import { Compass, Send } from "lucide-react";
+import { Send } from "lucide-react";
 
 export const Route = createFileRoute("/navigator")({
   head: () => ({
@@ -11,10 +11,17 @@ export const Route = createFileRoute("/navigator")({
       { name: "twitter:card", content: "summary" },
       { property: "og:type", content: "website" },
       { title: "Education Assistant — Golden Compass" },
-      { name: "description", content: "Golden Compass investing education assistant. No personal recommendations." },
+      {
+        name: "description",
+        content: "Golden Compass investing education assistant. No personal recommendations.",
+      },
       { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: "Education Assistant — Golden Compass" },
-      { property: "og:description", content: "Ask investing questions and learn the concepts. Education only, no personal recommendations." },
+      {
+        property: "og:description",
+        content:
+          "Ask investing questions and learn the concepts. Education only, no personal recommendations.",
+      },
       { property: "og:url", content: "/navigator" },
     ],
     links: [{ rel: "canonical", href: "/navigator" }],
@@ -51,42 +58,28 @@ function NavigatorPage() {
   };
 
   return (
-    <div className="flex flex-col" style={{ minHeight: "100%" }}>
-      <header style={{ padding: "20px 20px 12px" }}>
-        <div className="flex items-center gap-3">
-          <Compass size={28} strokeWidth={1.5} className="t-gold" />
-          <div>
-            <h1 className="t-display t-gold" style={{ fontSize: 18 }}>
-              Education Assistant
-            </h1>
-            <p className="t-mono t-muted" style={{ fontSize: 9, letterSpacing: "0.1em" }}>
-              INVESTING CONCEPTS ONLY
-            </p>
-          </div>
-        </div>
+    <div
+      className="page page-narrow enter flex flex-col"
+      style={{ minHeight: "calc(100dvh - 72px)" }}
+    >
+      <header className="mb-4">
+        <h1 className="t-title">Education assistant</h1>
+        <p className="tx-2 mt-1">Investing concepts only. No personal recommendations.</p>
       </header>
 
-      <div ref={scrollRef} className="flex-1 overflow-y-auto" style={{ padding: "8px 16px 16px" }}>
+      <div ref={scrollRef} className="flex-1 overflow-y-auto" style={{ paddingBottom: 16 }}>
         {messages.length === 0 ? (
-          <div className="text-center" style={{ paddingTop: 32 }}>
-            <p className="t-serif t-parch" style={{ fontSize: 14, lineHeight: 1.5 }}>
+          <div style={{ paddingTop: 16 }}>
+            <p className="tx-2">
               The education assistant is temporarily unavailable while safety checks are upgraded.
+              You can still browse the topics below.
             </p>
             <div className="mt-6 flex flex-col gap-2">
               {SUGGESTIONS.map((s) => (
                 <button
                   key={s}
                   onClick={() => send(s)}
-                  className="text-left cursor-pointer"
-                  style={{
-                    padding: "10px 14px",
-                    borderRadius: 12,
-                    border: "1px solid rgba(201,168,76,0.2)",
-                    background: "rgba(255,255,255,0.03)",
-                    color: "var(--parchment)",
-                    fontFamily: "var(--font-serif)",
-                    fontSize: 12,
-                  }}
+                  className="surface tap44 p-3 text-left cursor-pointer"
                 >
                   {s}
                 </button>
@@ -97,32 +90,19 @@ function NavigatorPage() {
           messages.map((m, i) => (
             <div
               key={i}
-              className="mb-3"
-              style={{
-                display: "flex",
-                justifyContent: m.role === "user" ? "flex-end" : "flex-start",
-              }}
+              className="mb-3 flex"
+              style={{ justifyContent: m.role === "user" ? "flex-end" : "flex-start" }}
             >
               <div
-                style={{
-                  maxWidth: "85%",
-                  padding: "10px 14px",
-                  borderRadius: 14,
-                  background:
-                    m.role === "user"
-                      ? "linear-gradient(180deg, rgba(201,168,76,0.18), rgba(201,168,76,0.08))"
-                      : "rgba(255,255,255,0.04)",
-                  border: m.role === "user" ? "1px solid rgba(201,168,76,0.28)" : "1px solid rgba(255,255,255,0.06)",
-                  color: "var(--parchment)",
-                  fontSize: 13,
-                  lineHeight: 1.5,
-                  fontFamily: m.role === "user" ? "var(--font-serif)" : "var(--font-serif)",
-                }}
+                className={m.role === "user" ? "surface-raised" : "surface"}
+                style={{ maxWidth: "85%", padding: "10px 14px", lineHeight: 1.5 }}
               >
                 {m.role === "assistant" ? (
                   <div className="prose-navigator">
                     <ReactMarkdown>{m.content || "…"}</ReactMarkdown>
-                    <p className="mt-3 text-xs text-muted-foreground">Education only. Not investment advice or a personal recommendation.</p>
+                    <p className="mt-3 t-label">
+                      Education only. Not investment advice or a personal recommendation.
+                    </p>
                   </div>
                 ) : (
                   m.content
@@ -132,55 +112,37 @@ function NavigatorPage() {
           ))
         )}
         {streaming && messages[messages.length - 1]?.role === "user" && (
-          <div className="t-mono t-muted" style={{ fontSize: 10, padding: "4px 6px" }}>
+          <p className="tx-3 t-label" role="status">
             Preparing an explanation…
-          </div>
+          </p>
         )}
       </div>
 
-      <div
-        style={{
-          padding: "10px 14px 14px",
-          borderTop: "1px solid rgba(255,255,255,0.06)",
-          background: "rgba(7,12,22,0.7)",
-          backdropFilter: "blur(20px)",
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          send(input);
         }}
+        className="flex gap-2"
+        style={{ borderTop: "1px solid var(--hairline)", paddingTop: 12 }}
       >
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            send(input);
-          }}
-          className="flex gap-2"
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          disabled={streaming}
+          aria-label="Ask an education question"
+          placeholder="Ask about an investing concept"
+          className="field flex-1"
+        />
+        <button
+          type="submit"
+          disabled={streaming || !input.trim()}
+          className="btn-primary"
+          aria-label="Send"
         >
-          <input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            disabled={streaming}
-            aria-label="Ask an education question"
-            placeholder="Ask about an investing concept…"
-            style={{
-              flex: 1,
-              padding: "10px 14px",
-              borderRadius: 12,
-              border: "1px solid rgba(201,168,76,0.22)",
-              background: "rgba(255,255,255,0.04)",
-              color: "var(--parchment)",
-              fontFamily: "var(--font-serif)",
-              fontSize: 13,
-              outline: "none",
-            }}
-          />
-          <button
-            type="submit"
-            disabled={streaming || !input.trim()}
-            className="btn-brass"
-            style={{ padding: "0 18px", fontSize: 11, opacity: streaming || !input.trim() ? 0.5 : 1 }}
-          >
-            <Send size={16} />
-          </button>
-        </form>
-      </div>
+          <Send size={18} />
+        </button>
+      </form>
     </div>
   );
 }

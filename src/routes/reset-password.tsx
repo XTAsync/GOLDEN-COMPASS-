@@ -1,8 +1,7 @@
+import { AuthLayout } from "@/components/AuthLayout";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { CompassEmblem } from "@/components/CompassEmblem";
-import { ParallaxBackground } from "@/components/ParallaxBackground";
 import { validatePassword } from "@/lib/password-policy";
 import { CircleCheck, TriangleAlert } from "lucide-react";
 
@@ -12,7 +11,10 @@ export const Route = createFileRoute("/reset-password")({
       { name: "twitter:card", content: "summary" },
       { property: "og:type", content: "website" },
       { title: "Set a New Password — Golden Compass" },
-      { name: "description", content: "Choose a new password for your Golden Compass investor account." },
+      {
+        name: "description",
+        content: "Choose a new password for your Golden Compass investor account.",
+      },
       { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: "Set a New Password — Golden Compass" },
       { property: "og:description", content: "Choose a new password for your account." },
@@ -73,72 +75,60 @@ function ResetPasswordPage() {
   };
 
   return (
-    <div className="fixed inset-0 overflow-hidden" style={{ background: "var(--ocean-0)" }}>
-      <ParallaxBackground />
-      <div className="relative z-10 mx-auto flex flex-col h-full overflow-y-auto" style={{ maxWidth: 430 }}>
-        <div className="flex flex-col items-center text-center" style={{ padding: "44px 28px 24px" }}>
-          <div className="anim-emblem anim-float">
-            <CompassEmblem />
+    <AuthLayout title="Set a new password">
+      {!ready ? (
+        <div className="skeleton h-40 w-full" />
+      ) : done ? (
+        <div className="surface p-6 text-center" role="status">
+          <CircleCheck size={32} strokeWidth={1.5} className="tx-gain mx-auto mb-3" />
+          <p className="t-heading">Password updated</p>
+        </div>
+      ) : !linkValid ? (
+        <div className="surface p-6 text-center" role="alert">
+          <TriangleAlert size={32} strokeWidth={1.5} className="tx-2 mx-auto mb-3" />
+          <p className="t-heading">This reset link is invalid or has expired.</p>
+          <Link to="/forgot-password" className="btn-primary mt-4">
+            Request a new link
+          </Link>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <div className="field-wrap">
+            <label htmlFor="rp-new" className="field-label">
+              New password
+            </label>
+            <input
+              id="rp-new"
+              autoComplete="new-password"
+              type="password"
+              className="field"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
-          <h1 className="t-display t-gold mt-4" style={{ fontSize: 22, letterSpacing: "0.04em" }}>
-            Set a New Password
-          </h1>
-        </div>
-
-        <div style={{ padding: "0 24px 40px" }}>
-          {!ready ? (
-            <div className="skeleton h-40 w-full rounded-2xl" />
-          ) : done ? (
-            <div className="glass rounded-2xl p-6 text-center">
-              <CircleCheck size={32} strokeWidth={1.5} className="t-gold mx-auto mb-3" />
-              <p className="t-serif t-parch" style={{ fontSize: 15 }}>Password updated.</p>
-            </div>
-          ) : !linkValid ? (
-            <div className="glass rounded-2xl p-6 text-center">
-              <TriangleAlert size={32} strokeWidth={1.5} className="t-gold mx-auto mb-3" />
-              <p className="t-serif t-parch" style={{ fontSize: 15 }}>
-                This reset link is invalid or has expired.
-              </p>
-              <Link
-                to="/forgot-password"
-                className="btn-brass inline-flex mt-4"
-                style={{ padding: "10px 20px", fontSize: 11, textDecoration: "none" }}
-              >
-                Request a new link
-              </Link>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="glass rounded-2xl p-5 space-y-4">
-              <div className="gc-input-wrap">
-                <label className="gc-input-label">New Password</label>
-                <input
-                  type="password"
-                  className="gc-input"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <div className="gc-input-wrap">
-                <label className="gc-input-label">Confirm Password</label>
-                <input
-                  type="password"
-                  className="gc-input"
-                  value={confirm}
-                  onChange={(e) => setConfirm(e.target.value)}
-                />
-              </div>
-              {error && (
-                <p className="t-mono" style={{ fontSize: 11, color: "var(--gc-danger)" }}>
-                  {error}
-                </p>
-              )}
-              <button type="submit" disabled={loading} className="btn-brass w-full" style={{ height: 52, fontSize: 12 }}>
-                {loading ? "Updating…" : "Update Password"}
-              </button>
-            </form>
+          <div className="field-wrap">
+            <label htmlFor="rp-confirm" className="field-label">
+              Confirm password
+            </label>
+            <input
+              id="rp-confirm"
+              autoComplete="new-password"
+              type="password"
+              className="field"
+              value={confirm}
+              onChange={(e) => setConfirm(e.target.value)}
+            />
+          </div>
+          {error && (
+            <p className="money-error" role="alert">
+              {error}
+            </p>
           )}
-        </div>
-      </div>
-    </div>
+          <button type="submit" disabled={loading} className="btn-primary w-full">
+            {loading ? <span className="btn-spinner" /> : "Update password"}
+          </button>
+        </form>
+      )}
+    </AuthLayout>
   );
 }

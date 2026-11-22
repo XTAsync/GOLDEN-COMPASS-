@@ -11,7 +11,11 @@ export const Route = createFileRoute("/admin/kyc")({
       { name: "twitter:card", content: "summary" },
       { property: "og:type", content: "website" },
       { title: "KYC Queue — Admin" },
-      { name: "description", content: "Review pending investor KYC submissions, approve or reject identity verification requests." },
+      {
+        name: "description",
+        content:
+          "Review pending investor KYC submissions, approve or reject identity verification requests.",
+      },
       { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: "KYC Queue — Admin" },
       { property: "og:description", content: "Internal admin queue for KYC review decisions." },
@@ -64,10 +68,7 @@ function AdminKycPage() {
     setRows(list);
     const ids = Array.from(new Set(list.map((r) => r.user_id)));
     if (ids.length) {
-      const { data: profs } = await supabase
-        .from("profiles")
-        .select("id, full_name")
-        .in("id", ids);
+      const { data: profs } = await supabase.from("profiles").select("id, full_name").in("id", ids);
       const map: Record<string, { full_name: string }> = {};
       (profs ?? []).forEach((p) => (map[p.id] = { full_name: p.full_name }));
       setProfiles(map);
@@ -103,15 +104,17 @@ function AdminKycPage() {
   };
 
   return (
-    <div className="flex flex-col gap-4 px-5 pt-6 pb-28 anim-fade-up">
+    <div className="page page-narrow enter">
       <header className="flex items-center justify-between">
         <div>
-          <p className="t-mono t-sec" style={{ fontSize: 9, letterSpacing: "0.18em" }}>
+          <p className="tx-2" style={{ fontSize: 12 }}>
             REVIEW QUEUE
           </p>
-          <h1 className="t-display t-gold mt-1" style={{ fontSize: 20 }}>KYC Submissions</h1>
+          <h1 className="t-title">KYC Submissions</h1>
         </div>
-        <Link to="/admin" className="t-mono t-muted" style={{ fontSize: 10, textDecoration: "none" }}>← Back</Link>
+        <Link to="/admin" className="tx-3" style={{ fontSize: 12, textDecoration: "none" }}>
+          ← Back
+        </Link>
       </header>
 
       <div className="flex gap-2">
@@ -119,15 +122,13 @@ function AdminKycPage() {
           <button
             key={f}
             onClick={() => setFilter(f)}
-            className="t-mono"
             style={{
-              fontSize: 10,
-              letterSpacing: "0.12em",
+              fontSize: 12,
               padding: "8px 14px",
               borderRadius: 999,
-              border: filter === f ? "1px solid var(--gold-300)" : "1px solid rgba(255,255,255,0.1)",
-              background: filter === f ? "rgba(201,168,76,0.12)" : "transparent",
-              color: filter === f ? "var(--gold-300)" : "var(--parchment)",
+              border: filter === f ? "1px solid var(--gold)" : "1px solid var(--hairline)",
+              background: filter === f ? "var(--gold-soft)" : "transparent",
+              color: filter === f ? "var(--gold)" : "var(--parchment)",
               cursor: "pointer",
             }}
           >
@@ -138,53 +139,75 @@ function AdminKycPage() {
 
       {loading ? (
         <div className="space-y-3">
-          {[0, 1, 2].map((i) => <div key={i} className="skeleton h-44 w-full rounded-xl" />)}
+          {[0, 1, 2].map((i) => (
+            <div key={i} className="skeleton h-44 w-full rounded-xl" />
+          ))}
         </div>
       ) : rows.length === 0 ? (
-        <div className="glass rounded-xl p-8 text-center">
-          <p className="t-serif t-parch" style={{ fontSize: 14 }}>Queue empty.</p>
+        <div className="surface rounded-xl p-8 text-center">
+          <p className="tx-1" style={{ fontSize: 14 }}>
+            Queue empty.
+          </p>
         </div>
       ) : (
         <div className="space-y-3">
           {rows.map((r) => (
-            <div key={r.id} className="glass rounded-xl p-4">
+            <div key={r.id} className="surface rounded-xl p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="t-display t-parch" style={{ fontSize: 14 }}>
+                  <p className="tx-1" style={{ fontSize: 14 }}>
                     {profiles[r.user_id]?.full_name || "—"}
                   </p>
-                  <p className="t-mono t-muted mt-1" style={{ fontSize: 9 }}>
+                  <p className="tx-3 mt-1" style={{ fontSize: 12 }}>
                     {r.created_at ? new Date(r.created_at).toLocaleString("en-KE") : ""}
                   </p>
                 </div>
                 <span
-                  className="t-mono"
                   style={{
-                    fontSize: 9,
-                    letterSpacing: "0.14em",
+                    fontSize: 12,
                     padding: "3px 10px",
                     borderRadius: 999,
-                    background: r.status === "approved" ? "rgba(46,204,113,0.15)" :
-                      r.status === "rejected" ? "rgba(231,76,60,0.15)" : "rgba(52,152,219,0.15)",
-                    color: r.status === "approved" ? "var(--gc-success)" :
-                      r.status === "rejected" ? "var(--gc-danger)" : "var(--gc-info)",
+                    background:
+                      r.status === "approved"
+                        ? "rgba(46,204,113,0.15)"
+                        : r.status === "rejected"
+                          ? "rgba(231,76,60,0.15)"
+                          : "rgba(52,152,219,0.15)",
+                    color:
+                      r.status === "approved"
+                        ? "var(--gain)"
+                        : r.status === "rejected"
+                          ? "var(--loss)"
+                          : "var(--info)",
                   }}
                 >
                   {(r.status ?? "").toUpperCase()}
                 </span>
               </div>
 
-              <div className="mt-3 grid grid-cols-2 gap-2 t-mono t-sec" style={{ fontSize: 10 }}>
-                <div>ID: <span className="t-parch">{r.national_id}</span></div>
-                <div>DOB: <span className="t-parch">{r.date_of_birth}</span></div>
-                <div className="col-span-2">Address: <span className="t-parch">{r.address}</span></div>
-                <div>Employment: <span className="t-parch">{r.employment_status}</span></div>
-                <div>Income: <span className="t-parch">{r.annual_income_range}</span></div>
-                <div>Source: <span className="t-parch">{r.source_of_funds}</span></div>
+              <div className="mt-3 grid grid-cols-2 gap-2 tx-2" style={{ fontSize: 12 }}>
+                <div>
+                  ID: <span className="tx-1">{r.national_id}</span>
+                </div>
+                <div>
+                  DOB: <span className="tx-1">{r.date_of_birth}</span>
+                </div>
+                <div className="col-span-2">
+                  Address: <span className="tx-1">{r.address}</span>
+                </div>
+                <div>
+                  Employment: <span className="tx-1">{r.employment_status}</span>
+                </div>
+                <div>
+                  Income: <span className="tx-1">{r.annual_income_range}</span>
+                </div>
+                <div>
+                  Source: <span className="tx-1">{r.source_of_funds}</span>
+                </div>
               </div>
 
               {r.review_notes && (
-                <p className="t-mono t-muted mt-2" style={{ fontSize: 10, fontStyle: "italic" }}>
+                <p className="tx-3 mt-2" style={{ fontSize: 12 }}>
                   Notes: {r.review_notes}
                 </p>
               )}
@@ -194,27 +217,27 @@ function AdminKycPage() {
                   <button
                     onClick={() => review(r, "approved")}
                     disabled={busy === r.id}
-                    className="btn-brass"
-                    style={{ padding: "10px", fontSize: 11 }}
+                    className="btn-primary"
+                    style={{ padding: "10px", fontSize: 12 }}
                   >
-                    <Check size={14} className="inline -mt-0.5 mr-1.5" />Approve
+                    <Check size={14} className="inline -mt-0.5 mr-1.5" />
+                    Approve
                   </button>
                   <button
                     onClick={() => review(r, "rejected")}
                     disabled={busy === r.id}
-                    className="t-mono"
                     style={{
                       padding: "10px",
-                      fontSize: 11,
-                      letterSpacing: "0.08em",
+                      fontSize: 12,
                       borderRadius: 10,
                       border: "1px solid rgba(231,76,60,0.5)",
                       background: "rgba(231,76,60,0.1)",
-                      color: "var(--gc-danger)",
+                      color: "var(--loss)",
                       cursor: "pointer",
                     }}
                   >
-                    <X size={14} className="inline -mt-0.5 mr-1.5" />Reject
+                    <X size={14} className="inline -mt-0.5 mr-1.5" />
+                    Reject
                   </button>
                 </div>
               )}

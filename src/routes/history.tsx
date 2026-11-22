@@ -10,7 +10,10 @@ export const Route = createFileRoute("/history")({
       { name: "twitter:card", content: "summary" },
       { property: "og:type", content: "website" },
       { title: "Transaction History — Golden Compass" },
-      { name: "description", content: "Your complete log of Golden Compass deposits, withdrawals and pool investments." },
+      {
+        name: "description",
+        content: "Your complete log of Golden Compass deposits, withdrawals and pool investments.",
+      },
       { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: "Transaction History — Golden Compass" },
       { property: "og:description", content: "Your deposit, withdrawal and investment log." },
@@ -34,13 +37,14 @@ interface TxRow {
 }
 
 const KES = (n: number) =>
-  "KES " + Number(n).toLocaleString("en-KE", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  "KES " +
+  Number(n).toLocaleString("en-KE", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 const STATUS_COLOR: Record<string, string> = {
-  pending: "var(--gc-warning)",
-  confirmed: "var(--gc-success)",
-  failed: "var(--gc-danger)",
-  cancelled: "var(--gc-danger)",
+  pending: "var(--warn)",
+  confirmed: "var(--gain)",
+  failed: "var(--loss)",
+  cancelled: "var(--loss)",
 };
 
 function HistoryPage() {
@@ -59,7 +63,9 @@ function HistoryPage() {
     (async () => {
       const { data } = await supabase
         .from("transactions")
-        .select("id, type, amount, status, created_at, confirmed_at, mpesa_reference, pool_id, investment_pools(name)")
+        .select(
+          "id, type, amount, status, created_at, confirmed_at, mpesa_reference, pool_id, investment_pools(name)",
+        )
         .eq("user_id", user.id)
         .order("created_at", { ascending: false });
       if (cancelled) return;
@@ -72,14 +78,12 @@ function HistoryPage() {
   }, [user]);
 
   return (
-    <div className="flex flex-col gap-5 px-5 pt-6 pb-28 anim-fade-up">
+    <div className="page page-narrow enter">
       <header>
-        <p className="t-mono t-sec" style={{ fontSize: 9, letterSpacing: "0.18em" }}>
+        <p className="tx-2" style={{ fontSize: 12 }}>
           TRANSACTIONS
         </p>
-        <h1 className="t-display t-gold mt-1" style={{ fontSize: 22 }}>
-          Transaction History
-        </h1>
+        <h1 className="t-title">Transaction History</h1>
       </header>
 
       {loading ? (
@@ -89,59 +93,66 @@ function HistoryPage() {
           ))}
         </div>
       ) : txs.length === 0 ? (
-        <div className="glass rounded-xl p-8 text-center">
-          <ScrollText size={32} strokeWidth={1.5} className="t-gold mx-auto mb-3" />
-          <p className="t-serif t-parch" style={{ fontSize: 15 }}>
+        <div className="surface rounded-xl p-8 text-center">
+          <ScrollText size={32} strokeWidth={1.5} className="tx-2 mx-auto mb-3" />
+          <p className="tx-1" style={{ fontSize: 15 }}>
             The ledger is empty.
           </p>
-          <p className="t-mono t-muted mt-2" style={{ fontSize: 10 }}>
+          <p className="tx-3 mt-2" style={{ fontSize: 12 }}>
             Your transactions will be recorded here.
           </p>
         </div>
       ) : (
         <div className="space-y-3">
           {txs.map((tx) => {
-            const label = tx.type === "deposit" ? "↓ Deposit" : tx.type === "invest" ? "→ Investment" : "↑ Withdrawal";
+            const label =
+              tx.type === "deposit"
+                ? "↓ Deposit"
+                : tx.type === "invest"
+                  ? "→ Investment"
+                  : "↑ Withdrawal";
             const isCredit = tx.type === "deposit";
-            const color = STATUS_COLOR[tx.status ?? "pending"] ?? "var(--gold-300)";
+            const color = STATUS_COLOR[tx.status ?? "pending"] ?? "var(--gold)";
             return (
-              <div key={tx.id} className="glass rounded-xl p-4">
+              <div key={tx.id} className="surface rounded-xl p-4">
                 <div className="flex items-start justify-between">
                   <div>
-                    <p className="t-display t-parch" style={{ fontSize: 14 }}>
+                    <p className="tx-1" style={{ fontSize: 14 }}>
                       {label}
                       {tx.investment_pools?.name && (
-                        <span className="t-sec" style={{ fontSize: 12 }}>
+                        <span className="tx-2" style={{ fontSize: 12 }}>
                           {" · "}
                           {tx.investment_pools.name}
                         </span>
                       )}
                     </p>
-                    <p className="t-mono t-muted mt-1" style={{ fontSize: 9, letterSpacing: "0.1em" }}>
+                    <p className="tx-3 mt-1" style={{ fontSize: 12 }}>
                       {tx.created_at ? new Date(tx.created_at).toLocaleString("en-KE") : ""}
                     </p>
                     {tx.mpesa_reference && (
-                      <p className="t-mono t-sec mt-1" style={{ fontSize: 9 }}>
+                      <p className="tx-2 mt-1" style={{ fontSize: 12 }}>
                         REF: {tx.mpesa_reference}
                       </p>
                     )}
                   </div>
                   <div className="text-right">
                     <p
-                      className="t-serif"
                       style={{
                         fontSize: 15,
-                        color: isCredit ? "var(--gc-success)" : tx.type === "invest" ? "var(--gold-300)" : "var(--parchment)",
+                        color: isCredit
+                          ? "var(--gain)"
+                          : tx.type === "invest"
+                            ? "var(--gold)"
+                            : "var(--parchment)",
                       }}
                     >
                       {isCredit ? "+" : "−"}
                       {KES(Number(tx.amount))}
                     </p>
                     <span
-                      className="t-mono inline-block mt-1"
+                      className="inline-block mt-1"
                       style={{
-                        fontSize: 8,
-                        letterSpacing: "0.14em",
+                        fontSize: 12,
                         color,
                         padding: "2px 8px",
                         borderRadius: 999,

@@ -7,7 +7,12 @@ interface SparklineProps {
   color?: string;
 }
 
-export function Sparkline({ data, width = 280, height = 60, color = "var(--gold-300)" }: SparklineProps) {
+export function Sparkline({
+  data,
+  width = 280,
+  height = 60,
+  color = "var(--gold)",
+}: SparklineProps) {
   if (data.length < 2) return null;
   const min = Math.min(...data);
   const max = Math.max(...data);
@@ -33,7 +38,14 @@ export function Sparkline({ data, width = 280, height = 60, color = "var(--gold-
         </linearGradient>
       </defs>
       <path d={area} fill={`url(#${gradientId})`} />
-      <path d={path} fill="none" stroke={color} strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round" />
+      <path
+        d={path}
+        fill="none"
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
