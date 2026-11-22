@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useUserRole } from "@/hooks/useUserRole";
+import { Banknote, ClipboardList } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -95,11 +96,11 @@ function AdminHome() {
 
       <div className="glass rounded-2xl overflow-hidden">
         <Link to="/admin/kyc" className="flex items-center justify-between px-5 py-4 border-b" style={{ borderColor: "rgba(255,255,255,0.06)", textDecoration: "none" }}>
-          <span className="t-serif t-parch" style={{ fontSize: 14 }}>📋 KYC Review Queue</span>
+          <span className="t-serif t-parch" style={{ fontSize: 14 }}><ClipboardList size={14} className="inline -mt-0.5 mr-2 t-gold" />KYC Review Queue</span>
           <span className="t-gold">›</span>
         </Link>
         <Link to="/admin/transactions" className="flex items-center justify-between px-5 py-4" style={{ textDecoration: "none" }}>
-          <span className="t-serif t-parch" style={{ fontSize: 14 }}>💸 All Transactions</span>
+          <span className="t-serif t-parch" style={{ fontSize: 14 }}><Banknote size={14} className="inline -mt-0.5 mr-2 t-gold" />All Transactions</span>
           <span className="t-gold">›</span>
         </Link>
       </div>

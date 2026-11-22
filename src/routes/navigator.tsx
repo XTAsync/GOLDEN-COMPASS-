@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
+import { Compass, Send } from "lucide-react";
 
 export const Route = createFileRoute("/navigator")({
   head: () => ({
@@ -53,7 +54,7 @@ function NavigatorPage() {
     <div className="flex flex-col" style={{ minHeight: "100%" }}>
       <header style={{ padding: "20px 20px 12px" }}>
         <div className="flex items-center gap-3">
-          <span style={{ fontSize: 28 }}>🧭</span>
+          <Compass size={28} strokeWidth={1.5} className="t-gold" />
           <div>
             <h1 className="t-display t-gold" style={{ fontSize: 18 }}>
               Education Assistant
@@ -176,7 +177,7 @@ function NavigatorPage() {
             className="btn-brass"
             style={{ padding: "0 18px", fontSize: 11, opacity: streaming || !input.trim() ? 0.5 : 1 }}
           >
-            ➤
+            <Send size={16} />
           </button>
         </form>
       </div>

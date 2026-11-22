@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import { TriangleAlert } from "lucide-react";
 
 export function LegalPage({
   eyebrow,
@@ -34,7 +35,7 @@ export function LegalPage({
         }}
       >
         <p className="t-mono" style={{ fontSize: 10, letterSpacing: "0.12em", color: "var(--gold-300)" }}>
-          ⚠ DRAFT — PENDING LEGAL REVIEW
+          <TriangleAlert size={12} className="inline -mt-0.5 mr-1.5" />DRAFT — PENDING LEGAL REVIEW
         </p>
         <p className="t-serif t-sec mt-1" style={{ fontSize: 12, lineHeight: 1.5 }}>
           This document is a working draft prepared for product development only. It has not been

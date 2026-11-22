@@ -3,6 +3,7 @@ import { useState, type FormEvent } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { CompassEmblem } from "@/components/CompassEmblem";
 import { ParallaxBackground } from "@/components/ParallaxBackground";
+import { Mail, MailCheck } from "lucide-react";
 
 export const Route = createFileRoute("/forgot-password")({
   head: () => ({
@@ -58,7 +59,7 @@ function ForgotPasswordPage() {
         <div style={{ padding: "0 24px 40px" }}>
           {sent ? (
             <div className="glass rounded-2xl p-6 text-center">
-              <p className="text-3xl mb-3">📨</p>
+              <MailCheck size={32} strokeWidth={1.5} className="t-gold mx-auto mb-3" />
               <p className="t-serif t-parch" style={{ fontSize: 15 }}>
                 Check your inbox for a reset link.
               </p>
@@ -84,7 +85,7 @@ function ForgotPasswordPage() {
                 </p>
               )}
               <button type="submit" disabled={loading} className="btn-brass w-full" style={{ height: 52, fontSize: 12 }}>
-                {loading ? "Sending…" : "✉ Send Reset Link"}
+                {loading ? "Sending…" : <><Mail size={14} className="inline -mt-0.5 mr-1.5" />Send Reset Link</>}
               </button>
             </form>
           )}

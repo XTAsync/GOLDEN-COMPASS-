@@ -2,6 +2,7 @@ import { createFileRoute, Link, Navigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { Anchor, Map as MapIcon, Receipt, TrendingUp } from "lucide-react";
 
 export const Route = createFileRoute("/portfolio")({
   head: () => ({
@@ -172,7 +173,7 @@ function PortfolioPage() {
 
             {holdings.length === 0 ? (
               <div className="glass rounded-2xl p-6 text-center">
-                <p className="text-3xl mb-3">🗺️</p>
+                <MapIcon size={32} strokeWidth={1.5} className="t-gold mx-auto mb-3" />
                 <p className="t-serif t-parch" style={{ fontSize: 15 }}>
                   No holdings yet.
                 </p>
@@ -184,7 +185,7 @@ function PortfolioPage() {
                     Pools
                   </Link>
                   <Link to="/trade" className="btn-brass" style={{ padding: "10px 18px", fontSize: 11, textDecoration: "none" }}>
-                    📈 Trade
+                    <TrendingUp size={14} className="inline -mt-0.5 mr-1.5" />Trade
                   </Link>
                 </div>
               </div>
@@ -197,7 +198,7 @@ function PortfolioPage() {
                   <div key={h.key} className="glass rounded-2xl p-4 flex items-center justify-between">
                     <div style={{ minWidth: 0 }}>
                       <div className="flex items-center gap-2">
-                        <span style={{ fontSize: 14 }}>{h.kind === "pool" ? "⚓" : "📈"}</span>
+                        <span className="shrink-0 inline-flex t-gold">{h.kind === "pool" ? <Anchor size={14} /> : <TrendingUp size={14} />}</span>
                         <span className="t-display t-parch truncate" style={{ fontSize: 15 }}>
                           {h.name}
                         </span>
@@ -228,7 +229,7 @@ function PortfolioPage() {
             className="glass rounded-2xl px-5 py-4 flex items-center justify-between"
             style={{ textDecoration: "none" }}
           >
-            <span className="t-serif t-parch" style={{ fontSize: 14 }}>🧾 Order History</span>
+            <span className="t-serif t-parch" style={{ fontSize: 14 }}><Receipt size={14} className="inline -mt-0.5 mr-1.5 t-gold" />Order History</span>
             <span className="t-gold" style={{ fontSize: 14 }}>›</span>
           </Link>
         </>

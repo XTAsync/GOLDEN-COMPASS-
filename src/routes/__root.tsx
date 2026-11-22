@@ -123,7 +123,7 @@ function AppShell() {
         style={{ maxWidth: 430 }}
       >
         {user && <ModeBanner />}
-        <div className="flex-1 overflow-y-auto" style={{ WebkitOverflowScrolling: "touch" }}>
+        <div className="flex-1 overflow-y-auto overflow-x-hidden" style={{ WebkitOverflowScrolling: "touch" }}>
           <Outlet />
           <DisclosureBlock />
         </div>

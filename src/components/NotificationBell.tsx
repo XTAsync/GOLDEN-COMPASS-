@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNotifications } from "@/hooks/useNotifications";
+import { Bell, Inbox } from "lucide-react";
 
 function timeAgo(iso: string) {
   const s = Math.floor((Date.now() - new Date(iso).getTime()) / 1000);
@@ -29,7 +30,7 @@ export function NotificationBell() {
         }}
         aria-label="Notifications"
       >
-        🔔
+        <Bell size={18} />
         {unreadCount > 0 && (
           <span
             className="absolute"
@@ -96,7 +97,7 @@ export function NotificationBell() {
             <div className="flex-1 overflow-y-auto">
               {notifications.length === 0 ? (
                 <div className="text-center" style={{ padding: 32 }}>
-                  <div style={{ fontSize: 28, marginBottom: 8 }}>📭</div>
+                  <Inbox size={28} strokeWidth={1.5} className="t-gold mx-auto mb-2" />
                   <p className="t-mono t-muted" style={{ fontSize: 10 }}>
                     NO NOTIFICATIONS YET
                   </p>

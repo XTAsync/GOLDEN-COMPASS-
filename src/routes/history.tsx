@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { ScrollText } from "lucide-react";
 
 export const Route = createFileRoute("/history")({
   head: () => ({
@@ -89,7 +90,7 @@ function HistoryPage() {
         </div>
       ) : txs.length === 0 ? (
         <div className="glass rounded-xl p-8 text-center">
-          <p className="text-3xl mb-3">📜</p>
+          <ScrollText size={32} strokeWidth={1.5} className="t-gold mx-auto mb-3" />
           <p className="t-serif t-parch" style={{ fontSize: 15 }}>
             The ledger is empty.
           </p>

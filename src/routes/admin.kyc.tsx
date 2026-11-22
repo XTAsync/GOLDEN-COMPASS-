@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useUserRole } from "@/hooks/useUserRole";
+import { Check, X } from "lucide-react";
 
 export const Route = createFileRoute("/admin/kyc")({
   head: () => ({
@@ -196,7 +197,7 @@ function AdminKycPage() {
                     className="btn-brass"
                     style={{ padding: "10px", fontSize: 11 }}
                   >
-                    ✓ Approve
+                    <Check size={14} className="inline -mt-0.5 mr-1.5" />Approve
                   </button>
                   <button
                     onClick={() => review(r, "rejected")}
@@ -213,7 +214,7 @@ function AdminKycPage() {
                       cursor: "pointer",
                     }}
                   >
-                    ✕ Reject
+                    <X size={14} className="inline -mt-0.5 mr-1.5" />Reject
                   </button>
                 </div>
               )}
