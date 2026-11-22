@@ -75,8 +75,7 @@ export function OrderList({ orders }: { orders: OrderRow[] }) {
                   padding: "2px 8px",
                   borderRadius: 999,
                   color: o.side === "buy" ? "var(--gain)" : "var(--loss)",
-                  background:
-                    o.side === "buy" ? "rgba(120,200,140,0.12)" : "rgba(220,120,120,0.12)",
+                  background: o.side === "buy" ? "var(--gain-soft)" : "var(--loss-soft)",
                 }}
               >
                 {sentence(o.side)}

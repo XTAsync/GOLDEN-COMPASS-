@@ -139,7 +139,7 @@ function ProfilePage() {
                 <span
                   style={{
                     fontSize: 12,
-                    color: "var(--gold)",
+                    color: "var(--gold-text)",
                     padding: "4px 12px",
                     borderRadius: 999,
                     background: "var(--gold-soft)",

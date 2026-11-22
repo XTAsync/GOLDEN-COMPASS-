@@ -120,7 +120,7 @@ export function LinkAccountModal({
   return (
     <div
       className="fixed inset-0 z-50 flex items-end md:items-center justify-center"
-      style={{ background: "rgba(0,0,0,0.62)" }}
+      style={{ background: "var(--scrim)" }}
       onClick={onClose}
       role="dialog"
       aria-modal="true"
@@ -215,7 +215,7 @@ export function AccountChips({
               flexShrink: 0,
               padding: "8px 12px",
               borderRadius: 999,
-              border: `1px solid rgba(201,168,76,${active ? 0.55 : 0.2})`,
+              border: `1px solid color-mix(in srgb, var(--gold-line) ${active ? 55 : 20}%, transparent)`,
               background: active ? "var(--gold-soft)" : "var(--ink-3)",
               color: active ? "var(--text-1)" : "var(--text-2)",
               fontSize: 12,

@@ -177,7 +177,7 @@ function KycPage() {
 
         <label
           className="flex items-start gap-3 cursor-pointer"
-          style={{ padding: "12px", borderRadius: 10, background: "rgba(0,0,0,0.25)" }}
+          style={{ padding: "12px", borderRadius: 10, background: "var(--ink-3)" }}
         >
           <input
             type="checkbox"

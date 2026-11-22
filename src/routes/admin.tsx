@@ -165,7 +165,7 @@ function StatCard({
   return (
     <div
       className="surface rounded-xl p-4"
-      style={highlight ? { border: "1px solid rgba(243,156,18,0.45)" } : undefined}
+      style={highlight ? { border: "1px solid var(--warn-line)" } : undefined}
     >
       <p className="tx-3" style={{ fontSize: 12 }}>
         {label}

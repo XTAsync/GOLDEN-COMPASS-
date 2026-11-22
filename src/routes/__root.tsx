@@ -17,6 +17,7 @@ import { useState } from "react";
 import { DisclosureBlock, ModeBanner } from "@/features/settings/DisclosureBlock";
 
 import appCss from "../styles.css?url";
+import { THEME_INIT_SCRIPT, useTheme } from "@/lib/theme";
 
 const authRoutes = ["/login", "/signup", "/forgot-password", "/reset-password"];
 
@@ -47,6 +48,7 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "theme-color", content: "#0b0d14" },
       { title: "Golden Compass — Markets, Education & Demo Investing" },
       {
         name: "description",
@@ -77,6 +79,7 @@ export const Route = createRootRoute({
       },
     ],
     scripts: [
+      { children: THEME_INIT_SCRIPT },
       {
         type: "application/ld+json",
         children: JSON.stringify({
@@ -105,7 +108,7 @@ export const Route = createRootRoute({
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>
@@ -147,6 +150,7 @@ function AppShell() {
 
 function RootComponent() {
   const [queryClient] = useState(() => new QueryClient());
+  const { resolved } = useTheme();
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
@@ -154,7 +158,7 @@ function RootComponent() {
           <ErrorBoundary>
             <AppShell />
           </ErrorBoundary>
-          <Toaster position="top-center" theme="dark" richColors />
+          <Toaster position="top-center" theme={resolved} richColors />
         </NotificationsProvider>
       </AuthProvider>
     </QueryClientProvider>

@@ -67,7 +67,7 @@ export function SearchDialog({ open, onClose, watchlist, onAdd, onRemove, onPick
   return (
     <div
       className="fixed inset-0 z-50 flex items-start justify-center"
-      style={{ background: "rgba(0,0,0,0.62)" }}
+      style={{ background: "var(--scrim)" }}
       onClick={onClose}
       role="dialog"
       aria-modal="true"

@@ -17,7 +17,7 @@ interface Props {
 
 const GAIN = "var(--gain)";
 const LOSS = "var(--loss)";
-const GOLD = "rgba(201,168,76,";
+const gold = (pct: number) => `color-mix(in srgb, var(--gold-line) ${pct}%, transparent)`;
 
 /**
  * Reusable compass-themed candlestick chart: green/red OHLC bodies, a volume
@@ -96,9 +96,9 @@ export function CandlestickChart({
             fontSize: 12,
             cursor: "pointer",
             transition: "all 160ms ease",
-            border: `1px solid ${r === range ? `${GOLD}0.55)` : `${GOLD}0.18)`}`,
+            border: `1px solid ${r === range ? `${gold(55)}` : `${gold(18)}`}`,
             background: r === range ? "var(--gold-soft)" : "transparent",
-            boxShadow: r === range ? "inset 0 1px 0 rgba(255,236,190,0.25)" : "none",
+            boxShadow: "none",
             color: r === range ? "var(--text-1)" : "var(--text-2)",
           }}
         >
@@ -131,7 +131,7 @@ export function CandlestickChart({
           style={{
             height: H,
             borderRadius: 16,
-            border: `1px dashed ${GOLD}0.28)`,
+            border: `1px dashed ${gold(28)}`,
             background: "var(--ink-3)",
             padding: 20,
           }}
@@ -183,7 +183,7 @@ export function CandlestickChart({
               x2={W}
               y1={gy}
               y2={gy}
-              stroke={`${GOLD}0.14)`}
+              stroke={`${gold(14)}`}
               strokeWidth="1"
               strokeDasharray="4 6"
             />
@@ -213,7 +213,7 @@ export function CandlestickChart({
                   y={top}
                   width={bodyW}
                   height={Math.max(1, bottom - top)}
-                  fill={up ? "rgba(120,200,140,0.55)" : "rgba(220,120,120,0.55)"}
+                  fill={`color-mix(in srgb, ${up ? GAIN : LOSS} 55%, transparent)`}
                   stroke={color}
                   strokeWidth="0.8"
                 />
@@ -229,7 +229,7 @@ export function CandlestickChart({
               x2={cxOf(hover)}
               y1="0"
               y2={H}
-              stroke={`${GOLD}0.5)`}
+              stroke={`${gold(50)}`}
               strokeWidth="1"
             />
             <line
@@ -237,7 +237,7 @@ export function CandlestickChart({
               x2={W}
               y1={y(active.c)}
               y2={y(active.c)}
-              stroke={`${GOLD}0.5)`}
+              stroke={`${gold(50)}`}
               strokeWidth="1"
             />
           </g>
@@ -259,7 +259,7 @@ export function CandlestickChart({
         onTouchEnd={() => setHover(null)}
         style={{ touchAction: "pan-y", display: "block", marginTop: 8 }}
       >
-        <line x1="0" x2={W} y1={VH - 0.5} y2={VH - 0.5} stroke={`${GOLD}0.2)`} strokeWidth="1" />
+        <line x1="0" x2={W} y1={VH - 0.5} y2={VH - 0.5} stroke={`${gold(20)}`} strokeWidth="1" />
         {bars.map((c, i) => {
           const up = c.c >= c.o;
           const top = vy(c.v);
@@ -270,7 +270,7 @@ export function CandlestickChart({
               y={top}
               width={bodyW}
               height={Math.max(1, VH - top)}
-              fill={up ? "rgba(120,200,140,0.38)" : "rgba(220,120,120,0.38)"}
+              fill={`color-mix(in srgb, ${up ? GAIN : LOSS} 38%, transparent)`}
             />
           );
         })}
@@ -280,7 +280,7 @@ export function CandlestickChart({
             x2={cxOf(hover)}
             y1="0"
             y2={VH}
-            stroke={`${GOLD}0.5)`}
+            stroke={`${gold(50)}`}
             strokeWidth="1"
           />
         )}
@@ -300,7 +300,7 @@ export function CandlestickChart({
             className="surface-raised"
             style={{
               borderRadius: 12,
-              border: `1px solid ${GOLD}0.3)`,
+              border: `1px solid ${gold(30)}`,
               background: "var(--ink-3)",
               padding: "8px 12px",
             }}

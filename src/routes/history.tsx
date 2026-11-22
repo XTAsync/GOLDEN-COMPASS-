@@ -110,7 +110,7 @@ function HistoryPage() {
                   ? "→ Investment"
                   : "↑ Withdrawal";
             const isCredit = tx.type === "deposit";
-            const color = STATUS_COLOR[tx.status ?? "pending"] ?? "var(--gold)";
+            const color = STATUS_COLOR[tx.status ?? "pending"] ?? "var(--gold-text)";
             return (
               <div key={tx.id} className="surface rounded-xl p-4">
                 <div className="flex items-start justify-between">
@@ -140,7 +140,7 @@ function HistoryPage() {
                         color: isCredit
                           ? "var(--gain)"
                           : tx.type === "invest"
-                            ? "var(--gold)"
+                            ? "var(--gold-text)"
                             : "var(--text-1)",
                       }}
                     >

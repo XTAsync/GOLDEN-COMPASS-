@@ -273,9 +273,9 @@ function QuickBtn({
       style={{
         padding: "8px 12px",
         borderRadius: 10,
-        border: `1px solid ${buy ? "rgba(120,200,140,0.4)" : "rgba(220,120,120,0.4)"}`,
-        background: buy ? "rgba(76,195,138,0.14)" : "rgba(229,72,77,0.14)",
-        color: buy ? "rgb(180,235,195)" : "rgb(245,190,190)",
+        border: `1px solid ${buy ? "var(--gain-line)" : "var(--loss-line)"}`,
+        background: buy ? "var(--gain-soft)" : "var(--loss-soft)",
+        color: buy ? "var(--gain)" : "var(--loss)",
         fontSize: 12,
         cursor: disabled ? "wait" : "pointer",
         opacity: disabled ? 0.6 : 1,

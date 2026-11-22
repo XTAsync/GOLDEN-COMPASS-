@@ -97,9 +97,8 @@ function CommandCenter() {
                 padding: "4px 8px",
                 borderRadius: 999,
                 color: s.kycStatus === "approved" ? "var(--gain)" : "var(--warn)",
-                border: `1px solid ${s.kycStatus === "approved" ? "rgba(46,204,113,0.4)" : "rgba(243,156,18,0.4)"}`,
-                background:
-                  s.kycStatus === "approved" ? "rgba(46,204,113,0.10)" : "rgba(243,156,18,0.10)",
+                border: `1px solid ${s.kycStatus === "approved" ? "var(--gain-line)" : "var(--warn-line)"}`,
+                background: s.kycStatus === "approved" ? "var(--gain-soft)" : "var(--warn-soft)",
               }}
             >
               {s.kycStatus === "approved" ? "Verified" : sentence(s.kycStatus)}

@@ -164,8 +164,8 @@ function PocketPage() {
               width: 38,
               height: 38,
               color: "var(--gain)",
-              background: "rgba(46,204,113,0.10)",
-              border: "1px solid rgba(46,204,113,0.28)",
+              background: "var(--gain-soft)",
+              border: "1px solid var(--gain-line)",
             }}
           >
             <Smartphone size={18} strokeWidth={1.7} />

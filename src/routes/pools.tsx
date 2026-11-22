@@ -53,7 +53,7 @@ const POOL_META: Record<string, { Emblem: LucideIcon; tagline: string; accent: s
   bahari: {
     Emblem: Compass,
     tagline: "View the recorded terms before allocating funds.",
-    accent: "var(--gold)",
+    accent: "var(--gold-text)",
   },
   "alpha-ventures": {
     Emblem: Swords,
@@ -121,7 +121,7 @@ function PoolsPage() {
             const meta = POOL_META[pool.slug] ?? {
               Emblem: Sparkles,
               tagline: pool.description ?? "",
-              accent: "var(--gold)",
+              accent: "var(--gold-text)",
             };
             return (
               <div key={pool.id} className="surface-raised rounded-2xl p-5">
@@ -214,7 +214,7 @@ function Stat({ label, value }: { label: string; value: string }) {
     <div
       className="rounded-lg px-2 py-2 text-center"
       style={{
-        background: "rgba(0,0,0,0.25)",
+        background: "var(--ink-3)",
         border: "1px solid var(--hairline)",
       }}
     >

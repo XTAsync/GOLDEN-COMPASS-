@@ -330,7 +330,7 @@ function SourceRow({
       style={{
         padding: "12px 12px",
         opacity: disabled ? 0.55 : 1,
-        outline: active ? "2px solid #D4AF37" : "none",
+        outline: active ? "2px solid var(--gold-line)" : "none",
       }}
     >
       <span className="tx-1 block" style={{ fontSize: 15 }}>

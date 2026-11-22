@@ -28,11 +28,11 @@ export function LegalPage({
       <div
         className="rounded-2xl px-4 py-3"
         style={{
-          background: "rgba(212,160,60,0.12)",
-          border: "1px solid rgba(212,160,60,0.45)",
+          background: "var(--warn-soft)",
+          border: "1px solid var(--warn-line)",
         }}
       >
-        <p style={{ fontSize: 12, color: "var(--gold)" }}>
+        <p style={{ fontSize: 12, color: "var(--gold-text)" }}>
           <TriangleAlert size={12} className="inline -mt-0.5 mr-1.5" />
           Draft — pending legal review
         </p>
@@ -61,7 +61,7 @@ function LegalLink({ to, label }: { to: string; label: string }) {
       style={{
         fontSize: 12,
         padding: "8px 16px",
-        color: "var(--gold)",
+        color: "var(--gold-text)",
         textDecoration: "none",
       }}
     >

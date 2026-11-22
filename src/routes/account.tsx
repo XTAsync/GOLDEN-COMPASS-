@@ -1,5 +1,6 @@
 import { createFileRoute, Link, Navigate, useNavigate } from "@tanstack/react-router";
 import { useAuth } from "@/hooks/useAuth";
+import { ThemeSwitch } from "@/components/ThemeSwitch";
 import { useUserRole } from "@/hooks/useUserRole";
 import { useAccountSummary } from "@/hooks/useAccountSummary";
 import {
@@ -148,6 +149,8 @@ function AccountCentre() {
           { to: "/profile", Icon: Lock, label: "Authentication", hint: "Sign-in & session" },
         ]}
       />
+
+      <ThemeSwitch />
 
       <Group
         title="Preferences"

@@ -124,9 +124,9 @@ function AdminKycPage() {
               fontSize: 12,
               padding: "8px 16px",
               borderRadius: 999,
-              border: filter === f ? "1px solid var(--gold)" : "1px solid var(--hairline)",
+              border: filter === f ? "1px solid var(--gold-line)" : "1px solid var(--hairline)",
               background: filter === f ? "var(--gold-soft)" : "transparent",
-              color: filter === f ? "var(--gold)" : "var(--text-1)",
+              color: filter === f ? "var(--gold-text)" : "var(--text-1)",
               cursor: "pointer",
             }}
           >
@@ -167,10 +167,10 @@ function AdminKycPage() {
                     borderRadius: 999,
                     background:
                       r.status === "approved"
-                        ? "rgba(46,204,113,0.15)"
+                        ? "var(--gain-soft)"
                         : r.status === "rejected"
-                          ? "rgba(231,76,60,0.15)"
-                          : "rgba(52,152,219,0.15)",
+                          ? "var(--loss-soft)"
+                          : "var(--info-soft)",
                     color:
                       r.status === "approved"
                         ? "var(--gain)"
@@ -228,8 +228,8 @@ function AdminKycPage() {
                       padding: "12px",
                       fontSize: 12,
                       borderRadius: 10,
-                      border: "1px solid rgba(231,76,60,0.5)",
-                      background: "rgba(231,76,60,0.1)",
+                      border: "1px solid var(--loss-line)",
+                      background: "var(--loss-soft)",
                       color: "var(--loss)",
                       cursor: "pointer",
                     }}

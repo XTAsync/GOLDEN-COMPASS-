@@ -25,7 +25,7 @@ export function NotificationBell() {
           borderRadius: 12,
           background: "var(--ink-3)",
           border: "1px solid var(--hairline-strong)",
-          color: "var(--gold)",
+          color: "var(--gold-text)",
           fontSize: 18,
         }}
         aria-label="Notifications"
@@ -49,7 +49,6 @@ export function NotificationBell() {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              boxShadow: "0 0 10px rgba(212,85,74,0.5)",
             }}
           >
             {unreadCount > 9 ? "9+" : unreadCount}
@@ -67,10 +66,10 @@ export function NotificationBell() {
               right: 0,
               width: 320,
               maxHeight: 420,
-              background: "rgba(7,12,22,0.96)",
+              background: "var(--ink-2)",
               border: "1px solid var(--hairline-strong)",
               borderRadius: 14,
-              boxShadow: "0 20px 60px rgba(0,0,0,0.6)",
+              boxShadow: "0 20px 60px var(--scrim)",
               overflow: "hidden",
               display: "flex",
               flexDirection: "column",
@@ -87,7 +86,7 @@ export function NotificationBell() {
                 <button
                   onClick={markAllRead}
                   className="cursor-pointer border-none bg-transparent"
-                  style={{ fontSize: 12, color: "var(--gold)" }}
+                  style={{ fontSize: 12, color: "var(--gold-text)" }}
                 >
                   Mark all read
                 </button>
@@ -111,7 +110,9 @@ export function NotificationBell() {
                       padding: "12px 16px",
                       background: n.read_at ? "transparent" : "var(--gold-soft)",
                       borderBottom: "1px solid var(--hairline)",
-                      borderLeft: n.read_at ? "2px solid transparent" : "2px solid var(--gold)",
+                      borderLeft: n.read_at
+                        ? "2px solid transparent"
+                        : "2px solid var(--gold-line)",
                     }}
                   >
                     <div className="flex items-start justify-between gap-2">

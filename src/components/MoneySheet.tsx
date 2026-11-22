@@ -66,7 +66,7 @@ export function MoneySheet({
   const node = (
     <div
       className="fixed inset-0 flex items-end md:items-center justify-center"
-      style={{ zIndex: 1000, background: "rgba(0,0,0,0.72)" }}
+      style={{ zIndex: 1000, background: "var(--scrim)" }}
       onClick={() => {
         if (!locked) onClose();
       }}
