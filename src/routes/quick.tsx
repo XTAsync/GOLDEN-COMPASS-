@@ -68,9 +68,6 @@ function QuickAccess() {
   return (
     <div className="page enter">
       <header>
-        <p className="tx-2" style={{ fontSize: 12 }}>
-          QUICK ACCESS
-        </p>
         <h1 className="t-title">The Launcher</h1>
       </header>
 
@@ -95,7 +92,7 @@ function QuickAccess() {
               <Icon size={20} strokeWidth={1.7} />
             </span>
             <span className="relative z-10 tx-1" style={{ fontSize: 12 }}>
-              {label.toUpperCase()}
+              {label}
             </span>
           </Link>
         ))}
@@ -110,7 +107,6 @@ function QuickAccess() {
         style={{
           padding: "15px",
           color: "var(--loss)",
-          fontFamily: "var(--font-display)",
           fontSize: 12,
         }}
       >

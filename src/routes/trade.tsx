@@ -15,20 +15,20 @@ import {
 import { Sparkline } from "@/components/Sparkline";
 import { useQuotes } from "@/lib/quote-client";
 import { SYMBOLS, type SymbolEntry } from "@/lib/symbols";
-import { Search, Star, TrendingUp } from "lucide-react";
+import { Search, Star } from "lucide-react";
 
 export const Route = createFileRoute("/trade")({
   head: () => ({
     meta: [
       { name: "twitter:card", content: "summary" },
       { property: "og:type", content: "website" },
-      { title: "Trade Stocks — Golden Compass" },
+      { title: "Trade — Golden Compass" },
       {
         name: "description",
         content: "Buy and sell NSE and global stocks from your Golden Compass account.",
       },
       { name: "robots", content: "noindex, nofollow" },
-      { property: "og:title", content: "Trade Stocks — Golden Compass" },
+      { property: "og:title", content: "Trade — Golden Compass" },
       {
         property: "og:description",
         content: "Place buy and sell orders on NSE Kenya and global markets.",
@@ -199,7 +199,7 @@ function TradePage() {
     background: "var(--ink-3)",
   };
   const labelStyle: React.CSSProperties = {
-    fontFamily: "var(--font-mono)",
+    fontVariantNumeric: "tabular-nums",
     fontSize: 12,
     color: "var(--text-2)",
     marginBottom: 6,
@@ -211,15 +211,12 @@ function TradePage() {
 
   return (
     <div className="page enter flex flex-col">
-      <header style={{ padding: "20px 20px 12px" }}>
+      <header className="mb-4">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <TrendingUp size={28} strokeWidth={1.5} className="tx-2" />
             <div>
-              <h1 className="t-title">Trade Stocks</h1>
-              <p className="tx-3" style={{ fontSize: 12 }}>
-                NSE KENYA · GLOBAL MARKETS
-              </p>
+              <h1 className="t-title">Trade</h1>
+              <p className="tx-2 mt-1">NSE Kenya and global markets</p>
             </div>
           </div>
           <SearchButton onClick={() => setSearchOpen(true)} />
@@ -245,25 +242,16 @@ function TradePage() {
       />
       <LinkAccountModal open={linkOpen} onClose={() => setLinkOpen(false)} onLink={linkAccount} />
 
-      <div className="flex flex-col gap-3" style={{ padding: "8px 16px 24px" }}>
-        <p
-          style={{
-            padding: "8px 12px",
-            borderRadius: 10,
-            border: "1px solid rgba(220,170,90,0.35)",
-            background: "rgba(220,170,90,0.10)",
-            color: "rgb(235,200,130)",
-            fontSize: 12,
-          }}
-        >
-          SIMULATED TRADING — NOT REAL MONEY MARKETS
+      <div className="flex flex-col gap-3">
+        <p className="surface t-label" style={{ padding: "10px 14px", color: "var(--warn)" }}>
+          Simulated trading. No real money is used.
         </p>
 
         {/* ── Symbol picker: tap, don't type ── */}
         {(!selected || pickerOpen) && (
           <div style={cardStyle}>
             <span style={labelStyle}>Popular instruments</span>
-            <div className="flex gap-2 overflow-x-auto" style={{ paddingBottom: 4 }}>
+            <div className="flex flex-wrap gap-2">
               {POPULAR_SYMBOLS.map((s) => (
                 <button
                   key={`${s.symbol}-${s.exchange}`}
@@ -407,14 +395,12 @@ function TradePage() {
                     fontSize: 12,
                     padding: "3px 7px",
                     borderRadius: 999,
-                    border: `1px solid ${quote.simulated ? "rgba(220,170,90,0.45)" : "rgba(120,200,140,0.45)"}`,
-                    background: quote.simulated
-                      ? "rgba(220,170,90,0.12)"
-                      : "rgba(120,200,140,0.12)",
-                    color: quote.simulated ? "rgb(235,200,130)" : "rgb(150,220,170)",
+                    border: `1px solid ${quote.simulated ? "var(--warn)" : "var(--gain)"}`,
+                    background: "transparent",
+                    color: quote.simulated ? "var(--warn)" : "var(--gain)",
                   }}
                 >
-                  {quote.simulated ? "SIMULATED" : "LIVE"}
+                  {quote.simulated ? "Simulated" : "Live"}
                 </span>
                 <span className="tx-3" style={{ fontSize: 12 }}>
                   {quote.source}
@@ -437,12 +423,12 @@ function TradePage() {
               </div>
             )}
             {quote?.fallback_reason && (
-              <p style={{ marginTop: 6, fontSize: 12, color: "rgb(235,200,130)" }}>
+              <p style={{ marginTop: 6, fontSize: 12, color: "var(--warn)" }}>
                 Live data unavailable — showing simulated prices.
               </p>
             )}
             {quote?.stale_reason && (
-              <p style={{ marginTop: 6, fontSize: 12, color: "rgb(235,200,130)" }}>
+              <p style={{ marginTop: 6, fontSize: 12, color: "var(--warn)" }}>
                 Live tick rejected ({quote.stale_reason}) — showing simulated price.
               </p>
             )}
@@ -500,8 +486,8 @@ function TradePage() {
                   borderRadius: 10,
                   border: "1px solid var(--hairline-strong)",
                   background: "var(--ink-3)",
-                  color: "var(--parchment)",
-                  fontFamily: "var(--font-mono)",
+                  color: "var(--text-1)",
+                  fontVariantNumeric: "tabular-nums",
                   fontSize: 14,
                   outline: "none",
                 }}
@@ -554,7 +540,7 @@ function TradePage() {
               <button
                 onClick={() => setLinkOpen(true)}
                 className="btn-primary"
-                style={{ marginTop: 14, width: "100%", padding: "12px 16px", fontSize: 12 }}
+                style={{ marginTop: 14, width: "100%" }}
               >
                 Link brokerage account
               </button>
@@ -570,7 +556,7 @@ function TradePage() {
                     border: "1px solid rgba(120,200,140,0.4)",
                     background: "rgba(76,195,138,0.14)",
                     color: "rgb(180,235,195)",
-                    fontFamily: "var(--font-mono)",
+                    fontVariantNumeric: "tabular-nums",
                     fontSize: 12,
                     cursor: placing ? "wait" : "pointer",
                     opacity: placing && placing !== "buy" ? 0.5 : 1,
@@ -588,7 +574,7 @@ function TradePage() {
                     border: "1px solid rgba(220,120,120,0.4)",
                     background: "rgba(229,72,77,0.14)",
                     color: "rgb(245,190,190)",
-                    fontFamily: "var(--font-mono)",
+                    fontVariantNumeric: "tabular-nums",
                     fontSize: 12,
                     cursor: placing ? "wait" : "pointer",
                     opacity: placing && placing !== "sell" ? 0.5 : 1,
@@ -603,7 +589,7 @@ function TradePage() {
 
         <section className="flex flex-col gap-2" style={{ marginTop: 8 }}>
           <h2 className="tx-2" style={{ fontSize: 12 }}>
-            WATCHLIST
+            Watchlist
           </h2>
           <Watchlist
             items={watchlist}
@@ -619,7 +605,7 @@ function TradePage() {
           />
 
           <h2 className="tx-2" style={{ fontSize: 12, marginTop: 8 }}>
-            PRICE ALERTS
+            Price alerts
           </h2>
           <AlertsPanel alerts={alerts} loading={alertsLoading} onRemove={removeAlert} />
         </section>
@@ -627,7 +613,7 @@ function TradePage() {
         <section className="flex flex-col gap-2" style={{ marginTop: 8 }}>
           <div className="flex items-baseline justify-between">
             <h2 className="tx-2" style={{ fontSize: 12 }}>
-              RECENT ORDERS
+              Recent orders
             </h2>
             <Link
               to="/orders"

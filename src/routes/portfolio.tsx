@@ -121,9 +121,6 @@ function PortfolioPage() {
   return (
     <div className="page enter">
       <header>
-        <p className="tx-2" style={{ fontSize: 12 }}>
-          ACCOUNT HOLDINGS
-        </p>
         <h1 className="t-title">Portfolio</h1>
         <p className="tx-2 mt-2" style={{ fontSize: 13 }}>
           Recorded pool holdings and stock positions in one place.
@@ -139,11 +136,9 @@ function PortfolioPage() {
         <>
           <div className="surface-raised rounded-2xl p-5 text-center">
             <p className="tx-3" style={{ fontSize: 12 }}>
-              TOTAL PORTFOLIO VALUE
+              Total portfolio value
             </p>
-            <p className="tx-accent mt-2" style={{ fontSize: 30 }}>
-              KES {fmt(totalValue)}
-            </p>
+            <p className="t-figure tx-accent mt-2">KES {fmt(totalValue)}</p>
             <p className="mt-2" style={{ fontSize: 12, color: up ? "var(--gain)" : "var(--loss)" }}>
               {up ? "▲" : "▼"} KES {fmt(Math.abs(pnl))} ({up ? "+" : "-"}
               {Math.abs(pnlPct).toFixed(2)}%)

@@ -102,7 +102,7 @@ function StockDetail() {
 
   return (
     <div className="page enter flex flex-col">
-      <header style={{ padding: "20px 20px 10px" }}>
+      <header className="mb-4">
         <Link to="/trade" className="tx-2" style={{ fontSize: 12 }}>
           ← BACK TO TRADE
         </Link>
@@ -150,12 +150,12 @@ function StockDetail() {
                 fontSize: 12,
                 padding: "3px 7px",
                 borderRadius: 999,
-                border: `1px solid ${quote.simulated ? "rgba(220,170,90,0.45)" : "rgba(120,200,140,0.45)"}`,
-                background: quote.simulated ? "rgba(220,170,90,0.12)" : "rgba(120,200,140,0.12)",
-                color: quote.simulated ? "rgb(235,200,130)" : "rgb(150,220,170)",
+                border: `1px solid ${quote.simulated ? "var(--warn)" : "var(--gain)"}`,
+                background: "transparent",
+                color: quote.simulated ? "var(--warn)" : "var(--gain)",
               }}
             >
-              {quote.simulated ? "SIMULATED" : "LIVE"}
+              {quote.simulated ? "Simulated" : "Live"}
             </span>
           </div>
         ) : (
@@ -180,7 +180,7 @@ function StockDetail() {
 
         <div style={card}>
           <p className="tx-2" style={{ fontSize: 12, marginBottom: 10 }}>
-            TECHNICALS
+            Technicals
           </p>
           <div className="grid grid-cols-2 gap-3">
             <Stat label="Day range" value={`${fmt(dayLow)} – ${fmt(dayHigh)}`} />
@@ -199,7 +199,7 @@ function StockDetail() {
 
         <div style={card}>
           <p className="tx-2" style={{ fontSize: 12, marginBottom: 10 }}>
-            COMPANY PROFILE
+            Company profile
           </p>
           {info?.available ? (
             <div className="grid grid-cols-2 gap-3">

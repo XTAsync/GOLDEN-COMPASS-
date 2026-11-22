@@ -123,8 +123,7 @@ export function AlertModal({
     borderRadius: 10,
     border: "1px solid var(--hairline-strong)",
     background: "var(--ink-3)",
-    color: "var(--parchment)",
-    fontFamily: "var(--font-serif)",
+    color: "var(--text-1)",
     fontSize: 14,
     outline: "none",
   };

@@ -21,11 +21,16 @@ vi.mock("@/lib/ops-alerts.server", () => ({
 
 const SECRET = "s".repeat(32);
 
-async function call(path: "check-price-alerts" | "reconcile-deposits", headers: Record<string, string>) {
+async function call(
+  path: "check-price-alerts" | "reconcile-deposits",
+  headers: Record<string, string>,
+) {
   const mod = await import(`./${path}`);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handler = (mod.Route as any).options.server.handlers.POST;
-  return handler({ request: new Request("http://x/api", { method: "POST", headers }) }) as Promise<Response>;
+  return handler({
+    request: new Request("http://x/api", { method: "POST", headers }),
+  }) as Promise<Response>;
 }
 
 afterEach(() => {

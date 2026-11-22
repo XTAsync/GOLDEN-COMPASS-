@@ -1,4 +1,5 @@
 import { createFileRoute, Link, Navigate } from "@tanstack/react-router";
+import { sentence } from "@/lib/sentence";
 import { useAuth } from "@/hooks/useAuth";
 import { useAccountSummary, KES } from "@/hooks/useAccountSummary";
 import { AnimatedNumber } from "@/components/AnimatedNumber";
@@ -45,7 +46,7 @@ const ACTIONS = [
   {
     to: "/account" as const,
     Icon: UserCog,
-    title: "Acc Centre",
+    title: "Account Centre",
     caption: "Profile, security & settings",
   },
   {
@@ -67,10 +68,7 @@ function CommandCenter() {
     <div className="page enter">
       <header className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
         <div className="min-w-0">
-          <p className="tx-2" style={{ fontSize: 12 }}>
-            COMMAND CENTER
-          </p>
-          <h1 className="t-title">Welcome, {s.firstName}</h1>
+          <h1 className="t-title">Command Center</h1>
         </div>
         <div className="flex items-center gap-2 shrink-0">
           <NotificationBell />
@@ -81,7 +79,7 @@ function CommandCenter() {
             style={{ padding: "9px 13px", textDecoration: "none", color: "var(--gold)" }}
           >
             <Star size={15} strokeWidth={1.8} />
-            <span style={{ fontSize: 12 }}>POOLS</span>
+            <span>Pools</span>
           </Link>
         </div>
       </header>
@@ -91,7 +89,7 @@ function CommandCenter() {
         <div className="relative z-10">
           <div className="flex items-center justify-between">
             <p className="tx-2" style={{ fontSize: 12 }}>
-              ACC STATUS
+              Account status
             </p>
             <span
               style={{
@@ -104,27 +102,25 @@ function CommandCenter() {
                   s.kycStatus === "approved" ? "rgba(46,204,113,0.10)" : "rgba(243,156,18,0.10)",
               }}
             >
-              {s.kycStatus === "approved"
-                ? "VERIFIED"
-                : s.kycStatus.replace("_", " ").toUpperCase()}
+              {s.kycStatus === "approved" ? "Verified" : sentence(s.kycStatus)}
             </span>
           </div>
 
           {s.loading ? (
             <div className="skeleton h-10 w-56 mt-3 rounded-lg" />
           ) : (
-            <h2 className="tx-1 mt-2" style={{ fontSize: 32 }}>
+            <h2 className="t-figure mt-2">
               <AnimatedNumber value={s.totalValue} format={KES} />
             </h2>
           )}
           <p className="tx-3 mt-1" style={{ fontSize: 12 }}>
-            NET ACCOUNT VALUE · WALLET + HOLDINGS
+            Net account value: wallet plus holdings
           </p>
 
           <div className="mt-4 grid grid-cols-3 gap-2">
             {[
-              { label: "WALLET", value: KES(s.wallet), tone: "var(--gold)" },
-              { label: "INVESTED", value: KES(s.invested), tone: "var(--parchment)" },
+              { label: "Wallet", value: KES(s.wallet), tone: "var(--gold)" },
+              { label: "Invested", value: KES(s.invested), tone: "var(--text-1)" },
               {
                 label: "P / L",
                 value: `${s.gain >= 0 ? "+" : ""}${s.gainPct.toFixed(2)}%`,
@@ -170,13 +166,13 @@ function CommandCenter() {
               to="/portfolio"
               className="surface rounded-lg flex-1 flex items-center justify-center gap-1 tx-accent"
               style={{
-                fontFamily: "var(--font-display)",
                 fontSize: 12,
                 padding: "12px 10px",
                 textDecoration: "none",
               }}
             >
-              PORTFOLIO <ArrowUpRight size={13} />
+              Portfolio
+              <ArrowUpRight size={13} />
             </Link>
           </div>
         </div>
@@ -216,7 +212,7 @@ function CommandCenter() {
       </div>
 
       <p className="tx-3 text-center" style={{ fontSize: 12 }}>
-        SIMULATED TRADING — NOT REAL MONEY MARKETS
+        Simulated trading. No real money is used.
       </p>
     </div>
   );

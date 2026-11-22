@@ -72,10 +72,10 @@ function ProfilePage() {
 
   const kycBadge = (status: string) => {
     const map: Record<string, { color: string; label: string }> = {
-      not_started: { color: "var(--warn)", label: "NOT STARTED" },
-      pending: { color: "var(--info)", label: "UNDER REVIEW" },
-      approved: { color: "var(--gain)", label: "VERIFIED" },
-      rejected: { color: "var(--loss)", label: "REJECTED" },
+      not_started: { color: "var(--warn)", label: "Not started" },
+      pending: { color: "var(--info)", label: "Under review" },
+      approved: { color: "var(--gain)", label: "Verified" },
+      rejected: { color: "var(--loss)", label: "Rejected" },
     };
     const v = map[status] ?? map.not_started;
     return (

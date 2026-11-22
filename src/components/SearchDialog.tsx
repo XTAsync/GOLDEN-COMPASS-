@@ -80,7 +80,7 @@ export function SearchDialog({ open, onClose, watchlist, onAdd, onRemove, onPick
       >
         <div className="flex items-center justify-between mb-3">
           <p className="tx-2" style={{ fontSize: 12 }}>
-            SEARCH MARKETS
+            Search markets
           </p>
           <button
             onClick={onClose}

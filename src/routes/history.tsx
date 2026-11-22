@@ -1,4 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { sentence } from "@/lib/sentence";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
@@ -80,9 +81,6 @@ function HistoryPage() {
   return (
     <div className="page page-narrow enter">
       <header>
-        <p className="tx-2" style={{ fontSize: 12 }}>
-          TRANSACTIONS
-        </p>
         <h1 className="t-title">Transaction History</h1>
       </header>
 
@@ -143,7 +141,7 @@ function HistoryPage() {
                           ? "var(--gain)"
                           : tx.type === "invest"
                             ? "var(--gold)"
-                            : "var(--parchment)",
+                            : "var(--text-1)",
                       }}
                     >
                       {isCredit ? "+" : "−"}
@@ -160,7 +158,7 @@ function HistoryPage() {
                         border: `1px solid ${color}55`,
                       }}
                     >
-                      {(tx.status ?? "PENDING").toUpperCase()}
+                      {sentence(tx.status ?? "pending")}
                     </span>
                   </div>
                 </div>

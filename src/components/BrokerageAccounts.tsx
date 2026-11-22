@@ -62,7 +62,7 @@ export function useBrokerageAccounts(userId?: string) {
 }
 
 const labelStyle: React.CSSProperties = {
-  fontFamily: "var(--font-mono)",
+  fontVariantNumeric: "tabular-nums",
   fontSize: 12,
   color: "var(--text-2)",
   marginBottom: 6,
@@ -75,8 +75,7 @@ const inputStyle: React.CSSProperties = {
   borderRadius: 10,
   border: "1px solid var(--hairline-strong)",
   background: "var(--ink-3)",
-  color: "var(--parchment)",
-  fontFamily: "var(--font-serif)",
+  color: "var(--text-1)",
   fontSize: 14,
   outline: "none",
 };
@@ -134,7 +133,7 @@ export function LinkAccountModal({
       >
         <div className="flex items-center justify-between mb-3">
           <p className="tx-2" style={{ fontSize: 12 }}>
-            LINK BROKERAGE ACCOUNT
+            Link brokerage account
           </p>
           <button
             onClick={onClose}
@@ -205,7 +204,7 @@ export function AccountChips({
   onAdd: () => void;
 }) {
   return (
-    <div className="flex gap-2 overflow-x-auto" style={{ paddingBottom: 2 }}>
+    <div className="flex flex-wrap gap-2">
       {accounts.map((a) => {
         const active = a.id === selectedId;
         return (

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { sentence } from "@/lib/sentence";
 import { supabase } from "@/integrations/supabase/client";
 import { Receipt } from "lucide-react";
 
@@ -78,7 +79,7 @@ export function OrderList({ orders }: { orders: OrderRow[] }) {
                     o.side === "buy" ? "rgba(120,200,140,0.12)" : "rgba(220,120,120,0.12)",
                 }}
               >
-                {o.side.toUpperCase()}
+                {sentence(o.side)}
               </span>
               <span className="tx-1" style={{ fontSize: 15 }}>
                 {o.symbol}
@@ -108,7 +109,7 @@ export function OrderList({ orders }: { orders: OrderRow[] }) {
               border: `1px solid ${statusColor(o.status)}55`,
             }}
           >
-            {o.status.toUpperCase()}
+            {sentence(o.status)}
           </span>
         </div>
       ))}

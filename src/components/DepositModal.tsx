@@ -72,7 +72,7 @@ export function DepositModal({ pool, onClose, onSuccess }: Props) {
     return (
       <MoneySheet
         title={done.replayed ? "Already invested" : "Invested"}
-        eyebrow={pool.name.toUpperCase()}
+        eyebrow={pool.name}
         onClose={onClose}
         liveMessage={`${kes(done.amount)} invested in ${pool.name}.`}
         footer={
@@ -103,7 +103,7 @@ export function DepositModal({ pool, onClose, onSuccess }: Props) {
   return (
     <MoneySheet
       title={`Invest in ${pool.name}`}
-      eyebrow="FROM YOUR WALLET"
+      eyebrow="From your wallet"
       onClose={onClose}
       locked={busy}
       liveMessage={blocker || error}

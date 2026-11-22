@@ -47,7 +47,8 @@ export async function estimateFees(params: {
   );
   // MOCK: withholding modelled as a percentage of commission. Confirm treatment with a tax adviser.
   const tax = round2((commission * Number(cfg.tax_percent)) / 100);
-  const total = params.side === "buy" ? round2(gross + commission + tax) : round2(gross - commission - tax);
+  const total =
+    params.side === "buy" ? round2(gross + commission + tax) : round2(gross - commission - tax);
 
   return {
     market: String(cfg.market),

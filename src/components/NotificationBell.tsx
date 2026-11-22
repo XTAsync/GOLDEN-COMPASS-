@@ -44,7 +44,7 @@ export function NotificationBell() {
               background: "var(--loss)",
               color: "#fff",
               fontSize: 12,
-              fontFamily: "var(--font-mono)",
+              fontVariantNumeric: "tabular-nums",
               fontWeight: 600,
               display: "flex",
               alignItems: "center",
@@ -81,7 +81,7 @@ export function NotificationBell() {
               style={{ padding: "12px 14px", borderBottom: "1px solid var(--hairline)" }}
             >
               <span className="tx-accent" style={{ fontSize: 12 }}>
-                NOTIFICATIONS
+                Notifications
               </span>
               {unreadCount > 0 && (
                 <button
@@ -89,7 +89,7 @@ export function NotificationBell() {
                   className="cursor-pointer border-none bg-transparent"
                   style={{ fontSize: 12, color: "var(--gold)" }}
                 >
-                  MARK ALL READ
+                  Mark all read
                 </button>
               )}
             </div>
@@ -98,7 +98,7 @@ export function NotificationBell() {
                 <div className="text-center" style={{ padding: 32 }}>
                   <Inbox size={28} strokeWidth={1.5} className="tx-2 mx-auto mb-2" />
                   <p className="tx-3" style={{ fontSize: 12 }}>
-                    NO NOTIFICATIONS YET
+                    No notifications yet
                   </p>
                 </div>
               ) : (

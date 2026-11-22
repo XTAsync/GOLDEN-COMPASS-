@@ -22,7 +22,11 @@ export const Route = createFileRoute("/api/public/reconcile-deposits")({
         try {
           const summary = await reconcileStuckDeposits(defaultDeps());
           if (summary.held_for_review > 0 || summary.errors > 0) {
-            await enqueueOpsEvent("reconcile_attention", summary, `reconcile:${new Date().toISOString().slice(0, 16)}`);
+            await enqueueOpsEvent(
+              "reconcile_attention",
+              summary,
+              `reconcile:${new Date().toISOString().slice(0, 16)}`,
+            );
           }
           // Stuck-withdrawal scan (once per withdrawal per day) and alert delivery ride on the same cron.
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -31,7 +35,11 @@ export const Route = createFileRoute("/api/public/reconcile-deposits")({
           try {
             const check = await verifyLedger();
             if (check.chain.ok !== true || check.balances.ok !== true) {
-              await enqueueOpsEvent("ledger_integrity_failed", check, `ledger_integrity:${new Date().toISOString().slice(0, 13)}`);
+              await enqueueOpsEvent(
+                "ledger_integrity_failed",
+                check,
+                `ledger_integrity:${new Date().toISOString().slice(0, 13)}`,
+              );
             }
           } catch (e) {
             console.error("[reconcile] ledger verify failed", e);

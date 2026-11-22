@@ -120,7 +120,7 @@ export function WithdrawModal({
     return (
       <MoneySheet
         title={done.replayed ? "Already requested" : "Withdrawal requested"}
-        eyebrow="WITHDRAW"
+        eyebrow="Withdraw"
         onClose={onClose}
         liveMessage={`${kes(done.net)} requested. Usually within 24 hours.`}
         footer={
@@ -159,7 +159,7 @@ export function WithdrawModal({
   return (
     <MoneySheet
       title="Withdraw"
-      eyebrow="MONEY OUT"
+      eyebrow="Money out"
       onClose={onClose}
       locked={busy}
       liveMessage={blocker || changed || error}

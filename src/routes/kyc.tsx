@@ -126,9 +126,6 @@ function KycPage() {
   return (
     <div className="page page-narrow enter">
       <header>
-        <p className="tx-2" style={{ fontSize: 12 }}>
-          IDENTITY INFORMATION
-        </p>
         <h1 className="t-title">KYC Verification</h1>
         <p className="tx-2 mt-2" style={{ fontSize: 13 }}>
           Identity review does not confirm regulatory authorization or enable live services.

@@ -1,4 +1,5 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { sentence } from "@/lib/sentence";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
@@ -47,7 +48,7 @@ const POOL_META: Record<string, { Emblem: LucideIcon; tagline: string; accent: s
   "stable-harbour": {
     Emblem: Anchor,
     tagline: "View the recorded terms before allocating funds.",
-    accent: "var(--teal)",
+    accent: "var(--text-2)",
   },
   bahari: {
     Emblem: Compass,
@@ -94,9 +95,6 @@ function PoolsPage() {
   return (
     <div className="page enter">
       <header>
-        <p className="tx-2" style={{ fontSize: 12 }}>
-          AVAILABLE PRODUCTS
-        </p>
         <h1 className="t-title">Investment Pools</h1>
         <p className="tx-2 mt-2" style={{ fontSize: 13 }}>
           Compare recorded product terms. Returns are not guaranteed.
@@ -144,7 +142,7 @@ function PoolsPage() {
                           {pool.name}
                         </h2>
                         <p className="tx-2 mt-1" style={{ fontSize: 12 }}>
-                          {(pool.pool_type ?? "POOL").toUpperCase()}
+                          {sentence(pool.pool_type ?? "pool")}
                         </p>
                       </div>
                     </div>
@@ -178,18 +176,14 @@ function PoolsPage() {
                       }
                     />
                     <Stat
-                      label="EXIT FEE"
+                      label="Exit fee"
                       value={
                         pool.exit_fee_percent == null ? "Not set" : `${pool.exit_fee_percent}%`
                       }
                     />
                   </div>
 
-                  <button
-                    onClick={() => setDepositPool(pool)}
-                    className="btn-primary w-full mt-4"
-                    style={{ padding: "12px 16px", fontSize: 12 }}
-                  >
+                  <button onClick={() => setDepositPool(pool)} className="btn-primary w-full mt-4">
                     Invest Now
                   </button>
                 </div>

@@ -23,7 +23,11 @@ describe("moneyErrorResponse", () => {
     expect(moneyErrorResponse({ result: "something_new" })!.status).toBe(400);
   });
   it("pluralises the lock days", () => {
-    expect(String(moneyErrorResponse({ result: "locked", days_remaining: 1 })!.body.error)).toContain("1 more day.");
-    expect(String(moneyErrorResponse({ result: "locked", days_remaining: 5 })!.body.error)).toContain("5 more days.");
+    expect(
+      String(moneyErrorResponse({ result: "locked", days_remaining: 1 })!.body.error),
+    ).toContain("1 more day.");
+    expect(
+      String(moneyErrorResponse({ result: "locked", days_remaining: 5 })!.body.error),
+    ).toContain("5 more days.");
   });
 });

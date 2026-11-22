@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { sentence } from "@/lib/sentence";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
@@ -107,9 +108,6 @@ function AdminKycPage() {
     <div className="page page-narrow enter">
       <header className="flex items-center justify-between">
         <div>
-          <p className="tx-2" style={{ fontSize: 12 }}>
-            REVIEW QUEUE
-          </p>
           <h1 className="t-title">KYC Submissions</h1>
         </div>
         <Link to="/admin" className="tx-3" style={{ fontSize: 12, textDecoration: "none" }}>
@@ -128,11 +126,11 @@ function AdminKycPage() {
               borderRadius: 999,
               border: filter === f ? "1px solid var(--gold)" : "1px solid var(--hairline)",
               background: filter === f ? "var(--gold-soft)" : "transparent",
-              color: filter === f ? "var(--gold)" : "var(--parchment)",
+              color: filter === f ? "var(--gold)" : "var(--text-1)",
               cursor: "pointer",
             }}
           >
-            {f.toUpperCase()}
+            {sentence(f)}
           </button>
         ))}
       </div>
@@ -181,7 +179,7 @@ function AdminKycPage() {
                           : "var(--info)",
                   }}
                 >
-                  {(r.status ?? "").toUpperCase()}
+                  {sentence(r.status)}
                 </span>
               </div>
 

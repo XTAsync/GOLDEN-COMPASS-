@@ -38,9 +38,6 @@ function DividendTrackingGuide() {
   return (
     <article className="page page-narrow enter">
       <header>
-        <p className="tx-2" style={{ fontSize: 12 }}>
-          GUIDES · YIELD
-        </p>
         <h1 className="t-title">Dividend Tracking</h1>
         <p className="tx-2 mt-2" style={{ fontSize: 14 }}>
           How distributions from Golden Compass pools reach your wallet — and how to measure the
@@ -97,11 +94,7 @@ function DividendTrackingGuide() {
           Next steps
         </h2>
         <div className="mt-3 flex flex-col gap-3">
-          <Link
-            to="/pools"
-            className="btn-primary text-center"
-            style={{ padding: "12px 16px", fontSize: 12 }}
-          >
+          <Link to="/pools" className="btn-primary text-center">
             Explore investment pools
           </Link>
           <Link to="/history" className="tx-2 text-center" style={{ fontSize: 12 }}>

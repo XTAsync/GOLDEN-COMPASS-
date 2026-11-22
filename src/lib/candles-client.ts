@@ -79,12 +79,7 @@ export async function fetchCandles(
  * Candles for a symbol/range. Renders cached data immediately (optimistic) and
  * only shows the skeleton when there is nothing cached to paint.
  */
-export function useCandles(
-  symbol: string,
-  exchange: string,
-  range: CandleRange,
-  withInfo = false,
-) {
+export function useCandles(symbol: string, exchange: string, range: CandleRange, withInfo = false) {
   const [data, setData] = useState<CandlesPayload | null>(() =>
     peekCandles(symbol, exchange, range, withInfo),
   );

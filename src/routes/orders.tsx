@@ -33,9 +33,6 @@ function OrdersPage() {
   return (
     <div className="page page-narrow enter">
       <header>
-        <p className="tx-2" style={{ fontSize: 12 }}>
-          THE SHIP'S LEDGER
-        </p>
         <h1 className="t-title">Order History</h1>
         <Link to="/trade" className="tx-2" style={{ fontSize: 12, textDecoration: "underline" }}>
           Place a new order →

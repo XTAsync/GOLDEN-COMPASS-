@@ -12,7 +12,6 @@
 import { getBrokerMode } from "@/lib/config.server";
 import { mockGetQuote, mockPlaceOrder, quoteLooksStale } from "@/lib/broker/mock-provider.server";
 
-
 const AFRICAN_EXCHANGES = ["NSE", "NGX", "JSE", "GSE"] as const;
 type AfricanExchange = (typeof AFRICAN_EXCHANGES)[number];
 
@@ -40,7 +39,6 @@ export interface NormalizedQuote {
   /** Set when a live tick was rejected by the stale-quote guard. */
   stale_reason?: string;
 }
-
 
 /** Thrown when a live provider cannot run because its API key is not configured. */
 class MissingProviderKeyError extends Error {
@@ -132,7 +130,6 @@ export async function getQuote(symbol: string, exchange: string): Promise<Normal
     throw e;
   }
 }
-
 
 async function getMyStocksQuote(
   symbol: string,
@@ -333,15 +330,13 @@ async function getMyStocksBars(
   console.info(`[market] mystocks GET ${redact(url)} -> ${res.status}`);
   if (!res.ok) throw new Error(`mystocks history ${res.status}: ${await res.text()}`);
 
-  const data = (await res.json()) as
-    | { bars?: unknown[]; data?: unknown[] }
-    | unknown[];
+  const data = (await res.json()) as { bars?: unknown[]; data?: unknown[] } | unknown[];
   const rows = (Array.isArray(data) ? data : (data.bars ?? data.data ?? [])) as Array<
     Record<string, unknown>
   >;
   const bars = rows
     .map((r) => {
-      const rawT = r['t'] ?? r['time'] ?? r['date'] ?? r['timestamp'];
+      const rawT = r["t"] ?? r["time"] ?? r["date"] ?? r["timestamp"];
       const t =
         typeof rawT === "number"
           ? rawT > 1e11
@@ -350,11 +345,11 @@ async function getMyStocksBars(
           : Math.floor(new Date(String(rawT)).getTime() / 1000);
       return {
         t,
-        o: Number(r['o'] ?? r['open']),
-        h: Number(r['h'] ?? r['high']),
-        l: Number(r['l'] ?? r['low']),
-        c: Number(r['c'] ?? r['close']),
-        v: Number(r['v'] ?? r['volume'] ?? 0),
+        o: Number(r["o"] ?? r["open"]),
+        h: Number(r["h"] ?? r["high"]),
+        l: Number(r["l"] ?? r["low"]),
+        c: Number(r["c"] ?? r["close"]),
+        v: Number(r["v"] ?? r["volume"] ?? 0),
       };
     })
     .filter((b) => Number.isFinite(b.t) && Number.isFinite(b.c))
@@ -403,7 +398,6 @@ export async function getHistoricalBars(
     return { ...base, bars: [], simulated: false, unavailable_reason: reason };
   }
 }
-
 
 /* ────────────────────────────────────────────────────────────────────────────
    Company profile + key metrics
@@ -454,30 +448,34 @@ export async function getCompanyInfo(symbol: string, exchange: string): Promise<
 
     const p = (await pRes.json()) as Record<string, unknown>;
     const m = mRes.ok
-      ? ((await mRes.json()) as { metric?: Record<string, number> }).metric ?? {}
+      ? (((await mRes.json()) as { metric?: Record<string, number> }).metric ?? {})
       : {};
 
     if (!p || Object.keys(p).length === 0) {
-      return { symbol: sym, available: false, unavailable_reason: "No profile data returned for this symbol." };
+      return {
+        symbol: sym,
+        available: false,
+        unavailable_reason: "No profile data returned for this symbol.",
+      };
     }
 
     return {
       symbol: sym,
       available: true,
-      name: p['name'] as string | undefined,
-      country: p['country'] as string | undefined,
-      industry: p['finnhubIndustry'] as string | undefined,
-      exchange_name: p['exchange'] as string | undefined,
-      currency: p['currency'] as string | undefined,
-      logo: p['logo'] as string | undefined,
-      weburl: p['weburl'] as string | undefined,
-      market_cap: p['marketCapitalization'] as number | undefined,
+      name: p["name"] as string | undefined,
+      country: p["country"] as string | undefined,
+      industry: p["finnhubIndustry"] as string | undefined,
+      exchange_name: p["exchange"] as string | undefined,
+      currency: p["currency"] as string | undefined,
+      logo: p["logo"] as string | undefined,
+      weburl: p["weburl"] as string | undefined,
+      market_cap: p["marketCapitalization"] as number | undefined,
       metrics: {
-        week52_high: m['52WeekHigh'],
-        week52_low: m['52WeekLow'],
-        pe_ratio: m['peBasicExclExtraTTM'],
-        dividend_yield: m['dividendYieldIndicatedAnnual'],
-        beta: m['beta'],
+        week52_high: m["52WeekHigh"],
+        week52_low: m["52WeekLow"],
+        pe_ratio: m["peBasicExclExtraTTM"],
+        dividend_yield: m["dividendYieldIndicatedAnnual"],
+        beta: m["beta"],
       },
     };
   } catch (e) {
@@ -493,4 +491,3 @@ export async function getCompanyInfo(symbol: string, exchange: string): Promise<
     };
   }
 }
-

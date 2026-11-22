@@ -91,9 +91,6 @@ function AdminHome() {
   return (
     <div className="page enter">
       <header>
-        <p className="tx-2" style={{ fontSize: 12 }}>
-          OPERATIONS
-        </p>
         <h1 className="t-title">Admin Console</h1>
       </header>
 
@@ -105,13 +102,13 @@ function AdminHome() {
           loading={loading}
         />
         <StatCard
-          label="KYC PENDING"
+          label="KYC pending"
           value={stats.pendingKyc}
           loading={loading}
           highlight={stats.pendingKyc > 0}
         />
         <StatCard
-          label="TX PENDING"
+          label="Transactions pending"
           value={stats.pendingTx}
           loading={loading}
           highlight={stats.pendingTx > 0}

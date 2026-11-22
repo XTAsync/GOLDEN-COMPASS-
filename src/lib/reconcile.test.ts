@@ -2,23 +2,33 @@ import { describe, expect, it, vi } from "vitest";
 import { fakeDaraja } from "@/test/fake-daraja";
 import { reconcileStuckDeposits, type ReconcileDeps } from "./reconcile.server";
 
-function deps(rows: Array<{ id: string; mpesa_checkout_id: string; amount: number; user_id: string }>, replies: Parameters<typeof fakeDaraja>[0]) {
+function deps(
+  rows: Array<{ id: string; mpesa_checkout_id: string; amount: number; user_id: string }>,
+  replies: Parameters<typeof fakeDaraja>[0],
+) {
   const d = fakeDaraja(replies);
   const confirm = vi.fn(async () => ({ result: "missing_receipt" }));
   const fail = vi.fn(async () => ({ result: "failed" }));
   const dep: ReconcileDeps = {
     claim: vi.fn(async () => rows),
     archive: vi.fn(async () => 2),
-    confirm, fail,
+    confirm,
+    fail,
     token: async () => "tok",
     fetchImpl: d.fetchImpl,
     stkQueryUrl: "https://fake/stkpushquery",
-    shortcode: "174379", passkey: "pk",
+    shortcode: "174379",
+    passkey: "pk",
     now: () => new Date("2026-11-01T10:00:00Z"),
   };
   return { dep, confirm, fail, calls: d.calls };
 }
-const row = (n: number) => ({ id: `tx${n}`, mpesa_checkout_id: `co${n}`, amount: 100, user_id: "u" });
+const row = (n: number) => ({
+  id: `tx${n}`,
+  mpesa_checkout_id: `co${n}`,
+  amount: 100,
+  user_id: "u",
+});
 
 describe("reconcileStuckDeposits", () => {
   it("does nothing when there is nothing stuck", async () => {
@@ -33,13 +43,21 @@ describe("reconcileStuckDeposits", () => {
     const { dep, confirm, fail } = deps([row(1)], { co1: { ResultCode: "0" } });
     const s = await reconcileStuckDeposits(dep);
     expect(s.held_for_review).toBe(1);
-    expect(confirm).toHaveBeenCalledWith({ checkoutId: "co1", resultCode: 0, receipt: null, paidAmount: 100 });
+    expect(confirm).toHaveBeenCalledWith({
+      checkoutId: "co1",
+      resultCode: 0,
+      receipt: null,
+      paidAmount: 100,
+    });
     expect(fail).not.toHaveBeenCalled();
   });
 
   it("marks only explicit terminal codes as failed or cancelled", async () => {
     const { dep, fail } = deps([row(1), row(2), row(3), row(4)], {
-      co1: { ResultCode: "1032" }, co2: { ResultCode: 2001 }, co3: { ResultCode: "1037" }, co4: { ResultCode: "9999" },
+      co1: { ResultCode: "1032" },
+      co2: { ResultCode: 2001 },
+      co3: { ResultCode: "1037" },
+      co4: { ResultCode: "9999" },
     });
     const s = await reconcileStuckDeposits(dep);
     expect(s).toMatchObject({ cancelled: 1, failed: 2, still_pending: 1 });

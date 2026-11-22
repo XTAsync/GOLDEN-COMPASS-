@@ -97,8 +97,10 @@ export async function screenTransaction(params: {
     const nearLimit = rows.filter(
       (r) => Number(r.amount ?? 0) >= cap * AML_THRESHOLDS.STRUCTURING_NEAR_LIMIT_RATIO,
     ).length;
-    if (nearLimit + (amount >= cap * AML_THRESHOLDS.STRUCTURING_NEAR_LIMIT_RATIO ? 1 : 0) >=
-      AML_THRESHOLDS.STRUCTURING_MIN_COUNT) {
+    if (
+      nearLimit + (amount >= cap * AML_THRESHOLDS.STRUCTURING_NEAR_LIMIT_RATIO ? 1 : 0) >=
+      AML_THRESHOLDS.STRUCTURING_MIN_COUNT
+    ) {
       await raiseFlag({
         userId,
         transactionId,
@@ -123,10 +125,19 @@ export async function runVelocityScan() {
     .limit(5000);
   if (error) throw new Error(error.message);
 
-  const byUser = new Map<string, { total: number; count: number; deposits: number; withdrawals: number; lastId: string }>();
+  const byUser = new Map<
+    string,
+    { total: number; count: number; deposits: number; withdrawals: number; lastId: string }
+  >();
   for (const t of data ?? []) {
     if (t.status === "failed") continue;
-    const cur = byUser.get(t.user_id) ?? { total: 0, count: 0, deposits: 0, withdrawals: 0, lastId: t.id };
+    const cur = byUser.get(t.user_id) ?? {
+      total: 0,
+      count: 0,
+      deposits: 0,
+      withdrawals: 0,
+      lastId: t.id,
+    };
     cur.total += Number(t.amount ?? 0);
     cur.count += 1;
     if (t.type === "deposit") cur.deposits += Number(t.amount ?? 0);

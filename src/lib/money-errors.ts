@@ -1,12 +1,15 @@
 import type { LedgerResult } from "@/lib/ledger.server";
 
-const kes = (n: unknown) => `KES ${Number(n).toLocaleString("en-KE", { maximumFractionDigits: 0 })}`;
+const kes = (n: unknown) =>
+  `KES ${Number(n).toLocaleString("en-KE", { maximumFractionDigits: 0 })}`;
 
 /**
  * Turns a non-success result from the money functions into an HTTP status and a message the
  * sheets can show as-is (design decisions D8, D11). Returns null for "ok" and "replayed".
  */
-export function moneyErrorResponse(res: LedgerResult): { status: number; body: Record<string, unknown> } | null {
+export function moneyErrorResponse(
+  res: LedgerResult,
+): { status: number; body: Record<string, unknown> } | null {
   const r = res.result;
   if (r === "ok" || r === "replayed") return null;
   const e = (status: number, error: string, extra: Record<string, unknown> = {}) => ({
@@ -33,14 +36,20 @@ export function moneyErrorResponse(res: LedgerResult): { status: number; body: R
       return e(400, `Your wallet has ${kes(res.max)}.`, { max: res.max });
     case "locked": {
       const d = Number(res.days_remaining);
-      return e(400, `This pool is locked for ${d} more day${d === 1 ? "" : "s"}.`, { days_remaining: d });
+      return e(400, `This pool is locked for ${d} more day${d === 1 ? "" : "s"}.`, {
+        days_remaining: d,
+      });
     }
     case "over_user_cap":
       return e(400, `You can withdraw ${kes(res.left)} more today.`, { left: res.left });
     case "over_global_cap":
       return e(503, "We have reached today's withdrawal limit. Try again tomorrow.");
     case "quote_changed":
-      return e(409, `The fee changed. You now receive ${kes(res.net)}.`, { gross: res.gross, fee: res.fee, net: res.net });
+      return e(409, `The fee changed. You now receive ${kes(res.net)}.`, {
+        gross: res.gross,
+        fee: res.fee,
+        net: res.net,
+      });
     case "no_profile":
       return e(400, "Account not found.");
     default:

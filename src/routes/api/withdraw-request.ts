@@ -64,7 +64,14 @@ export const Route = createFileRoute("/api/withdraw-request")({
           const res =
             source === "wallet"
               ? await requestWalletWithdrawal({ userId, amount, phone, requestId, expectedNet })
-              : await requestWithdrawal({ userId, poolId: pool_id, amount, phone, requestId, expectedNet });
+              : await requestWithdrawal({
+                  userId,
+                  poolId: pool_id,
+                  amount,
+                  phone,
+                  requestId,
+                  expectedNet,
+                });
 
           const failure = moneyErrorResponse(res);
           if (failure) return json(failure.body, failure.status);

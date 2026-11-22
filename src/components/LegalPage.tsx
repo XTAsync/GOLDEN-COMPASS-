@@ -34,7 +34,7 @@ export function LegalPage({
       >
         <p style={{ fontSize: 12, color: "var(--gold)" }}>
           <TriangleAlert size={12} className="inline -mt-0.5 mr-1.5" />
-          DRAFT — PENDING LEGAL REVIEW
+          Draft — pending legal review
         </p>
         <p className="tx-2 mt-1" style={{ fontSize: 12, lineHeight: 1.5 }}>
           This document is a working draft prepared for product development only. It has not been
@@ -65,7 +65,7 @@ function LegalLink({ to, label }: { to: string; label: string }) {
         textDecoration: "none",
       }}
     >
-      {label.toUpperCase()}
+      {label}
     </Link>
   );
 }

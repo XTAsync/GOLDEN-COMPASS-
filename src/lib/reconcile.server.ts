@@ -35,7 +35,12 @@ export type ReconcileSummary = {
 export type ReconcileDeps = {
   claim: (limit: number) => Promise<StuckDeposit[]>;
   archive: () => Promise<number>;
-  confirm: (a: { checkoutId: string; resultCode: number | null; receipt: string | null; paidAmount: number | null }) => Promise<LedgerResult>;
+  confirm: (a: {
+    checkoutId: string;
+    resultCode: number | null;
+    receipt: string | null;
+    paidAmount: number | null;
+  }) => Promise<LedgerResult>;
   fail: (txId: string, reason: string, cancelled: boolean) => Promise<LedgerResult>;
   token: () => Promise<string>;
   fetchImpl: typeof fetch;
@@ -62,7 +67,13 @@ export function defaultDeps(env: Record<string, string | undefined> = process.en
 
 export async function reconcileStuckDeposits(deps: ReconcileDeps): Promise<ReconcileSummary> {
   const summary: ReconcileSummary = {
-    claimed: 0, held_for_review: 0, cancelled: 0, failed: 0, still_pending: 0, errors: 0, archived_callbacks: 0,
+    claimed: 0,
+    held_for_review: 0,
+    cancelled: 0,
+    failed: 0,
+    still_pending: 0,
+    errors: 0,
+    archived_callbacks: 0,
   };
   summary.archived_callbacks = await deps.archive();
 
@@ -73,7 +84,11 @@ export async function reconcileStuckDeposits(deps: ReconcileDeps): Promise<Recon
   const token = await deps.token();
   for (const row of rows) {
     try {
-      const ts = deps.now().toISOString().replace(/[-:T.Z]/g, "").slice(0, 14);
+      const ts = deps
+        .now()
+        .toISOString()
+        .replace(/[-:T.Z]/g, "")
+        .slice(0, 14);
       const res = await deps.fetchImpl(deps.stkQueryUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
@@ -85,21 +100,33 @@ export async function reconcileStuckDeposits(deps: ReconcileDeps): Promise<Recon
         }),
       });
       const data = (await res.json()) as { ResultCode?: string | number; errorCode?: string };
-      if (data.errorCode === "500.001.1001") { summary.still_pending++; continue; }
+      if (data.errorCode === "500.001.1001") {
+        summary.still_pending++;
+        continue;
+      }
 
       const code = data.ResultCode == null ? null : String(data.ResultCode);
       if (code === "0") {
-        await deps.confirm({ checkoutId: row.mpesa_checkout_id, resultCode: 0, receipt: null, paidAmount: Number(row.amount) });
+        await deps.confirm({
+          checkoutId: row.mpesa_checkout_id,
+          resultCode: 0,
+          receipt: null,
+          paidAmount: Number(row.amount),
+        });
         summary.held_for_review++;
       } else if (code !== null && TERMINAL_FAILURE_CODES.has(code)) {
         const cancelled = code === "1032";
         await deps.fail(row.id, `reconcile: result_code_${code}`, cancelled);
-        if (cancelled) summary.cancelled++; else summary.failed++;
+        if (cancelled) summary.cancelled++;
+        else summary.failed++;
       } else {
         summary.still_pending++;
       }
     } catch (e) {
-      console.error("[reconcile] row failed", { id: row.id, error: e instanceof Error ? e.message : e });
+      console.error("[reconcile] row failed", {
+        id: row.id,
+        error: e instanceof Error ? e.message : e,
+      });
       summary.errors++;
     }
   }

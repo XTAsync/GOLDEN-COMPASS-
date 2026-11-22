@@ -163,9 +163,6 @@ function AdminTxPage() {
     <div className="page enter">
       <header className="flex items-center justify-between">
         <div>
-          <p className="tx-2" style={{ fontSize: 12 }}>
-            TRANSACTIONS
-          </p>
           <h1 className="t-title">All Transactions</h1>
         </div>
         <Link to="/admin" className="tx-3" style={{ fontSize: 12, textDecoration: "none" }}>

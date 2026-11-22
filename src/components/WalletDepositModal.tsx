@@ -151,7 +151,7 @@ export function WalletDepositModal({ phone: savedPhone = "", onClose, onSuccess 
     return (
       <MoneySheet
         title="Money received"
-        eyebrow="M-PESA TOP-UP"
+        eyebrow="M-PESA top-up"
         onClose={onClose}
         liveMessage={`${kes(amt)} added to your wallet.`}
         footer={
@@ -189,7 +189,7 @@ export function WalletDepositModal({ phone: savedPhone = "", onClose, onSuccess 
   return (
     <MoneySheet
       title="M-Pesa top-up"
-      eyebrow="DEPOSIT TO WALLET"
+      eyebrow="Deposit to wallet"
       onClose={onClose}
       locked={waiting || busy}
       liveMessage={

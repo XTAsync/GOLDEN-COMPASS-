@@ -5,8 +5,16 @@
 export const PASSWORD_MIN_LENGTH = 10;
 
 const COMMON = new Set([
-  "password", "password1", "password123", "1234567890", "qwertyuiop",
-  "iloveyou12", "welcome123", "admin12345", "letmein123", "golden123",
+  "password",
+  "password1",
+  "password123",
+  "1234567890",
+  "qwertyuiop",
+  "iloveyou12",
+  "welcome123",
+  "admin12345",
+  "letmein123",
+  "golden123",
 ]);
 
 /** Returns an error message, or null when the password is acceptable. */

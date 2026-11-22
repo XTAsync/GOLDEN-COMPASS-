@@ -87,9 +87,6 @@ function AccountCentre() {
   return (
     <div className="page page-narrow enter">
       <header>
-        <p className="tx-2" style={{ fontSize: 12 }}>
-          ACCOUNT CENTRE
-        </p>
         <h1 className="t-title">Settings</h1>
       </header>
 
@@ -115,7 +112,7 @@ function AccountCentre() {
             className="mt-1"
             style={{ fontSize: 12, color: verified ? "var(--gain)" : "var(--warn)" }}
           >
-            {verified ? "VERIFIED" : "VERIFICATION " + s.kycStatus.replace("_", " ").toUpperCase()}
+            {verified ? "Verified" : "Verification " + s.kycStatus.replace("_", " ")}
           </p>
         </div>
       </div>
@@ -140,7 +137,7 @@ function AccountCentre() {
       />
 
       <Group
-        title="SECURITY"
+        title="Security"
         rows={[
           {
             to: "/forgot-password",
@@ -153,12 +150,12 @@ function AccountCentre() {
       />
 
       <Group
-        title="PREFERENCES"
+        title="Preferences"
         rows={[{ to: "/trade", Icon: Bell, label: "Price alerts & notifications" }]}
       />
 
       <Group
-        title="PRIVACY & LEGAL"
+        title="Privacy and legal"
         rows={[
           { to: "/legal/privacy", Icon: Lock, label: "Privacy Policy" },
           { to: "/legal/terms", Icon: FileText, label: "Terms of Service" },
@@ -168,7 +165,7 @@ function AccountCentre() {
 
       {isAdmin && (
         <Group
-          title="ADMINISTRATION"
+          title="Administration"
           rows={[{ to: "/admin", Icon: Shield, label: "Admin Panel" }]}
         />
       )}
@@ -182,7 +179,6 @@ function AccountCentre() {
         style={{
           padding: 15,
           color: "var(--loss)",
-          fontFamily: "var(--font-display)",
           fontSize: 12,
         }}
       >

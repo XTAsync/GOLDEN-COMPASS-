@@ -77,9 +77,6 @@ function PocketPage() {
   return (
     <div className="page page-narrow enter">
       <header>
-        <p className="tx-2" style={{ fontSize: 12 }}>
-          POCKET ACCESS
-        </p>
         <h1 className="t-title">Your Money</h1>
       </header>
 
@@ -87,16 +84,16 @@ function PocketPage() {
       <div className="surface-raised rounded-2xl p-6">
         <div className="relative z-10">
           <p className="tx-2" style={{ fontSize: 12 }}>
-            WALLET BALANCE
+            Wallet balance
           </p>
           {s.loading ? (
             <div className="skeleton h-9 w-48 mt-3 rounded-lg" />
           ) : (
-            <h2 className="tx-1 mt-2" style={{ fontSize: 30 }}>
+            <h2 className="t-figure mt-2">
               <AnimatedNumber value={s.wallet} format={KES} />
             </h2>
           )}
-          <p className="t-label mt-1">AVAILABLE TO INVEST OR TRADE</p>
+          <p className="t-label mt-1">Available to invest or trade</p>
 
           {/* Status lines appear only when there is something to say (design D3). */}
           <div className="mt-2 space-y-1" aria-live="polite">
@@ -129,7 +126,7 @@ function PocketPage() {
             <button
               onClick={() => setShowWithdraw(true)}
               className="surface rounded-lg flex items-center justify-center gap-1.5 tx-accent border-none cursor-pointer"
-              style={{ fontFamily: "var(--font-display)", fontSize: 12, padding: "13px 10px" }}
+              style={{ fontSize: 12, padding: "13px 10px" }}
             >
               <ArrowUpRight size={15} /> WITHDRAW
             </button>
@@ -155,7 +152,7 @@ function PocketPage() {
         >
           <Receipt size={18} className="tx-2" />
           <p className="tx-2 mt-2" style={{ fontSize: 12 }}>
-            IN POSITIONS
+            In positions
           </p>
           <p className="tx-1 mt-1" style={{ fontSize: 14 }}>
             {KES(s.stocksInvested)}
@@ -166,7 +163,7 @@ function PocketPage() {
       {/* Funding method */}
       <section className="surface rounded-2xl p-4">
         <p className="tx-2" style={{ fontSize: 12 }}>
-          FUNDING METHOD
+          Funding method
         </p>
         <div className="mt-3 flex items-center gap-3">
           <span
@@ -237,9 +234,7 @@ function PocketPage() {
                     </p>
                   </div>
                   <div className="text-right shrink-0">
-                    <p
-                      style={{ fontSize: 13, color: isCredit ? "var(--gain)" : "var(--parchment)" }}
-                    >
+                    <p style={{ fontSize: 13, color: isCredit ? "var(--gain)" : "var(--text-1)" }}>
                       {isCredit ? "+" : "−"}
                       {KES(Number(tx.amount))}
                     </p>

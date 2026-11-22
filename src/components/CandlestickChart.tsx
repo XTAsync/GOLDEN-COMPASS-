@@ -137,7 +137,7 @@ export function CandlestickChart({
           }}
         >
           <p className="tx-2" style={{ fontSize: 12 }}>
-            NO CHART DATA
+            No chart data
           </p>
           <p className="tx-3" style={{ fontSize: 12, marginTop: 8, maxWidth: 280 }}>
             {unavailableReason ?? `No ${range} price history available for this instrument.`}
