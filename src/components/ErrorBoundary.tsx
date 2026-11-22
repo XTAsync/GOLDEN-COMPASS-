@@ -26,7 +26,7 @@ export class ErrorBoundary extends Component<Props, State> {
             <button
               onClick={() => window.location.reload()}
               className="btn-primary mt-6"
-              style={{ padding: "10px 24px", fontSize: 12 }}
+              style={{ padding: "12px 24px", fontSize: 12 }}
             >
               Reload
             </button>

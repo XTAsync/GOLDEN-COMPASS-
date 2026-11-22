@@ -43,7 +43,7 @@ export const Route = createFileRoute("/quick")({
 type Item = { to: string; Icon: LucideIcon; label: string; feature?: boolean };
 
 const ITEMS: Item[] = [
-  { to: "/navigator", Icon: Compass, label: "GC AI", feature: true },
+  { to: "/navigator", Icon: Compass, label: "Assistant", feature: true },
   { to: "/portfolio", Icon: PieChart, label: "Portfolio" },
   { to: "/history", Icon: History, label: "History" },
   { to: "/trade", Icon: CandlestickChart, label: "Trade" },
@@ -84,8 +84,8 @@ function QuickAccess() {
               style={{
                 width: 44,
                 height: 44,
-                color: "var(--gold)",
-                background: "var(--gold-soft)",
+                color: "var(--text-2)",
+                background: "var(--ink-3)",
                 border: "1px solid var(--hairline-strong)",
               }}
             >
@@ -105,7 +105,7 @@ function QuickAccess() {
         }}
         className="surface rounded-2xl flex items-center justify-center gap-2 border-none cursor-pointer"
         style={{
-          padding: "15px",
+          padding: "16px",
           color: "var(--loss)",
           fontSize: 12,
         }}

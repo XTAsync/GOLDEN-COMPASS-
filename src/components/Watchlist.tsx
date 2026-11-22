@@ -111,7 +111,7 @@ export function Watchlist({ items, loading, onSelect, onRemove, onAlert, onTrade
           <div
             key={it.id}
             style={{
-              padding: "10px 12px",
+              padding: "12px 12px",
               borderRadius: 12,
               border: "1px solid var(--hairline-strong)",
               background: "var(--ink-3)",
@@ -193,7 +193,7 @@ export function Watchlist({ items, loading, onSelect, onRemove, onAlert, onTrade
                     onClick={() => onAlert(it, q?.price, q?.currency)}
                     style={{
                       marginLeft: "auto",
-                      padding: "5px 10px",
+                      padding: "4px 12px",
                       borderRadius: 999,
                       border: "1px solid var(--hairline-strong)",
                       background: "var(--gold-soft)",
@@ -213,7 +213,7 @@ export function Watchlist({ items, loading, onSelect, onRemove, onAlert, onTrade
               params={{ symbol: it.symbol }}
               search={{ exchange: it.exchange }}
               className="tx-2"
-              style={{ display: "inline-block", marginTop: 6, fontSize: 12 }}
+              style={{ display: "inline-block", marginTop: 8, fontSize: 12 }}
             >
               VIEW CHART →
             </Link>
@@ -271,7 +271,7 @@ function QuickBtn({
       onClick={onClick}
       disabled={disabled}
       style={{
-        padding: "6px 12px",
+        padding: "8px 12px",
         borderRadius: 10,
         border: `1px solid ${buy ? "rgba(120,200,140,0.4)" : "rgba(220,120,120,0.4)"}`,
         background: buy ? "rgba(76,195,138,0.14)" : "rgba(229,72,77,0.14)",

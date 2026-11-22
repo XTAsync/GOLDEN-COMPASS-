@@ -82,7 +82,7 @@ export function CandlestickChart({
   };
 
   const pills = (
-    <div className="flex gap-2" style={{ marginBottom: 10 }}>
+    <div className="flex gap-2" style={{ marginBottom: 12 }}>
       {CANDLE_RANGES.map((r) => (
         <button
           key={r}
@@ -91,7 +91,7 @@ export function CandlestickChart({
           title={`Show the ${r} timeframe`}
           style={{
             flex: 1,
-            padding: "6px 0",
+            padding: "8px 0",
             borderRadius: 999,
             fontSize: 12,
             cursor: "pointer",
@@ -117,7 +117,7 @@ export function CandlestickChart({
           style={{ height: H }}
           aria-label="Loading chart"
         />
-        <div className="skeleton w-full rounded-xl" style={{ height: VH, marginTop: 6 }} />
+        <div className="skeleton w-full rounded-xl" style={{ height: VH, marginTop: 8 }} />
       </div>
     );
   }
@@ -257,7 +257,7 @@ export function CandlestickChart({
         onTouchStart={onMove}
         onTouchMove={onMove}
         onTouchEnd={() => setHover(null)}
-        style={{ touchAction: "pan-y", display: "block", marginTop: 6 }}
+        style={{ touchAction: "pan-y", display: "block", marginTop: 8 }}
       >
         <line x1="0" x2={W} y1={VH - 0.5} y2={VH - 0.5} stroke={`${GOLD}0.2)`} strokeWidth="1" />
         {bars.map((c, i) => {
@@ -289,7 +289,7 @@ export function CandlestickChart({
       {/* Crosshair tooltip / axis readout */}
       <div
         style={{
-          marginTop: 6,
+          marginTop: 8,
           fontSize: 12,
           color: "var(--text-2)",
           minHeight: 30,
@@ -302,7 +302,7 @@ export function CandlestickChart({
               borderRadius: 12,
               border: `1px solid ${GOLD}0.3)`,
               background: "var(--ink-3)",
-              padding: "6px 10px",
+              padding: "8px 12px",
             }}
           >
             <div className="flex items-center justify-between">

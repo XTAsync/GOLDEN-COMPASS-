@@ -45,7 +45,7 @@ function ForgotPasswordPage() {
   return (
     <AuthLayout
       title="Reset your password"
-      subtitle="We'll send a reset link to your email."
+      subtitle="We'll send a reset link to your email"
       footer={
         <Link to="/login" className="tx-2" style={{ textDecoration: "underline" }}>
           Back to sign in

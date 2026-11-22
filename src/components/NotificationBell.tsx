@@ -39,7 +39,7 @@ export function NotificationBell() {
               right: -4,
               minWidth: 18,
               height: 18,
-              padding: "0 5px",
+              padding: "0 4px",
               borderRadius: 9,
               background: "var(--loss)",
               color: "#fff",
@@ -78,7 +78,7 @@ export function NotificationBell() {
           >
             <div
               className="flex items-center justify-between"
-              style={{ padding: "12px 14px", borderBottom: "1px solid var(--hairline)" }}
+              style={{ padding: "12px 16px", borderBottom: "1px solid var(--hairline)" }}
             >
               <span className="tx-accent" style={{ fontSize: 12 }}>
                 Notifications
@@ -108,7 +108,7 @@ export function NotificationBell() {
                     onClick={() => !n.read_at && markRead(n.id)}
                     className="w-full text-left cursor-pointer border-none block"
                     style={{
-                      padding: "12px 14px",
+                      padding: "12px 16px",
                       background: n.read_at ? "transparent" : "var(--gold-soft)",
                       borderBottom: "1px solid var(--hairline)",
                       borderLeft: n.read_at ? "2px solid transparent" : "2px solid var(--gold)",

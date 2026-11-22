@@ -94,7 +94,7 @@ function StockDetail() {
     quote && quote.change_pct !== 0 ? quote.price - quote.price / (1 + quote.change_pct / 100) : 0;
 
   const card: React.CSSProperties = {
-    padding: 14,
+    padding: 16,
     borderRadius: 16,
     border: "1px solid var(--hairline-strong)",
     background: "var(--ink-3)",
@@ -106,7 +106,7 @@ function StockDetail() {
         <Link to="/trade" className="tx-2" style={{ fontSize: 12 }}>
           ← BACK TO TRADE
         </Link>
-        <div className="flex items-start justify-between" style={{ marginTop: 10 }}>
+        <div className="flex items-start justify-between" style={{ marginTop: 12 }}>
           <div>
             <h1 className="t-title">{sym}</h1>
             <p className="tx-3" style={{ fontSize: 12 }}>
@@ -148,7 +148,7 @@ function StockDetail() {
             <span
               style={{
                 fontSize: 12,
-                padding: "3px 7px",
+                padding: "4px 8px",
                 borderRadius: 999,
                 border: `1px solid ${quote.simulated ? "var(--warn)" : "var(--gain)"}`,
                 background: "transparent",
@@ -159,14 +159,14 @@ function StockDetail() {
             </span>
           </div>
         ) : (
-          <div className="flex items-center gap-3" style={{ marginTop: 10 }}>
+          <div className="flex items-center gap-3" style={{ marginTop: 12 }}>
             <div className="skeleton rounded-lg" style={{ height: 26, width: 150 }} />
             <div className="skeleton rounded-lg" style={{ height: 16, width: 110 }} />
           </div>
         )}
       </header>
 
-      <div className="flex flex-col gap-3" style={{ padding: "6px 16px 24px" }}>
+      <div className="flex flex-col gap-3" style={{ padding: "8px 16px 24px" }}>
         <div style={card}>
           <CandlestickChart
             bars={bars}
@@ -179,7 +179,7 @@ function StockDetail() {
         </div>
 
         <div style={card}>
-          <p className="tx-2" style={{ fontSize: 12, marginBottom: 10 }}>
+          <p className="tx-2" style={{ fontSize: 12, marginBottom: 12 }}>
             Technicals
           </p>
           <div className="grid grid-cols-2 gap-3">
@@ -198,7 +198,7 @@ function StockDetail() {
         </div>
 
         <div style={card}>
-          <p className="tx-2" style={{ fontSize: 12, marginBottom: 10 }}>
+          <p className="tx-2" style={{ fontSize: 12, marginBottom: 12 }}>
             Company profile
           </p>
           {info?.available ? (

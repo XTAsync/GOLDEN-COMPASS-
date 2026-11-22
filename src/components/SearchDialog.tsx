@@ -119,7 +119,7 @@ export function SearchDialog({ open, onClose, watchlist, onAdd, onRemove, onPick
                 key={`${s.symbol}-${s.exchange}`}
                 className="flex items-center justify-between"
                 style={{
-                  padding: "10px 12px",
+                  padding: "12px 12px",
                   borderRadius: 12,
                   border: "1px solid var(--hairline-strong)",
                   background: "var(--ink-3)",

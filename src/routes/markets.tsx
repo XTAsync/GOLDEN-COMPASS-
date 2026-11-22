@@ -56,7 +56,7 @@ function MarketsPage() {
         <p className="tx-2 mt-1">African and global equities</p>
       </header>
 
-      <p className="surface t-status mb-6" style={{ padding: "10px 14px" }}>
+      <p className="surface t-status mb-6" style={{ padding: "12px 16px" }}>
         Simulated trading. Prices may be sandbox data.
       </p>
 

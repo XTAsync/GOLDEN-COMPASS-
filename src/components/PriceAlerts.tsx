@@ -119,7 +119,7 @@ export function AlertModal({
 
   const inputStyle: React.CSSProperties = {
     width: "100%",
-    padding: "10px 12px",
+    padding: "12px 12px",
     borderRadius: 10,
     border: "1px solid var(--hairline-strong)",
     background: "var(--ink-3)",
@@ -163,7 +163,7 @@ export function AlertModal({
               onClick={() => setCondition(c)}
               style={{
                 flex: 1,
-                padding: "10px 0",
+                padding: "12px 0",
                 borderRadius: 12,
                 fontSize: 12,
                 cursor: "pointer",
@@ -186,11 +186,11 @@ export function AlertModal({
           step="0.01"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
-          style={{ ...inputStyle, marginTop: 6 }}
+          style={{ ...inputStyle, marginTop: 8 }}
           aria-label="Target price"
         />
         {currentPrice != null && (
-          <p className="tx-3" style={{ fontSize: 12, marginTop: 6 }}>
+          <p className="tx-3" style={{ fontSize: 12, marginTop: 8 }}>
             Now: {currency} {currentPrice.toLocaleString(undefined, { maximumFractionDigits: 2 })}
           </p>
         )}

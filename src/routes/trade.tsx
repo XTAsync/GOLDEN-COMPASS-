@@ -202,7 +202,7 @@ function TradePage() {
     fontVariantNumeric: "tabular-nums",
     fontSize: 12,
     color: "var(--text-2)",
-    marginBottom: 6,
+    marginBottom: 8,
     display: "block",
   };
 
@@ -243,7 +243,7 @@ function TradePage() {
       <LinkAccountModal open={linkOpen} onClose={() => setLinkOpen(false)} onLink={linkAccount} />
 
       <div className="flex flex-col gap-3">
-        <p className="surface t-label" style={{ padding: "10px 14px", color: "var(--warn)" }}>
+        <p className="surface t-label" style={{ padding: "12px 16px", color: "var(--warn)" }}>
           Simulated trading. No real money is used.
         </p>
 
@@ -258,7 +258,7 @@ function TradePage() {
                   onClick={() => pick({ symbol: s.symbol, name: s.name, exchange: s.exchange })}
                   style={{
                     flexShrink: 0,
-                    padding: "8px 13px",
+                    padding: "8px 12px",
                     borderRadius: 999,
                     border: "1px solid var(--hairline-strong)",
                     background: "var(--gold-soft)",
@@ -269,14 +269,14 @@ function TradePage() {
                   }}
                 >
                   {s.symbol}
-                  <span className="tx-3" style={{ fontSize: 12, marginLeft: 6 }}>
+                  <span className="tx-3" style={{ fontSize: 12, marginLeft: 8 }}>
                     {s.exchange}
                   </span>
                 </button>
               ))}
             </div>
 
-            <span style={{ ...labelStyle, marginTop: 14 }}>From your watchlist</span>
+            <span style={{ ...labelStyle, marginTop: 16 }}>From your watchlist</span>
             {watchlistLoading ? (
               <div className="skeleton h-10 w-full rounded-xl" />
             ) : watchlist.length === 0 ? (
@@ -293,7 +293,7 @@ function TradePage() {
                     }
                     className="flex items-center justify-between"
                     style={{
-                      padding: "10px 12px",
+                      padding: "12px 12px",
                       borderRadius: 12,
                       border: "1px solid var(--hairline-strong)",
                       background: "var(--ink-3)",
@@ -320,7 +320,7 @@ function TradePage() {
             <button
               onClick={() => setSearchOpen(true)}
               className="btn-primary"
-              style={{ marginTop: 14, width: "100%", padding: "10px 16px", fontSize: 12 }}
+              style={{ marginTop: 16, width: "100%", padding: "12px 16px", fontSize: 12 }}
             >
               <Search size={14} className="inline -mt-0.5 mr-1.5" />
               Search all markets
@@ -341,7 +341,7 @@ function TradePage() {
                     className="tx-2"
                     style={{
                       fontSize: 12,
-                      padding: "2px 7px",
+                      padding: "2px 8px",
                       borderRadius: 999,
                       border: "1px solid var(--hairline-strong)",
                     }}
@@ -356,7 +356,7 @@ function TradePage() {
               <button
                 onClick={() => setPickerOpen(true)}
                 style={{
-                  padding: "7px 12px",
+                  padding: "8px 12px",
                   borderRadius: 999,
                   border: "1px solid var(--hairline-strong)",
                   background: "var(--gold-soft)",
@@ -388,12 +388,12 @@ function TradePage() {
             </div>
 
             {quote && (
-              <div className="flex items-center gap-2" style={{ marginTop: 10 }}>
+              <div className="flex items-center gap-2" style={{ marginTop: 12 }}>
                 <span
                   title={quote.fallback_reason ?? undefined}
                   style={{
                     fontSize: 12,
-                    padding: "3px 7px",
+                    padding: "4px 8px",
                     borderRadius: 999,
                     border: `1px solid ${quote.simulated ? "var(--warn)" : "var(--gain)"}`,
                     background: "transparent",
@@ -423,12 +423,12 @@ function TradePage() {
               </div>
             )}
             {quote?.fallback_reason && (
-              <p style={{ marginTop: 6, fontSize: 12, color: "var(--warn)" }}>
+              <p style={{ marginTop: 8, fontSize: 12, color: "var(--warn)" }}>
                 Live data unavailable — showing simulated prices.
               </p>
             )}
             {quote?.stale_reason && (
-              <p style={{ marginTop: 6, fontSize: 12, color: "var(--warn)" }}>
+              <p style={{ marginTop: 8, fontSize: 12, color: "var(--warn)" }}>
                 Live tick rejected ({quote.stale_reason}) — showing simulated price.
               </p>
             )}
@@ -454,7 +454,7 @@ function TradePage() {
               />
             )}
 
-            <span style={{ ...labelStyle, marginTop: 14 }}>Quantity</span>
+            <span style={{ ...labelStyle, marginTop: 16 }}>Quantity</span>
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setQuantity((q) => Math.max(1, q - 1))}
@@ -482,7 +482,7 @@ function TradePage() {
                 style={{
                   width: 72,
                   textAlign: "center",
-                  padding: "9px 8px",
+                  padding: "8px 8px",
                   borderRadius: 10,
                   border: "1px solid var(--hairline-strong)",
                   background: "var(--ink-3)",
@@ -514,7 +514,7 @@ function TradePage() {
                     key={n}
                     onClick={() => setQuantity(n)}
                     style={{
-                      padding: "7px 10px",
+                      padding: "8px 12px",
                       borderRadius: 999,
                       border: `1px solid rgba(201,168,76,${quantity === n ? 0.55 : 0.2})`,
                       background: quantity === n ? "var(--gold-soft)" : "var(--ink-3)",
@@ -530,7 +530,7 @@ function TradePage() {
             </div>
 
             {quote && (
-              <p className="tx-3" style={{ marginTop: 10, fontSize: 12 }}>
+              <p className="tx-3" style={{ marginTop: 12, fontSize: 12 }}>
                 Est. total: {quote.currency}{" "}
                 {(quote.price * quantity).toLocaleString(undefined, { maximumFractionDigits: 2 })}
               </p>
@@ -540,12 +540,12 @@ function TradePage() {
               <button
                 onClick={() => setLinkOpen(true)}
                 className="btn-primary"
-                style={{ marginTop: 14, width: "100%" }}
+                style={{ marginTop: 16, width: "100%" }}
               >
                 Link brokerage account
               </button>
             ) : (
-              <div className="flex gap-2" style={{ marginTop: 14 }}>
+              <div className="flex gap-2" style={{ marginTop: 16 }}>
                 <button
                   onClick={() => placeOrder("buy")}
                   disabled={placing !== null}

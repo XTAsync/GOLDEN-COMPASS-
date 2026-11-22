@@ -184,14 +184,14 @@ function PortfolioPage() {
                   <Link
                     to="/pools"
                     className="btn-primary"
-                    style={{ padding: "10px 18px", fontSize: 12, textDecoration: "none" }}
+                    style={{ padding: "12px 20px", fontSize: 12, textDecoration: "none" }}
                   >
                     Pools
                   </Link>
                   <Link
                     to="/trade"
                     className="btn-primary"
-                    style={{ padding: "10px 18px", fontSize: 12, textDecoration: "none" }}
+                    style={{ padding: "12px 20px", fontSize: 12, textDecoration: "none" }}
                   >
                     <TrendingUp size={14} className="inline -mt-0.5 mr-1.5" />
                     Trade

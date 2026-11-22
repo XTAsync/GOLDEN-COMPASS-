@@ -95,7 +95,7 @@ function NavigatorPage() {
             >
               <div
                 className={m.role === "user" ? "surface-raised" : "surface"}
-                style={{ maxWidth: "85%", padding: "10px 14px", lineHeight: 1.5 }}
+                style={{ maxWidth: "85%", padding: "12px 16px", lineHeight: 1.5 }}
               >
                 {m.role === "assistant" ? (
                   <div className="prose-navigator">

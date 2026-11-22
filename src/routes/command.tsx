@@ -76,7 +76,7 @@ function CommandCenter() {
             to="/pools"
             aria-label="View pool terms"
             className="surface flex items-center gap-1.5 rounded-full"
-            style={{ padding: "9px 13px", textDecoration: "none", color: "var(--gold)" }}
+            style={{ padding: "8px 12px", textDecoration: "none", color: "var(--text-2)" }}
           >
             <Star size={15} strokeWidth={1.8} />
             <span>Pools</span>
@@ -94,7 +94,7 @@ function CommandCenter() {
             <span
               style={{
                 fontSize: 12,
-                padding: "3px 8px",
+                padding: "4px 8px",
                 borderRadius: 999,
                 color: s.kycStatus === "approved" ? "var(--gain)" : "var(--warn)",
                 border: `1px solid ${s.kycStatus === "approved" ? "rgba(46,204,113,0.4)" : "rgba(243,156,18,0.4)"}`,
@@ -119,7 +119,7 @@ function CommandCenter() {
 
           <div className="mt-4 grid grid-cols-3 gap-2">
             {[
-              { label: "Wallet", value: KES(s.wallet), tone: "var(--gold)" },
+              { label: "Wallet", value: KES(s.wallet), tone: "var(--text-1)" },
               { label: "Invested", value: KES(s.invested), tone: "var(--text-1)" },
               {
                 label: "P / L",
@@ -127,7 +127,7 @@ function CommandCenter() {
                 tone: s.gain >= 0 ? "var(--gain)" : "var(--loss)",
               },
             ].map((m) => (
-              <div key={m.label} className="surface rounded-xl" style={{ padding: "10px 10px" }}>
+              <div key={m.label} className="surface rounded-xl" style={{ padding: "12px 12px" }}>
                 <p className="tx-2" style={{ fontSize: 12 }}>
                   {m.label}
                 </p>
@@ -148,26 +148,18 @@ function CommandCenter() {
           </div>
 
           <div className="mt-4 flex items-center gap-2">
-            <Link
-              to="/trade"
-              className="btn-primary flex-1 text-center"
-              style={{ padding: "12px 10px", fontSize: 12 }}
-            >
+            <Link to="/trade" className="btn-primary flex-1 text-center">
               Trade
             </Link>
-            <Link
-              to="/pools"
-              className="btn-primary flex-1 text-center"
-              style={{ padding: "12px 10px", fontSize: 12 }}
-            >
+            <Link to="/pools" className="btn-secondary flex-1 text-center">
               Invest
             </Link>
             <Link
               to="/portfolio"
-              className="surface rounded-lg flex-1 flex items-center justify-center gap-1 tx-accent"
+              className="btn-secondary flex-1"
               style={{
                 fontSize: 12,
-                padding: "12px 10px",
+                padding: "12px 12px",
                 textDecoration: "none",
               }}
             >
@@ -192,8 +184,8 @@ function CommandCenter() {
               style={{
                 width: 42,
                 height: 42,
-                color: "var(--gold)",
-                background: "var(--gold-soft)",
+                color: "var(--text-2)",
+                background: "var(--ink-3)",
                 border: "1px solid var(--hairline-strong)",
               }}
             >

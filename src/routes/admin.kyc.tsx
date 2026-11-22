@@ -122,7 +122,7 @@ function AdminKycPage() {
             onClick={() => setFilter(f)}
             style={{
               fontSize: 12,
-              padding: "8px 14px",
+              padding: "8px 16px",
               borderRadius: 999,
               border: filter === f ? "1px solid var(--gold)" : "1px solid var(--hairline)",
               background: filter === f ? "var(--gold-soft)" : "transparent",
@@ -163,7 +163,7 @@ function AdminKycPage() {
                 <span
                   style={{
                     fontSize: 12,
-                    padding: "3px 10px",
+                    padding: "4px 12px",
                     borderRadius: 999,
                     background:
                       r.status === "approved"
@@ -216,7 +216,7 @@ function AdminKycPage() {
                     onClick={() => review(r, "approved")}
                     disabled={busy === r.id}
                     className="btn-primary"
-                    style={{ padding: "10px", fontSize: 12 }}
+                    style={{ padding: "12px", fontSize: 12 }}
                   >
                     <Check size={14} className="inline -mt-0.5 mr-1.5" />
                     Approve
@@ -225,7 +225,7 @@ function AdminKycPage() {
                     onClick={() => review(r, "rejected")}
                     disabled={busy === r.id}
                     style={{
-                      padding: "10px",
+                      padding: "12px",
                       fontSize: 12,
                       borderRadius: 10,
                       border: "1px solid rgba(231,76,60,0.5)",

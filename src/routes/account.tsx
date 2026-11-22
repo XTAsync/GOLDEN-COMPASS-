@@ -118,7 +118,7 @@ function AccountCentre() {
       </div>
 
       <Group
-        title="PROFILE"
+        title="Profile"
         rows={[
           {
             to: "/profile",
@@ -177,7 +177,7 @@ function AccountCentre() {
         }}
         className="surface rounded-2xl flex items-center justify-center gap-2 border-none cursor-pointer"
         style={{
-          padding: 15,
+          padding: 16,
           color: "var(--loss)",
           fontSize: 12,
         }}

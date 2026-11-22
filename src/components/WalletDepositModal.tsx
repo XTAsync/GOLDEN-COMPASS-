@@ -205,7 +205,7 @@ export function WalletDepositModal({ phone: savedPhone = "", onClose, onSuccess 
           <button
             onClick={() => setPhase({ kind: "form" })}
             className="btn-primary w-full tap44"
-            style={{ padding: "14px 16px", fontSize: 14 }}
+            style={{ padding: "16px 16px", fontSize: 14 }}
           >
             Try again
           </button>
@@ -214,7 +214,7 @@ export function WalletDepositModal({ phone: savedPhone = "", onClose, onSuccess 
             <button
               onClick={onClose}
               className="btn-primary w-full tap44"
-              style={{ padding: "14px 16px", fontSize: 14 }}
+              style={{ padding: "16px 16px", fontSize: 14 }}
             >
               Close, we'll keep checking
             </button>
@@ -230,7 +230,7 @@ export function WalletDepositModal({ phone: savedPhone = "", onClose, onSuccess 
               onClick={send}
               disabled={!canSend}
               className="btn-primary w-full tap44"
-              style={{ padding: "14px 16px", fontSize: 14, opacity: canSend ? 1 : 0.5 }}
+              style={{ padding: "16px 16px", fontSize: 14, opacity: canSend ? 1 : 0.5 }}
             >
               {busy ? "Sending…" : "Send M-Pesa request"}
             </button>

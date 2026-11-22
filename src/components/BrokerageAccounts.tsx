@@ -65,13 +65,13 @@ const labelStyle: React.CSSProperties = {
   fontVariantNumeric: "tabular-nums",
   fontSize: 12,
   color: "var(--text-2)",
-  marginBottom: 6,
+  marginBottom: 8,
   display: "block",
 };
 
 const inputStyle: React.CSSProperties = {
   width: "100%",
-  padding: "10px 12px",
+  padding: "12px 12px",
   borderRadius: 10,
   border: "1px solid var(--hairline-strong)",
   background: "var(--ink-3)",
@@ -145,7 +145,7 @@ export function LinkAccountModal({
           </button>
         </div>
 
-        <p className="tx-3" style={{ fontSize: 12, marginBottom: 14 }}>
+        <p className="tx-3" style={{ fontSize: 12, marginBottom: 16 }}>
           Enter it once — we&apos;ll use it automatically for every future order.
         </p>
 
@@ -213,7 +213,7 @@ export function AccountChips({
             onClick={() => onSelect(a.id)}
             style={{
               flexShrink: 0,
-              padding: "7px 12px",
+              padding: "8px 12px",
               borderRadius: 999,
               border: `1px solid rgba(201,168,76,${active ? 0.55 : 0.2})`,
               background: active ? "var(--gold-soft)" : "var(--ink-3)",
@@ -231,7 +231,7 @@ export function AccountChips({
         onClick={onAdd}
         style={{
           flexShrink: 0,
-          padding: "7px 12px",
+          padding: "8px 12px",
           borderRadius: 999,
           border: "1px dashed var(--hairline-strong)",
           background: "none",

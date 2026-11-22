@@ -102,7 +102,7 @@ export function OrderList({ orders }: { orders: OrderRow[] }) {
             className="shrink-0"
             style={{
               fontSize: 12,
-              padding: "4px 10px",
+              padding: "4px 12px",
               borderRadius: 999,
               color: statusColor(o.status),
               background: `${statusColor(o.status)}1A`,

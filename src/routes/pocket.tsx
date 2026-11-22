@@ -77,7 +77,7 @@ function PocketPage() {
   return (
     <div className="page page-narrow enter">
       <header>
-        <h1 className="t-title">Your Money</h1>
+        <h1 className="t-title">Your money</h1>
       </header>
 
       {/* Balance */}
@@ -116,19 +116,11 @@ function PocketPage() {
           </div>
 
           <div className="mt-5 grid grid-cols-2 gap-2">
-            <button
-              onClick={() => setShowDeposit(true)}
-              className="btn-primary flex items-center justify-center gap-1.5"
-              style={{ padding: "13px 10px", fontSize: 12 }}
-            >
-              <ArrowDownLeft size={15} /> DEPOSIT
+            <button onClick={() => setShowDeposit(true)} className="btn-primary">
+              <ArrowDownLeft size={16} /> Deposit
             </button>
-            <button
-              onClick={() => setShowWithdraw(true)}
-              className="surface rounded-lg flex items-center justify-center gap-1.5 tx-accent border-none cursor-pointer"
-              style={{ fontSize: 12, padding: "13px 10px" }}
-            >
-              <ArrowUpRight size={15} /> WITHDRAW
+            <button onClick={() => setShowWithdraw(true)} className="btn-secondary">
+              <ArrowUpRight size={16} /> Withdraw
             </button>
           </div>
         </div>
@@ -139,7 +131,7 @@ function PocketPage() {
         <Link to="/pools" className="surface rounded-2xl p-4" style={{ textDecoration: "none" }}>
           <PiggyBank size={18} className="tx-2" />
           <p className="tx-2 mt-2" style={{ fontSize: 12 }}>
-            IN POOLS
+            In pools
           </p>
           <p className="tx-1 mt-1" style={{ fontSize: 14 }}>
             {KES(s.poolsValue)}
@@ -192,9 +184,9 @@ function PocketPage() {
       {/* Recent activity */}
       <section>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="t-heading">Recent Activity</h2>
+          <h2 className="t-heading">Recent activity</h2>
           <Link to="/history" className="tx-2" style={{ fontSize: 12, textDecoration: "none" }}>
-            VIEW ALL ›
+            View all
           </Link>
         </div>
         {loadingTx ? (

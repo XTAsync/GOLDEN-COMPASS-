@@ -79,7 +79,7 @@ export function DepositModal({ pool, onClose, onSuccess }: Props) {
           <button
             onClick={onClose}
             className="btn-primary w-full tap44"
-            style={{ padding: "14px 16px", fontSize: 14 }}
+            style={{ padding: "16px 16px", fontSize: 14 }}
           >
             Done
           </button>
@@ -127,7 +127,7 @@ export function DepositModal({ pool, onClose, onSuccess }: Props) {
             onClick={submit}
             disabled={!canSubmit}
             className="btn-primary w-full tap44"
-            style={{ padding: "14px 16px", fontSize: 14, opacity: canSubmit ? 1 : 0.5 }}
+            style={{ padding: "16px 16px", fontSize: 14, opacity: canSubmit ? 1 : 0.5 }}
           >
             {busy
               ? "Investing…"

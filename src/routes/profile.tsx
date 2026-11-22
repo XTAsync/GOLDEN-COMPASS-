@@ -84,7 +84,7 @@ function ProfilePage() {
         style={{
           fontSize: 12,
           color: v.color,
-          padding: "4px 10px",
+          padding: "4px 12px",
           borderRadius: 999,
           background: `${v.color}1A`,
           border: `1px solid ${v.color}55`,
@@ -140,7 +140,7 @@ function ProfilePage() {
                   style={{
                     fontSize: 12,
                     color: "var(--gold)",
-                    padding: "4px 10px",
+                    padding: "4px 12px",
                     borderRadius: 999,
                     background: "var(--gold-soft)",
                     border: "1px solid var(--hairline-strong)",

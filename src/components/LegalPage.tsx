@@ -60,7 +60,7 @@ function LegalLink({ to, label }: { to: string; label: string }) {
       className="surface rounded-full"
       style={{
         fontSize: 12,
-        padding: "7px 14px",
+        padding: "8px 16px",
         color: "var(--gold)",
         textDecoration: "none",
       }}
@@ -73,7 +73,7 @@ function LegalLink({ to, label }: { to: string; label: string }) {
 export function Section({ heading, children }: { heading: string; children: ReactNode }) {
   return (
     <section style={{ marginBottom: 20 }}>
-      <h2 className="tx-1" style={{ fontSize: 15, marginBottom: 6 }}>
+      <h2 className="tx-1" style={{ fontSize: 15, marginBottom: 8 }}>
         {heading}
       </h2>
       <div className="tx-2" style={{ fontSize: 13, lineHeight: 1.65 }}>

@@ -183,7 +183,7 @@ function KycPage() {
             type="checkbox"
             checked={accept}
             onChange={(e) => setAccept(e.target.checked)}
-            style={{ marginTop: 3 }}
+            style={{ marginTop: 4 }}
           />
           <span className="tx-2" style={{ fontSize: 12, lineHeight: 1.5 }}>
             I understand investments carry risk and the value of my holdings may fall as well as

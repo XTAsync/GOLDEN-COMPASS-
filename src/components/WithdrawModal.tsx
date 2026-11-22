@@ -127,7 +127,7 @@ export function WithdrawModal({
           <button
             onClick={onClose}
             className="btn-primary w-full tap44"
-            style={{ padding: "14px 16px", fontSize: 14 }}
+            style={{ padding: "16px 16px", fontSize: 14 }}
           >
             Done
           </button>
@@ -205,7 +205,7 @@ export function WithdrawModal({
             onClick={submit}
             disabled={!canSubmit}
             className="btn-primary w-full tap44"
-            style={{ padding: "14px 16px", fontSize: 14, opacity: canSubmit ? 1 : 0.5 }}
+            style={{ padding: "16px 16px", fontSize: 14, opacity: canSubmit ? 1 : 0.5 }}
           >
             {busy
               ? "Requesting…"
@@ -328,7 +328,7 @@ function SourceRow({
       onClick={onPick}
       className="surface rounded-lg text-left tap44"
       style={{
-        padding: "10px 12px",
+        padding: "12px 12px",
         opacity: disabled ? 0.55 : 1,
         outline: active ? "2px solid #D4AF37" : "none",
       }}

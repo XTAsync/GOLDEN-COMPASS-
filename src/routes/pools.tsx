@@ -168,7 +168,7 @@ function PoolsPage() {
                       value={pool.min_investment == null ? "Not set" : KES(pool.min_investment)}
                     />
                     <Stat
-                      label="LOCK"
+                      label="Lock"
                       value={
                         pool.holding_period_days == null
                           ? "Not set"
