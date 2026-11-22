@@ -65,7 +65,7 @@ export async function runPriceAlertScan(): Promise<AlertScanResult> {
     const { error: notifyError } = await supabaseAdmin.from("notifications").insert({
       user_id: a.user_id,
       type: "price_alert",
-      title: `🔔 ${a.symbol} ${direction} ${q.currency} ${threshold.toLocaleString()}`,
+      title: `${a.symbol} ${direction} ${q.currency} ${threshold.toLocaleString()}`,
       body:
         `${a.name ?? a.symbol} is trading at ${q.currency} ${q.price.toLocaleString()} on ${a.exchange}.` +
         (q.simulated ? " (Simulated price — sandbox trading.)" : ""),

@@ -1,3 +1,4 @@
+import { Compass } from "lucide-react";
 export function LoadingSplash() {
   return (
     <div
@@ -12,7 +13,7 @@ export function LoadingSplash() {
           animation: "pulse 2s ease-in-out infinite",
         }}
       >
-        <span style={{ fontSize: 32 }}>🧭</span>
+        <Compass size={32} strokeWidth={1.5} className="t-gold" />
       </div>
       <p
         className="t-display t-gold"

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { Receipt } from "lucide-react";
 
 export interface OrderRow {
   id: string;
@@ -48,7 +49,7 @@ export function OrderList({ orders }: { orders: OrderRow[] }) {
   if (orders.length === 0) {
     return (
       <div className="glass rounded-2xl p-6 text-center">
-        <p className="text-3xl mb-3">🧾</p>
+        <Receipt size={32} strokeWidth={1.5} className="t-gold mx-auto mb-3" />
         <p className="t-serif t-parch" style={{ fontSize: 15 }}>No orders yet.</p>
         <p className="t-mono t-muted mt-2" style={{ fontSize: 10 }}>
           Your buy and sell orders will be logged here.

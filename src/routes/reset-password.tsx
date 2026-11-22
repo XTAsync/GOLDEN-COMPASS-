@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { CompassEmblem } from "@/components/CompassEmblem";
 import { ParallaxBackground } from "@/components/ParallaxBackground";
 import { validatePassword } from "@/lib/password-policy";
+import { CircleCheck, TriangleAlert } from "lucide-react";
 
 export const Route = createFileRoute("/reset-password")({
   head: () => ({
@@ -89,12 +90,12 @@ function ResetPasswordPage() {
             <div className="skeleton h-40 w-full rounded-2xl" />
           ) : done ? (
             <div className="glass rounded-2xl p-6 text-center">
-              <p className="text-3xl mb-3">✓</p>
+              <CircleCheck size={32} strokeWidth={1.5} className="t-gold mx-auto mb-3" />
               <p className="t-serif t-parch" style={{ fontSize: 15 }}>Password updated.</p>
             </div>
           ) : !linkValid ? (
             <div className="glass rounded-2xl p-6 text-center">
-              <p className="text-3xl mb-3">⚠️</p>
+              <TriangleAlert size={32} strokeWidth={1.5} className="t-gold mx-auto mb-3" />
               <p className="t-serif t-parch" style={{ fontSize: 15 }}>
                 This reset link is invalid or has expired.
               </p>

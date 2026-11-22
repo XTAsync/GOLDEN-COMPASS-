@@ -4,6 +4,7 @@ import { TiltCard } from "@/components/TiltCard";
 import { Sparkline } from "@/components/Sparkline";
 import { useQuotes } from "@/lib/quote-client";
 import { symbolsByCategory, type SymbolEntry } from "@/lib/symbols";
+import { Globe } from "lucide-react";
 
 export const Route = createFileRoute("/markets")({
   head: () => ({
@@ -19,7 +20,7 @@ export const Route = createFileRoute("/markets")({
       { property: "og:title", content: "Markets — NSE & Global Movers | Golden Compass" },
       {
         property: "og:description",
-        content: "NSE Kenya movers, global indices and global tech equities in one compass view.",
+        content: "NSE Kenya movers, global indices and global tech equities in one view.",
       },
     ],
   }),
@@ -42,7 +43,7 @@ function MarketsPage() {
     <div className="flex flex-col" style={{ minHeight: "100%" }}>
       <header style={{ padding: "20px 20px 8px" }}>
         <div className="flex items-center gap-3">
-          <span style={{ fontSize: 28 }}>🌍</span>
+          <Globe size={28} strokeWidth={1.5} className="t-gold" />
           <div>
             <h1 className="t-display t-gold" style={{ fontSize: 18 }}>Markets</h1>
             <p className="t-mono t-muted" style={{ fontSize: 9, letterSpacing: "0.1em" }}>

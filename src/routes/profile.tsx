@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useUserRole } from "@/hooks/useUserRole";
+import { ClipboardList, FileText, Lock, LogOut, Receipt, ScrollText, TriangleAlert } from "lucide-react";
 
 export const Route = createFileRoute("/profile")({
   head: () => ({
@@ -152,7 +153,7 @@ function ProfilePage() {
                 style={{ borderColor: "rgba(255,255,255,0.06)", textDecoration: "none" }}
               >
                 <span className="t-serif t-parch" style={{ fontSize: 14 }}>
-                  📋 Complete KYC
+                  <ClipboardList size={14} className="inline -mt-0.5 mr-2 t-gold" />Complete KYC
                 </span>
                 <span className="t-gold" style={{ fontSize: 14 }}>›</span>
               </Link>
@@ -173,7 +174,7 @@ function ProfilePage() {
               style={{ borderColor: "rgba(255,255,255,0.06)", textDecoration: "none" }}
             >
               <span className="t-serif t-parch" style={{ fontSize: 14 }}>
-                🧾 Order History
+                <Receipt size={14} className="inline -mt-0.5 mr-2 t-gold" />Order History
               </span>
               <span className="t-gold" style={{ fontSize: 14 }}>›</span>
             </Link>
@@ -183,7 +184,7 @@ function ProfilePage() {
               style={{ borderColor: "rgba(255,255,255,0.06)", textDecoration: "none" }}
             >
               <span className="t-serif t-parch" style={{ fontSize: 14 }}>
-                📜 Transaction History
+                <ScrollText size={14} className="inline -mt-0.5 mr-2 t-gold" />Transaction History
               </span>
               <span className="t-gold" style={{ fontSize: 14 }}>›</span>
             </Link>
@@ -208,7 +209,7 @@ function ProfilePage() {
               className="w-full flex items-center justify-between px-5 py-4 bg-transparent border-none cursor-pointer"
             >
               <span className="t-serif" style={{ fontSize: 14, color: "var(--gc-danger)" }}>
-                ⎋ Sign Out
+                <LogOut size={14} className="inline -mt-0.5 mr-2" />Sign Out
               </span>
             </button>
           </div>
@@ -221,17 +222,17 @@ function ProfilePage() {
               LEGAL
             </p>
             {([
-              ["/legal/terms", "📄 Terms of Service"],
-              ["/legal/privacy", "🔒 Privacy Policy"],
-              ["/legal/risk-disclosure", "⚠️ Risk Disclosure"],
-            ] as const).map(([to, label]) => (
+              ["/legal/terms", FileText, "Terms of Service"],
+              ["/legal/privacy", Lock, "Privacy Policy"],
+              ["/legal/risk-disclosure", TriangleAlert, "Risk Disclosure"],
+            ] as const).map(([to, Icon, label]) => (
               <Link
                 key={to}
                 to={to}
                 className="flex items-center justify-between px-5 py-4 border-t"
                 style={{ borderColor: "rgba(255,255,255,0.06)", textDecoration: "none" }}
               >
-                <span className="t-serif t-parch" style={{ fontSize: 14 }}>{label}</span>
+                <span className="t-serif t-parch" style={{ fontSize: 14 }}><Icon size={14} className="inline -mt-0.5 mr-2 t-gold" />{label}</span>
                 <span className="t-gold" style={{ fontSize: 14 }}>›</span>
               </Link>
             ))}

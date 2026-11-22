@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { Check, CircleCheck, Hourglass } from "lucide-react";
 
 export const Route = createFileRoute("/kyc")({
   head: () => ({
@@ -93,7 +94,7 @@ function KycPage() {
       <div className="flex flex-col gap-5 px-5 pt-6 pb-28">
         <h1 className="t-display t-gold" style={{ fontSize: 22 }}>KYC Verified</h1>
         <div className="glass rounded-2xl p-6 text-center">
-          <p className="text-3xl mb-3">✓</p>
+          <CircleCheck size={32} strokeWidth={1.5} className="t-gold mx-auto mb-3" />
           <p className="t-serif t-parch" style={{ fontSize: 15 }}>
             Your identity has been verified.
           </p>
@@ -107,7 +108,7 @@ function KycPage() {
       <div className="flex flex-col gap-5 px-5 pt-6 pb-28">
         <h1 className="t-display t-gold" style={{ fontSize: 22 }}>KYC Under Review</h1>
         <div className="glass rounded-2xl p-6 text-center">
-          <p className="text-3xl mb-3">⏳</p>
+          <Hourglass size={32} strokeWidth={1.5} className="t-gold mx-auto mb-3" />
           <p className="t-serif t-parch" style={{ fontSize: 15 }}>
             Your submission is being reviewed.
           </p>
@@ -202,7 +203,7 @@ function KycPage() {
           className="btn-brass w-full"
           style={{ height: 52, fontSize: 12 }}
         >
-          {success ? "✓ Submitted" : loading ? "Submitting…" : "Submit for Review"}
+          {success ? <><Check size={14} className="inline -mt-0.5 mr-1.5" />Submitted</> : loading ? "Submitting…" : "Submit for Review"}
         </button>
       </form>
     </div>

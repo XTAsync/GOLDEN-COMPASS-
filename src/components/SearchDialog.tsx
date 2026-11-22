@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { searchSymbols, type SymbolEntry } from "@/lib/symbols";
 import type { WatchlistItem } from "@/components/Watchlist";
+import { Search, Star } from "lucide-react";
 
 interface Props {
   open: boolean;
@@ -143,7 +144,7 @@ export function SearchDialog({ open, onClose, watchlist, onAdd, onRemove, onPick
                       opacity: wid ? 1 : 0.45,
                     }}
                   >
-                    {wid ? "★" : "☆"}
+                    <Star size={16} fill={wid ? "currentColor" : "none"} />
                   </button>
                 </span>
               </div>
@@ -178,7 +179,7 @@ export function SearchButton({ onClick }: { onClick: () => void }) {
       className="glass w-11 h-11 rounded-full flex items-center justify-center t-gold"
       style={{ fontSize: 16, border: "none", cursor: "pointer" }}
     >
-      🔍
+      <Search size={16} />
     </button>
   );
 }

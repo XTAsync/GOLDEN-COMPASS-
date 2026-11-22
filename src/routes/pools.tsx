@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { TiltCard } from "@/components/TiltCard";
 import { DepositModal } from "@/components/DepositModal";
+import { Anchor, BookOpen, Compass, Sparkles, Swords, type LucideIcon } from "lucide-react";
 
 export const Route = createFileRoute("/pools")({
   head: () => ({
@@ -37,19 +38,19 @@ interface Pool {
 const KES = (n: number) =>
   "KES " + Number(n).toLocaleString("en-KE", { maximumFractionDigits: 0 });
 
-const POOL_META: Record<string, { emblem: string; tagline: string; accent: string }> = {
+const POOL_META: Record<string, { Emblem: LucideIcon; tagline: string; accent: string }> = {
   "stable-harbour": {
-    emblem: "⚓",
+    Emblem: Anchor,
     tagline: "View the recorded terms before allocating funds.",
     accent: "var(--teal)",
   },
   bahari: {
-    emblem: "🧭",
+    Emblem: Compass,
     tagline: "View the recorded terms before allocating funds.",
     accent: "var(--gold-300)",
   },
   "alpha-ventures": {
-    emblem: "⚔️",
+    Emblem: Swords,
     tagline: "View the recorded terms before allocating funds.",
     accent: "var(--gc-warning)",
   },
@@ -100,7 +101,7 @@ function PoolsPage() {
           className="t-mono t-gold inline-block mt-3"
           style={{ fontSize: 9, letterSpacing: "0.18em" }}
         >
-          📖 READ: DIVIDEND TRACKING GUIDE →
+          <BookOpen size={12} className="inline -mt-0.5 mr-1.5" />READ: DIVIDEND TRACKING GUIDE →
         </Link>
       </header>
 
@@ -114,7 +115,7 @@ function PoolsPage() {
         <div className="space-y-4">
           {pools.map((pool) => {
             const meta = POOL_META[pool.slug] ?? {
-              emblem: "✦",
+              Emblem: Sparkles,
               tagline: pool.description ?? "",
               accent: "var(--gold-300)",
             };
@@ -130,7 +131,7 @@ function PoolsPage() {
                           border: `1px solid ${meta.accent}55`,
                         }}
                       >
-                        {meta.emblem}
+                        <meta.Emblem size={24} strokeWidth={1.5} />
                       </div>
                       <div>
                         <h2 className="t-display t-parch" style={{ fontSize: 16 }}>

@@ -3,6 +3,7 @@ import { useState, type FormEvent } from "react";
 import { CompassEmblem } from "@/components/CompassEmblem";
 import { ParallaxBackground } from "@/components/ParallaxBackground";
 import { useAuth } from "@/hooks/useAuth";
+import { Check } from "lucide-react";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -143,7 +144,7 @@ function LoginPage() {
               >
                 {success ? (
                   <span style={{ fontSize: 16, animation: "checkPop 0.35s cubic-bezier(0.34,1.56,0.64,1)" }}>
-                    ✓
+                    <Check size={16} />
                   </span>
                 ) : loading ? (
                   <span

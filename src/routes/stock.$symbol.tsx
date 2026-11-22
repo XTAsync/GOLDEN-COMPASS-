@@ -7,6 +7,7 @@ import { CandlestickChart } from "@/components/CandlestickChart";
 import { useCandles, type CandleRange } from "@/lib/candles-client";
 import { fetchQuote, type ClientQuote } from "@/lib/quote-client";
 import { lookupSymbol } from "@/lib/symbols";
+import { Star } from "lucide-react";
 
 interface CompanyInfo {
   available: boolean;
@@ -125,7 +126,7 @@ function StockDetail() {
             className="t-gold"
             style={{ background: "none", border: "none", fontSize: 24, cursor: "pointer", opacity: watched ? 1 : 0.5 }}
           >
-            {watched ? "★" : "☆"}
+            <Star size={18} fill={watched ? "currentColor" : "none"} />
           </button>
         </div>
 

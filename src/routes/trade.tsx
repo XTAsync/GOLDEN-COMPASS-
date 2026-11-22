@@ -15,6 +15,7 @@ import {
 import { Sparkline } from "@/components/Sparkline";
 import { useQuotes } from "@/lib/quote-client";
 import { SYMBOLS, type SymbolEntry } from "@/lib/symbols";
+import { Search, Star, TrendingUp } from "lucide-react";
 
 export const Route = createFileRoute("/trade")({
   head: () => ({
@@ -202,7 +203,7 @@ function TradePage() {
       <header style={{ padding: "20px 20px 12px" }}>
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <span style={{ fontSize: 28 }}>📈</span>
+            <TrendingUp size={28} strokeWidth={1.5} className="t-gold" />
             <div>
               <h1 className="t-display t-gold" style={{ fontSize: 18 }}>Trade Stocks</h1>
               <p className="t-mono t-muted" style={{ fontSize: 9, letterSpacing: "0.1em" }}>
@@ -318,7 +319,7 @@ function TradePage() {
               className="btn-brass"
               style={{ marginTop: 14, width: "100%", padding: "10px 16px", fontSize: 11 }}
             >
-              🔍 Search all markets
+              <Search size={14} className="inline -mt-0.5 mr-1.5" />Search all markets
             </button>
           </div>
         )}
@@ -409,7 +410,7 @@ function TradePage() {
                   className="t-mono t-gold"
                   style={{ marginLeft: "auto", background: "none", border: "none", fontSize: 10, cursor: "pointer" }}
                 >
-                  ☆ Watch
+                  <Star size={14} className="inline -mt-0.5 mr-1.5" />Watch
                 </button>
               </div>
             )}
