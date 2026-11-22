@@ -19,7 +19,7 @@ export const Route = createFileRoute("/markets")({
       { property: "og:title", content: "Markets — NSE & Global Movers | Golden Compass" },
       {
         property: "og:description",
-        content: "NSE Kenya movers, global indices and global tech equities in one compass view.",
+        content: "NSE Kenya movers, global indices and global tech equities in one view.",
       },
     ],
   }),

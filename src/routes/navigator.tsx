@@ -13,7 +13,7 @@ export const Route = createFileRoute("/navigator")({
       { name: "description", content: "Golden Compass investing education assistant. No personal recommendations." },
       { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: "Education Assistant — Golden Compass" },
-      { property: "og:description", content: "Your conversational guide to portfolio insights and pool questions." },
+      { property: "og:description", content: "Ask investing questions and learn the concepts. Education only, no personal recommendations." },
       { property: "og:url", content: "/navigator" },
     ],
     links: [{ rel: "canonical", href: "/navigator" }],
