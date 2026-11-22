@@ -6,7 +6,10 @@ import { fetchMoneyConfig, type MoneyConfig } from "@/lib/money-client";
  * true until the answer matches the amount shown (design DR6), so the sheet never lets a stale quote
  * be submitted. A failed read sets `error` (DR7): the sheet disables its button.
  */
-export function useMoneyConfig(params: { source?: "wallet" | "pool"; poolId?: string; amount?: number }, enabled = true) {
+export function useMoneyConfig(
+  params: { source?: "wallet" | "pool"; poolId?: string; amount?: number },
+  enabled = true,
+) {
   const [data, setData] = useState<MoneyConfig | null>(null);
   const [error, setError] = useState(false);
   const [answeredKey, setAnsweredKey] = useState<string | null>(null);
@@ -37,5 +40,13 @@ export function useMoneyConfig(params: { source?: "wallet" | "pool"; poolId?: st
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key, enabled, retry]);
 
-  return { data, error, stale: answeredKey !== key, retry: () => { setError(false); setRetry((n) => n + 1); } };
+  return {
+    data,
+    error,
+    stale: answeredKey !== key,
+    retry: () => {
+      setError(false);
+      setRetry((n) => n + 1);
+    },
+  };
 }

@@ -4,14 +4,27 @@
 // money request: the event stays in the outbox and is retried (max 5 attempts).
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
-export type OpsEventRow = { id: number; event: string; payload: Record<string, unknown>; created_at: string };
+export type OpsEventRow = {
+  id: number;
+  event: string;
+  payload: Record<string, unknown>;
+  created_at: string;
+};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const rpcAny = (fn: string, args: Record<string, unknown>) => (supabaseAdmin.rpc as any)(fn, args);
 
-export async function enqueueOpsEvent(event: string, payload: Record<string, unknown>, dedupeKey?: string) {
+export async function enqueueOpsEvent(
+  event: string,
+  payload: Record<string, unknown>,
+  dedupeKey?: string,
+) {
   try {
-    await rpcAny("enqueue_ops_event", { p_event: event, p_payload: payload, p_dedupe_key: dedupeKey ?? null });
+    await rpcAny("enqueue_ops_event", {
+      p_event: event,
+      p_payload: payload,
+      p_dedupe_key: dedupeKey ?? null,
+    });
   } catch (e) {
     console.error("[ops-alerts] could not enqueue", event, e);
   }
@@ -66,7 +79,9 @@ export function defaultDrainDeps(env: Record<string, string | undefined> = proce
 }
 
 /** Posts up to 20 events. Returns how many were delivered. Never throws. */
-export async function drainOpsOutbox(deps: DrainDeps = defaultDrainDeps()): Promise<{ sent: number; failed: number }> {
+export async function drainOpsOutbox(
+  deps: DrainDeps = defaultDrainDeps(),
+): Promise<{ sent: number; failed: number }> {
   if (!deps.webhookUrl) return { sent: 0, failed: 0 };
   let rows: OpsEventRow[] = [];
   try {

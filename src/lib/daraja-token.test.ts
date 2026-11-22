@@ -16,7 +16,9 @@ describe("getDarajaToken", () => {
 
   it("throws on an auth failure and does not cache it", async () => {
     const bad = vi.fn(async () => new Response("no", { status: 401 }));
-    await expect(getDarajaToken("k", "s", bad as unknown as typeof fetch)).rejects.toThrow("oauth 401");
+    await expect(getDarajaToken("k", "s", bad as unknown as typeof fetch)).rejects.toThrow(
+      "oauth 401",
+    );
     const f = ok("tok2");
     expect(await getDarajaToken("k", "s", f as unknown as typeof fetch)).toBe("tok2");
   });

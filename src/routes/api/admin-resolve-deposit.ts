@@ -12,7 +12,8 @@ export const Route = createFileRoute("/api/admin-resolve-deposit")({
           const auth = await authenticateRequest(request);
           if (auth instanceof Response) return auth;
           const { userId } = auth;
-          if (!rateLimit(`resolve:${userId}`, 20, 60_000)) return json({ error: "Too many requests" }, 429);
+          if (!rateLimit(`resolve:${userId}`, 20, 60_000))
+            return json({ error: "Too many requests" }, 429);
 
           const body = (await request.json()) as { transaction_id?: string; receipt?: string };
           const txId = String(body.transaction_id ?? "");
@@ -26,9 +27,18 @@ export const Route = createFileRoute("/api/admin-resolve-deposit")({
             case "forbidden":
               return json({ error: "Forbidden: admin only" }, 403);
             case "invalid_receipt":
-              return json({ error: "That is not an M-Pesa receipt. It is 8 to 14 letters and numbers, like QGH7XK2LMN." }, 400);
+              return json(
+                {
+                  error:
+                    "That is not an M-Pesa receipt. It is 8 to 14 letters and numbers, like QGH7XK2LMN.",
+                },
+                400,
+              );
             case "self_resolve":
-              return json({ error: "You cannot resolve your own deposit. Ask another admin." }, 403);
+              return json(
+                { error: "You cannot resolve your own deposit. Ask another admin." },
+                403,
+              );
             case "not_found":
               return json({ error: "Deposit not found" }, 404);
             case "duplicate_receipt":

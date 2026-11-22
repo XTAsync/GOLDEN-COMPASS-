@@ -20,17 +20,24 @@ export const Route = createFileRoute("/api/wallet-invest")({
           const authResult = await authenticateRequest(request);
           if (authResult instanceof Response) return authResult;
           const { userId, claims } = authResult;
-          if (!rateLimit(`invest:${userId}`, 10, 60_000)) return json({ error: "Too many requests" }, 429);
+          if (!rateLimit(`invest:${userId}`, 10, 60_000))
+            return json({ error: "Too many requests" }, 429);
 
           const mfaBlock = await requireFreshAal2(userId, claims);
           if (mfaBlock) return mfaBlock;
 
-          const body = (await request.json()) as { pool_id?: string; amount?: number; request_id?: string };
+          const body = (await request.json()) as {
+            pool_id?: string;
+            amount?: number;
+            request_id?: string;
+          };
           const poolId = String(body.pool_id ?? "");
           const amount = Number(body.amount);
           if (!UUID.test(poolId)) return json({ error: "Invalid pool_id format" }, 400);
-          if (!Number.isFinite(amount) || amount < 1) return json({ error: "Amount must be at least KES 1" }, 400);
-          if (amount > 10_000_000) return json({ error: "Amount exceeds maximum limit of KES 10,000,000" }, 400);
+          if (!Number.isFinite(amount) || amount < 1)
+            return json({ error: "Amount must be at least KES 1" }, 400);
+          if (amount > 10_000_000)
+            return json({ error: "Amount exceeds maximum limit of KES 10,000,000" }, 400);
           const requestId = body.request_id && UUID.test(body.request_id) ? body.request_id : null;
 
           // Compliance caps (placeholder thresholds - TBD). Skipped for a repeat tap, which
@@ -43,11 +50,21 @@ export const Route = createFileRoute("/api/wallet-invest")({
           if (failure) return json(failure.body, failure.status);
 
           if (res.result === "replayed") {
-            return json({ success: true, replayed: true, transaction_id: res.transaction_id, amount: Number(res.net) });
+            return json({
+              success: true,
+              replayed: true,
+              transaction_id: res.transaction_id,
+              amount: Number(res.net),
+            });
           }
 
           try {
-            await screenTransaction({ userId, transactionId: String(res.transaction_id), amount, kind: "invest" });
+            await screenTransaction({
+              userId,
+              transactionId: String(res.transaction_id),
+              amount,
+              kind: "invest",
+            });
           } catch (e) {
             console.error("[wallet-invest] AML screening failed", e);
           }

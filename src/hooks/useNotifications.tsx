@@ -53,7 +53,12 @@ export function NotificationsProvider({ children }: { children: ReactNode }) {
       .channel(`notifications-${user.id}`)
       .on(
         "postgres_changes",
-        { event: "INSERT", schema: "public", table: "notifications", filter: `user_id=eq.${user.id}` },
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "notifications",
+          filter: `user_id=eq.${user.id}`,
+        },
         (payload) => {
           const n = payload.new as Notification;
           setNotifications((prev) => [n, ...prev].slice(0, 50));
@@ -70,19 +75,29 @@ export function NotificationsProvider({ children }: { children: ReactNode }) {
 
   const markRead = async (id: string) => {
     await supabase.from("notifications").update({ read_at: new Date().toISOString() }).eq("id", id);
-    setNotifications((p) => p.map((n) => (n.id === id ? { ...n, read_at: new Date().toISOString() } : n)));
+    setNotifications((p) =>
+      p.map((n) => (n.id === id ? { ...n, read_at: new Date().toISOString() } : n)),
+    );
   };
 
   const markAllRead = async () => {
     if (!user) return;
-    await supabase.from("notifications").update({ read_at: new Date().toISOString() }).eq("user_id", user.id).is("read_at", null);
-    setNotifications((p) => p.map((n) => ({ ...n, read_at: n.read_at ?? new Date().toISOString() })));
+    await supabase
+      .from("notifications")
+      .update({ read_at: new Date().toISOString() })
+      .eq("user_id", user.id)
+      .is("read_at", null);
+    setNotifications((p) =>
+      p.map((n) => ({ ...n, read_at: n.read_at ?? new Date().toISOString() })),
+    );
   };
 
   const unreadCount = notifications.filter((n) => !n.read_at).length;
 
   return (
-    <NotificationsContext.Provider value={{ notifications, unreadCount, markRead, markAllRead, loading }}>
+    <NotificationsContext.Provider
+      value={{ notifications, unreadCount, markRead, markAllRead, loading }}
+    >
       {children}
     </NotificationsContext.Provider>
   );

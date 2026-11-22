@@ -26,7 +26,9 @@ export function useBrokerageAccounts(userId?: string) {
     if (!error) {
       const rows = (data ?? []) as BrokerageAccount[];
       setAccounts(rows);
-      setSelectedId((prev) => (prev && rows.some((r) => r.id === prev) ? prev : (rows[0]?.id ?? null)));
+      setSelectedId((prev) =>
+        prev && rows.some((r) => r.id === prev) ? prev : (rows[0]?.id ?? null),
+      );
     }
     setLoading(false);
   }, [userId]);
@@ -60,28 +62,25 @@ export function useBrokerageAccounts(userId?: string) {
 }
 
 const labelStyle: React.CSSProperties = {
-  fontFamily: "var(--font-mono)",
-  fontSize: 10,
-  letterSpacing: "0.1em",
-  textTransform: "uppercase",
-  color: "rgba(200,175,130,0.7)",
-  marginBottom: 6,
+  fontVariantNumeric: "tabular-nums",
+  fontSize: 12,
+  color: "var(--text-2)",
+  marginBottom: 8,
   display: "block",
 };
 
 const inputStyle: React.CSSProperties = {
   width: "100%",
-  padding: "10px 12px",
+  padding: "12px 12px",
   borderRadius: 10,
-  border: "1px solid rgba(201,168,76,0.22)",
-  background: "rgba(255,255,255,0.04)",
-  color: "var(--parchment)",
-  fontFamily: "var(--font-serif)",
+  border: "1px solid var(--hairline-strong)",
+  background: "var(--ink-3)",
+  color: "var(--text-1)",
   fontSize: 14,
   outline: "none",
 };
 
-/** One-time glass modal for linking a brokerage account. */
+/** One-time surface modal for linking a brokerage account. */
 export function LinkAccountModal({
   open,
   onClose,
@@ -120,32 +119,39 @@ export function LinkAccountModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end justify-center"
-      style={{ background: "rgba(0,0,0,0.62)", backdropFilter: "blur(10px)" }}
+      className="fixed inset-0 z-50 flex items-end md:items-center justify-center"
+      style={{ background: "rgba(0,0,0,0.62)" }}
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-label="Link brokerage account"
     >
       <div
-        className="glass-gold w-full max-w-[430px] rounded-t-3xl anim-fade-up"
+        className="surface-raised w-full max-w-[430px] rounded-t-2xl md:rounded-2xl enter"
         style={{ padding: "20px 16px 28px" }}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-3">
-          <p className="t-mono t-sec" style={{ fontSize: 9, letterSpacing: "0.18em" }}>
-            LINK BROKERAGE ACCOUNT
+          <p className="tx-2" style={{ fontSize: 12 }}>
+            Link brokerage account
           </p>
-          <button onClick={onClose} className="t-gold" style={{ fontSize: 22, background: "none", border: "none" }} aria-label="Close">
+          <button
+            onClick={onClose}
+            className="tx-accent"
+            style={{ fontSize: 22, background: "none", border: "none" }}
+            aria-label="Close"
+          >
             ×
           </button>
         </div>
 
-        <p className="t-serif t-muted" style={{ fontSize: 12, marginBottom: 14 }}>
+        <p className="tx-3" style={{ fontSize: 12, marginBottom: 16 }}>
           Enter it once — we&apos;ll use it automatically for every future order.
         </p>
 
-        <label style={labelStyle} htmlFor="brokerage-account-id">Account ID</label>
+        <label style={labelStyle} htmlFor="brokerage-account-id">
+          Account ID
+        </label>
         <input
           id="brokerage-account-id"
           autoFocus
@@ -155,7 +161,9 @@ export function LinkAccountModal({
           style={inputStyle}
         />
 
-        <label style={{ ...labelStyle, marginTop: 12 }} htmlFor="brokerage-account-label">Label</label>
+        <label style={{ ...labelStyle, marginTop: 12 }} htmlFor="brokerage-account-label">
+          Label
+        </label>
         <input
           id="brokerage-account-label"
           value={label}
@@ -167,8 +175,14 @@ export function LinkAccountModal({
         <button
           onClick={submit}
           disabled={saving}
-          className="btn-brass"
-          style={{ marginTop: 16, width: "100%", padding: "12px 16px", fontSize: 11, opacity: saving ? 0.6 : 1 }}
+          className="btn-primary"
+          style={{
+            marginTop: 16,
+            width: "100%",
+            padding: "12px 16px",
+            fontSize: 12,
+            opacity: saving ? 0.6 : 1,
+          }}
         >
           {saving ? "Linking…" : "Link account"}
         </button>
@@ -190,23 +204,21 @@ export function AccountChips({
   onAdd: () => void;
 }) {
   return (
-    <div className="flex gap-2 overflow-x-auto" style={{ paddingBottom: 2 }}>
+    <div className="flex flex-wrap gap-2">
       {accounts.map((a) => {
         const active = a.id === selectedId;
         return (
           <button
             key={a.id}
             onClick={() => onSelect(a.id)}
-            className="t-mono"
             style={{
               flexShrink: 0,
-              padding: "7px 12px",
+              padding: "8px 12px",
               borderRadius: 999,
               border: `1px solid rgba(201,168,76,${active ? 0.55 : 0.2})`,
-              background: active ? "rgba(201,168,76,0.16)" : "rgba(255,255,255,0.03)",
-              color: active ? "rgb(235,215,165)" : "rgba(200,175,130,0.75)",
-              fontSize: 10,
-              letterSpacing: "0.08em",
+              background: active ? "var(--gold-soft)" : "var(--ink-3)",
+              color: active ? "var(--text-1)" : "var(--text-2)",
+              fontSize: 12,
               cursor: "pointer",
               whiteSpace: "nowrap",
             }}
@@ -217,15 +229,14 @@ export function AccountChips({
       })}
       <button
         onClick={onAdd}
-        className="t-mono"
         style={{
           flexShrink: 0,
-          padding: "7px 12px",
+          padding: "8px 12px",
           borderRadius: 999,
-          border: "1px dashed rgba(201,168,76,0.35)",
+          border: "1px dashed var(--hairline-strong)",
           background: "none",
-          color: "rgba(200,175,130,0.75)",
-          fontSize: 10,
+          color: "var(--text-2)",
+          fontSize: 12,
           cursor: "pointer",
           whiteSpace: "nowrap",
         }}

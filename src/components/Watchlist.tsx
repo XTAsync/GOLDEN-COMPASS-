@@ -81,7 +81,7 @@ export function Watchlist({ items, loading, onSelect, onRemove, onAlert, onTrade
   if (loading) return <div className="skeleton h-16 w-full rounded-2xl" />;
   if (items.length === 0) {
     return (
-      <p className="t-mono t-muted" style={{ fontSize: 10 }}>
+      <p className="tx-3" style={{ fontSize: 12 }}>
         No symbols yet — fetch a quote and tap “Add to watchlist”.
       </p>
     );
@@ -106,15 +106,15 @@ export function Watchlist({ items, loading, onSelect, onRemove, onAlert, onTrade
         const state = quotes[it.symbol.toUpperCase()];
         const q = state?.quote;
         const up = (q?.change_pct ?? 0) >= 0;
-        const color = up ? "rgb(120,200,140)" : "rgb(220,120,120)";
+        const color = up ? "var(--gain)" : "var(--loss)";
         return (
           <div
             key={it.id}
             style={{
-              padding: "10px 12px",
+              padding: "12px 12px",
               borderRadius: 12,
-              border: "1px solid rgba(201,168,76,0.18)",
-              background: "rgba(255,255,255,0.03)",
+              border: "1px solid var(--hairline-strong)",
+              background: "var(--ink-3)",
             }}
           >
             <div className="flex items-center justify-between gap-2">
@@ -123,8 +123,10 @@ export function Watchlist({ items, loading, onSelect, onRemove, onAlert, onTrade
                 className="flex flex-col"
                 style={{ background: "none", border: "none", textAlign: "left", cursor: "pointer" }}
               >
-                <span className="t-display t-gold" style={{ fontSize: 14 }}>{it.symbol}</span>
-                <span className="t-mono t-muted" style={{ fontSize: 9, letterSpacing: "0.1em" }}>
+                <span className="tx-accent" style={{ fontSize: 14 }}>
+                  {it.symbol}
+                </span>
+                <span className="tx-3" style={{ fontSize: 12 }}>
                   {it.exchange}
                 </span>
               </button>
@@ -136,10 +138,12 @@ export function Watchlist({ items, loading, onSelect, onRemove, onAlert, onTrade
               </div>
 
               <div className="flex flex-col items-end">
-                <span className="t-serif t-parch" style={{ fontSize: 13 }}>
-                  {q ? `${q.currency} ${q.price.toLocaleString(undefined, { maximumFractionDigits: 2 })}` : "—"}
+                <span className="tx-1" style={{ fontSize: 13 }}>
+                  {q
+                    ? `${q.currency} ${q.price.toLocaleString(undefined, { maximumFractionDigits: 2 })}`
+                    : "—"}
                 </span>
-                <span className="t-mono" style={{ fontSize: 10, color }}>
+                <span style={{ fontSize: 12, color }}>
                   {q ? `${up ? "+" : ""}${q.change_pct.toFixed(2)}%` : ""}
                 </span>
               </div>
@@ -147,7 +151,7 @@ export function Watchlist({ items, loading, onSelect, onRemove, onAlert, onTrade
               <button
                 onClick={() => onRemove(it.id)}
                 aria-label={`Remove ${it.symbol} from watchlist`}
-                className="t-mono t-muted"
+                className="tx-3"
                 style={{ background: "none", border: "none", fontSize: 14, cursor: "pointer" }}
               >
                 ×
@@ -159,17 +163,20 @@ export function Watchlist({ items, loading, onSelect, onRemove, onAlert, onTrade
                 {onTrade && (
                   <>
                     <div className="flex items-center" style={{ gap: 4 }}>
-                      <StepBtn label="Decrease quantity" onClick={() => step(it.id, -1)}>−</StepBtn>
-                      <span className="t-mono t-parch" style={{ fontSize: 11, minWidth: 18, textAlign: "center" }}>
+                      <StepBtn label="Decrease quantity" onClick={() => step(it.id, -1)}>
+                        −
+                      </StepBtn>
+                      <span
+                        className="tx-1"
+                        style={{ fontSize: 12, minWidth: 18, textAlign: "center" }}
+                      >
                         {qty[it.id] ?? 1}
                       </span>
-                      <StepBtn label="Increase quantity" onClick={() => step(it.id, 1)}>+</StepBtn>
+                      <StepBtn label="Increase quantity" onClick={() => step(it.id, 1)}>
+                        +
+                      </StepBtn>
                     </div>
-                    <QuickBtn
-                      tone="buy"
-                      disabled={busy !== null}
-                      onClick={() => trade(it, "buy")}
-                    >
+                    <QuickBtn tone="buy" disabled={busy !== null} onClick={() => trade(it, "buy")}>
                       {busy === `${it.id}-buy` ? "…" : "Buy"}
                     </QuickBtn>
                     <QuickBtn
@@ -184,17 +191,14 @@ export function Watchlist({ items, loading, onSelect, onRemove, onAlert, onTrade
                 {onAlert && (
                   <button
                     onClick={() => onAlert(it, q?.price, q?.currency)}
-                    className="t-mono"
                     style={{
                       marginLeft: "auto",
-                      padding: "5px 10px",
+                      padding: "4px 12px",
                       borderRadius: 999,
-                      border: "1px solid rgba(201,168,76,0.35)",
-                      background: "rgba(201,168,76,0.10)",
-                      color: "rgb(235,215,165)",
-                      fontSize: 9,
-                      letterSpacing: "0.1em",
-                      textTransform: "uppercase",
+                      border: "1px solid var(--hairline-strong)",
+                      background: "var(--gold-soft)",
+                      color: "var(--text-1)",
+                      fontSize: 12,
                       cursor: "pointer",
                     }}
                   >
@@ -208,8 +212,8 @@ export function Watchlist({ items, loading, onSelect, onRemove, onAlert, onTrade
               to="/stock/$symbol"
               params={{ symbol: it.symbol }}
               search={{ exchange: it.exchange }}
-              className="t-mono t-sec"
-              style={{ display: "inline-block", marginTop: 6, fontSize: 9, letterSpacing: "0.1em" }}
+              className="tx-2"
+              style={{ display: "inline-block", marginTop: 8, fontSize: 12 }}
             >
               VIEW CHART →
             </Link>
@@ -233,13 +237,13 @@ function StepBtn({
     <button
       onClick={onClick}
       aria-label={label}
-      className="t-mono t-gold"
+      className="tx-accent"
       style={{
         width: 22,
         height: 22,
         borderRadius: 6,
-        border: "1px solid rgba(201,168,76,0.28)",
-        background: "rgba(255,255,255,0.04)",
+        border: "1px solid var(--hairline-strong)",
+        background: "var(--ink-3)",
         cursor: "pointer",
         fontSize: 12,
         lineHeight: 1,
@@ -266,18 +270,13 @@ function QuickBtn({
     <button
       onClick={onClick}
       disabled={disabled}
-      className="t-mono"
       style={{
-        padding: "6px 12px",
+        padding: "8px 12px",
         borderRadius: 10,
         border: `1px solid ${buy ? "rgba(120,200,140,0.4)" : "rgba(220,120,120,0.4)"}`,
-        background: buy
-          ? "linear-gradient(180deg, rgba(120,200,140,0.22), rgba(120,200,140,0.08))"
-          : "linear-gradient(180deg, rgba(220,120,120,0.22), rgba(220,120,120,0.08))",
+        background: buy ? "rgba(76,195,138,0.14)" : "rgba(229,72,77,0.14)",
         color: buy ? "rgb(180,235,195)" : "rgb(245,190,190)",
-        fontSize: 10,
-        letterSpacing: "0.08em",
-        textTransform: "uppercase",
+        fontSize: 12,
         cursor: disabled ? "wait" : "pointer",
         opacity: disabled ? 0.6 : 1,
       }}

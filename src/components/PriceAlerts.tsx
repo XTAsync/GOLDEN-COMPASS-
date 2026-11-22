@@ -119,35 +119,39 @@ export function AlertModal({
 
   const inputStyle: React.CSSProperties = {
     width: "100%",
-    padding: "10px 12px",
+    padding: "12px 12px",
     borderRadius: 10,
-    border: "1px solid rgba(201,168,76,0.22)",
-    background: "rgba(255,255,255,0.04)",
-    color: "var(--parchment)",
-    fontFamily: "var(--font-serif)",
+    border: "1px solid var(--hairline-strong)",
+    background: "var(--ink-3)",
+    color: "var(--text-1)",
     fontSize: 14,
     outline: "none",
   };
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end justify-center"
-      style={{ background: "rgba(0,0,0,0.6)", backdropFilter: "blur(8px)" }}
+      className="fixed inset-0 z-50 flex items-end md:items-center justify-center"
+      style={{ background: "rgba(0,0,0,0.6)" }}
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-label={`Create price alert for ${symbol}`}
     >
       <div
-        className="glass-gold w-full max-w-[430px] rounded-t-3xl anim-fade-up"
+        className="surface-raised w-full max-w-[430px] rounded-t-2xl md:rounded-2xl enter"
         style={{ padding: 20 }}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-3">
-          <p className="t-mono t-sec" style={{ fontSize: 9, letterSpacing: "0.18em" }}>
+          <p className="tx-2" style={{ fontSize: 12 }}>
             PRICE ALERT · {symbol}
           </p>
-          <button onClick={onClose} className="t-gold" style={{ fontSize: 22 }} aria-label="Close">
+          <button
+            onClick={onClose}
+            className="tx-accent"
+            style={{ fontSize: 22 }}
+            aria-label="Close"
+          >
             ×
           </button>
         </div>
@@ -157,18 +161,15 @@ export function AlertModal({
             <button
               key={c}
               onClick={() => setCondition(c)}
-              className="t-mono"
               style={{
                 flex: 1,
-                padding: "10px 0",
+                padding: "12px 0",
                 borderRadius: 12,
-                fontSize: 10,
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
+                fontSize: 12,
                 cursor: "pointer",
-                border: `1px solid ${condition === c ? "rgba(201,168,76,0.5)" : "rgba(201,168,76,0.18)"}`,
-                background: condition === c ? "rgba(201,168,76,0.14)" : "transparent",
-                color: condition === c ? "rgb(235,215,165)" : "rgba(200,175,130,0.6)",
+                border: `1px solid ${condition === c ? "var(--gold-soft)" : "var(--gold-soft)"}`,
+                background: condition === c ? "var(--gold-soft)" : "transparent",
+                color: condition === c ? "var(--text-1)" : "var(--text-2)",
               }}
             >
               {c === "greater" ? "Rises above" : "Falls below"}
@@ -176,7 +177,7 @@ export function AlertModal({
           ))}
         </div>
 
-        <label className="t-mono t-muted" style={{ fontSize: 10, letterSpacing: "0.1em" }}>
+        <label className="tx-3" style={{ fontSize: 12 }}>
           TARGET PRICE {currency && `(${currency})`}
         </label>
         <input
@@ -185,11 +186,11 @@ export function AlertModal({
           step="0.01"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
-          style={{ ...inputStyle, marginTop: 6 }}
+          style={{ ...inputStyle, marginTop: 8 }}
           aria-label="Target price"
         />
         {currentPrice != null && (
-          <p className="t-mono t-muted" style={{ fontSize: 10, marginTop: 6 }}>
+          <p className="tx-3" style={{ fontSize: 12, marginTop: 8 }}>
             Now: {currency} {currentPrice.toLocaleString(undefined, { maximumFractionDigits: 2 })}
           </p>
         )}
@@ -197,12 +198,18 @@ export function AlertModal({
         <button
           onClick={submit}
           disabled={saving}
-          className="btn-brass"
-          style={{ marginTop: 16, width: "100%", padding: "12px 16px", fontSize: 11, opacity: saving ? 0.6 : 1 }}
+          className="btn-primary"
+          style={{
+            marginTop: 16,
+            width: "100%",
+            padding: "12px 16px",
+            fontSize: 12,
+            opacity: saving ? 0.6 : 1,
+          }}
         >
           {saving ? "Setting…" : "Set alert"}
         </button>
-        <p className="t-mono t-muted" style={{ marginTop: 8, fontSize: 9 }}>
+        <p className="tx-3" style={{ marginTop: 8, fontSize: 12 }}>
           Alerts are checked against sandbox/simulated prices while simulated trading is on.
         </p>
       </div>
@@ -223,7 +230,7 @@ export function AlertsPanel({
   const active = alerts.filter((a) => !a.triggered_at);
   if (active.length === 0) {
     return (
-      <p className="t-mono t-muted" style={{ fontSize: 10 }}>
+      <p className="tx-3" style={{ fontSize: 12 }}>
         No active alerts — tap “+ Alert” on a watchlist row.
       </p>
     );
@@ -237,19 +244,18 @@ export function AlertsPanel({
           style={{
             padding: "8px 12px",
             borderRadius: 12,
-            border: "1px solid rgba(201,168,76,0.18)",
-            background: "rgba(255,255,255,0.03)",
+            border: "1px solid var(--hairline-strong)",
+            background: "var(--ink-3)",
           }}
         >
-          <span className="t-serif t-parch" style={{ fontSize: 12 }}>
-            <span className="t-gold">{a.symbol}</span>{" "}
-            {a.condition === "greater" ? "≥" : "≤"}{" "}
+          <span className="tx-1" style={{ fontSize: 12 }}>
+            <span className="tx-accent">{a.symbol}</span> {a.condition === "greater" ? "≥" : "≤"}{" "}
             {Number(a.threshold_price).toLocaleString()}
           </span>
           <button
             onClick={() => onRemove(a.id)}
             aria-label={`Delete alert for ${a.symbol}`}
-            className="t-mono t-muted"
+            className="tx-3"
             style={{ background: "none", border: "none", fontSize: 14, cursor: "pointer" }}
           >
             ×

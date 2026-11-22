@@ -50,10 +50,7 @@ export async function requireFreshAal2(
 
   const nowSec = Math.floor(Date.now() / 1000);
   if (stepUp && nowSec - stepUp > FRESHNESS_SECONDS) {
-    return json(
-      { error: "Please re-verify with your authenticator app.", code: "mfa_stale" },
-      403,
-    );
+    return json({ error: "Please re-verify with your authenticator app.", code: "mfa_stale" }, 403);
   }
   return null;
 }

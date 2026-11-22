@@ -17,9 +17,9 @@ export type Capabilities = z.infer<typeof capabilitiesSchema>;
 // Only explicit boolean true enables a live service; strings and absent rows fail closed.
 export function resolveLiveGates(config: Record<string, unknown>) {
   return {
-    brokerMode: config['broker_mode'] === "live" ? "live" as const : "mock" as const,
-    mpesaLive: config['mpesa_live'] === true,
-    investLive: config['invest_live'] === true && config['broker_mode'] === "live",
+    brokerMode: config["broker_mode"] === "live" ? ("live" as const) : ("mock" as const),
+    mpesaLive: config["mpesa_live"] === true,
+    investLive: config["invest_live"] === true && config["broker_mode"] === "live",
     cfdEnabled: false as const,
   };
 }

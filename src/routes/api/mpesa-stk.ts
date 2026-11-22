@@ -33,7 +33,8 @@ export const Route = createFileRoute("/api/mpesa-stk")({
           const phoneRaw = String(body.phone ?? "").replace(/\D/g, "");
 
           if (!amount || amount < 1) return json({ error: "Amount must be at least KES 1" }, 400);
-          if (amount > 150_000) return json({ error: "Amount exceeds M-Pesa limit of KES 150,000" }, 400);
+          if (amount > 150_000)
+            return json({ error: "Amount exceeds M-Pesa limit of KES 150,000" }, 400);
           // Normalize phone
           const phone = normaliseKenyanPhone(phoneRaw);
           if (!phone) return json({ error: "Invalid Kenyan phone number" }, 400);
@@ -122,8 +123,7 @@ export const Route = createFileRoute("/api/mpesa-stk")({
           };
 
           if (!stkRes.ok || stkData.ResponseCode !== "0") {
-            const reason =
-              stkData.errorMessage || stkData.ResponseDescription || "STK Push failed";
+            const reason = stkData.errorMessage || stkData.ResponseDescription || "STK Push failed";
             console.error("[mpesa-stk] failure", { status: stkRes.status, body: stkData });
             await failDeposit(tx.id, `STK: ${reason}`);
             return json({ error: reason }, 502);
@@ -145,7 +145,10 @@ export const Route = createFileRoute("/api/mpesa-stk")({
               }
             } catch (e) {
               // Never lose the checkout id: fall back to the plain save (pre-migration behaviour).
-              console.error("[mpesa-stk] attach_checkout_id failed, saving id directly", { txId: tx.id, error: e });
+              console.error("[mpesa-stk] attach_checkout_id failed, saving id directly", {
+                txId: tx.id,
+                error: e,
+              });
               await supabaseAdmin
                 .from("transactions")
                 .update({ mpesa_checkout_id: stkData.CheckoutRequestID })
@@ -167,5 +170,3 @@ export const Route = createFileRoute("/api/mpesa-stk")({
     },
   },
 });
-
-

@@ -3,8 +3,20 @@ import { supabase } from "@/integrations/supabase/client";
 export type MoneyConfig = {
   quote: null | { result: string; gross?: number; fee?: number; net?: number; min?: number };
   paused: { withdrawals: boolean; investing: boolean };
-  caps: { user_used: number; user_cap: number; user_left: number; global_used: number; global_cap: number; global_left: number };
-  pending: { withdrawals_pending: number; withdrawals_pending_count: number; deposits_pending: number; deposits_pending_count: number };
+  caps: {
+    user_used: number;
+    user_cap: number;
+    user_left: number;
+    global_used: number;
+    global_cap: number;
+    global_left: number;
+  };
+  pending: {
+    withdrawals_pending: number;
+    withdrawals_pending_count: number;
+    deposits_pending: number;
+    deposits_pending_count: number;
+  };
   wallet_balance: number;
 };
 
@@ -33,7 +45,10 @@ export async function fetchMoneyConfig(
   if (params.source) q.set("source", params.source);
   if (params.poolId) q.set("pool_id", params.poolId);
   if (params.amount != null) q.set("amount", String(params.amount));
-  const res = await fetch(`/api/money-config?${q}`, { headers: { Authorization: `Bearer ${t}` }, signal });
+  const res = await fetch(`/api/money-config?${q}`, {
+    headers: { Authorization: `Bearer ${t}` },
+    signal,
+  });
   if (!res.ok) throw new Error(`money-config ${res.status}`);
   return (await res.json()) as MoneyConfig;
 }
@@ -52,6 +67,10 @@ export async function postMoney(path: string, body: Record<string, unknown>): Pr
     const data = await res.json().catch(() => ({}));
     return { ok: res.ok && !data.error, status: res.status, data };
   } catch {
-    return { ok: false, status: 0, data: { error: "No connection. Check your network and try again." } };
+    return {
+      ok: false,
+      status: 0,
+      data: { error: "No connection. Check your network and try again." },
+    };
   }
 }

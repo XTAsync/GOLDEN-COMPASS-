@@ -15,8 +15,8 @@ interface Props {
   volumeHeight?: number;
 }
 
-const GAIN = "rgb(120,200,140)";
-const LOSS = "rgb(220,120,120)";
+const GAIN = "var(--gain)";
+const LOSS = "var(--loss)";
 const GOLD = "rgba(201,168,76,";
 
 /**
@@ -63,7 +63,12 @@ export function CandlestickChart({
   const fmtTime = (t: number) => {
     const d = new Date(t * 1000);
     return range === "1D" || range === "1W"
-      ? d.toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })
+      ? d.toLocaleString(undefined, {
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        })
       : d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
   };
 
@@ -77,28 +82,24 @@ export function CandlestickChart({
   };
 
   const pills = (
-    <div className="flex gap-2" style={{ marginBottom: 10 }}>
+    <div className="flex gap-2" style={{ marginBottom: 12 }}>
       {CANDLE_RANGES.map((r) => (
         <button
           key={r}
           onClick={() => onRangeChange(r)}
           aria-pressed={r === range}
           title={`Show the ${r} timeframe`}
-          className="t-mono"
           style={{
             flex: 1,
-            padding: "6px 0",
+            padding: "8px 0",
             borderRadius: 999,
-            fontSize: 10,
-            letterSpacing: "0.1em",
+            fontSize: 12,
             cursor: "pointer",
             transition: "all 160ms ease",
             border: `1px solid ${r === range ? `${GOLD}0.55)` : `${GOLD}0.18)`}`,
-            background: r === range
-              ? "linear-gradient(180deg, rgba(201,168,76,0.26), rgba(201,168,76,0.10))"
-              : "transparent",
+            background: r === range ? "var(--gold-soft)" : "transparent",
             boxShadow: r === range ? "inset 0 1px 0 rgba(255,236,190,0.25)" : "none",
-            color: r === range ? "rgb(240,222,175)" : "rgba(200,175,130,0.6)",
+            color: r === range ? "var(--text-1)" : "var(--text-2)",
           }}
         >
           {r}
@@ -111,8 +112,12 @@ export function CandlestickChart({
     return (
       <div>
         {pills}
-        <div className="skeleton w-full rounded-2xl" style={{ height: H }} aria-label="Loading chart" />
-        <div className="skeleton w-full rounded-xl" style={{ height: VH, marginTop: 6 }} />
+        <div
+          className="skeleton w-full rounded-2xl"
+          style={{ height: H }}
+          aria-label="Loading chart"
+        />
+        <div className="skeleton w-full rounded-xl" style={{ height: VH, marginTop: 8 }} />
       </div>
     );
   }
@@ -127,14 +132,14 @@ export function CandlestickChart({
             height: H,
             borderRadius: 16,
             border: `1px dashed ${GOLD}0.28)`,
-            background: "rgba(255,255,255,0.03)",
+            background: "var(--ink-3)",
             padding: 20,
           }}
         >
-          <p className="t-mono t-sec" style={{ fontSize: 9, letterSpacing: "0.18em" }}>
-            NO CHART DATA
+          <p className="tx-2" style={{ fontSize: 12 }}>
+            No chart data
           </p>
-          <p className="t-serif t-muted" style={{ fontSize: 12, marginTop: 8, maxWidth: 280 }}>
+          <p className="tx-3" style={{ fontSize: 12, marginTop: 8, maxWidth: 280 }}>
             {unavailableReason ?? `No ${range} price history available for this instrument.`}
           </p>
         </div>
@@ -194,7 +199,15 @@ export function CandlestickChart({
             const bottom = y(Math.min(c.o, c.c));
             return (
               <g key={`${c.t}-${i}`}>
-                <line x1={cx} x2={cx} y1={y(c.h)} y2={y(c.l)} stroke={color} strokeWidth="1" opacity="0.75" />
+                <line
+                  x1={cx}
+                  x2={cx}
+                  y1={y(c.h)}
+                  y2={y(c.l)}
+                  stroke={color}
+                  strokeWidth="1"
+                  opacity="0.75"
+                />
                 <rect
                   x={cx - bodyW / 2}
                   y={top}
@@ -211,8 +224,22 @@ export function CandlestickChart({
 
         {active && hover != null && (
           <g>
-            <line x1={cxOf(hover)} x2={cxOf(hover)} y1="0" y2={H} stroke={`${GOLD}0.5)`} strokeWidth="1" />
-            <line x1="0" x2={W} y1={y(active.c)} y2={y(active.c)} stroke={`${GOLD}0.5)`} strokeWidth="1" />
+            <line
+              x1={cxOf(hover)}
+              x2={cxOf(hover)}
+              y1="0"
+              y2={H}
+              stroke={`${GOLD}0.5)`}
+              strokeWidth="1"
+            />
+            <line
+              x1="0"
+              x2={W}
+              y1={y(active.c)}
+              y2={y(active.c)}
+              stroke={`${GOLD}0.5)`}
+              strokeWidth="1"
+            />
           </g>
         )}
       </svg>
@@ -230,7 +257,7 @@ export function CandlestickChart({
         onTouchStart={onMove}
         onTouchMove={onMove}
         onTouchEnd={() => setHover(null)}
-        style={{ touchAction: "pan-y", display: "block", marginTop: 6 }}
+        style={{ touchAction: "pan-y", display: "block", marginTop: 8 }}
       >
         <line x1="0" x2={W} y1={VH - 0.5} y2={VH - 0.5} stroke={`${GOLD}0.2)`} strokeWidth="1" />
         {bars.map((c, i) => {
@@ -248,29 +275,34 @@ export function CandlestickChart({
           );
         })}
         {hover != null && (
-          <line x1={cxOf(hover)} x2={cxOf(hover)} y1="0" y2={VH} stroke={`${GOLD}0.5)`} strokeWidth="1" />
+          <line
+            x1={cxOf(hover)}
+            x2={cxOf(hover)}
+            y1="0"
+            y2={VH}
+            stroke={`${GOLD}0.5)`}
+            strokeWidth="1"
+          />
         )}
       </svg>
 
       {/* Crosshair tooltip / axis readout */}
       <div
-        className="t-mono"
         style={{
-          marginTop: 6,
-          fontSize: 9,
-          letterSpacing: "0.08em",
-          color: "rgba(200,175,130,0.7)",
+          marginTop: 8,
+          fontSize: 12,
+          color: "var(--text-2)",
           minHeight: 30,
         }}
       >
         {active ? (
           <div
-            className="glass-gold"
+            className="surface-raised"
             style={{
               borderRadius: 12,
               border: `1px solid ${GOLD}0.3)`,
-              background: "rgba(255,255,255,0.05)",
-              padding: "6px 10px",
+              background: "var(--ink-3)",
+              padding: "8px 12px",
             }}
           >
             <div className="flex items-center justify-between">
@@ -279,7 +311,7 @@ export function CandlestickChart({
                 {currency} {fmt(active.c)}
               </span>
             </div>
-            <div className="t-parch" style={{ marginTop: 2 }}>
+            <div className="tx-1" style={{ marginTop: 2 }}>
               O {fmt(active.o)} · H {fmt(active.h)} · L {fmt(active.l)} · C {fmt(active.c)} · V{" "}
               {active.v.toLocaleString()}
             </div>

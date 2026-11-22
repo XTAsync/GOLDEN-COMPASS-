@@ -71,7 +71,9 @@ export const BROKER_MANIFESTS: BrokerManifest[] = [
 
 export function manifestForExchange(exchange: string): BrokerManifest | undefined {
   const ex = exchange.toUpperCase();
-  return BROKER_MANIFESTS.find((m) => m.status === "active" && !m.simulated && m.exchanges.includes(ex));
+  return BROKER_MANIFESTS.find(
+    (m) => m.status === "active" && !m.simulated && m.exchanges.includes(ex),
+  );
 }
 
 export function manifestById(id: string): BrokerManifest | undefined {

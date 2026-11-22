@@ -19,7 +19,6 @@ export interface MockQuote {
   anchored?: boolean;
 }
 
-
 const AFRICAN = new Set(["NSE", "NGX", "JSE", "GSE"]);
 
 /** Stable pseudo-random base price per symbol so quotes are consistent across calls. */
@@ -91,7 +90,6 @@ export function quoteLooksStale(
   }
   return null;
 }
-
 
 export interface MockOrderInput {
   symbol: string;

@@ -41,7 +41,8 @@ export function unlockAt(createdAt: string | null | undefined, days: number): st
 }
 
 export const KES = (n: number) =>
-  "KES " + Number(n).toLocaleString("en-KE", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  "KES " +
+  Number(n).toLocaleString("en-KE", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 export function useAccountSummary(): AccountSummary {
   const { user } = useAuth();
@@ -60,14 +61,21 @@ export function useAccountSummary(): AccountSummary {
     let cancelled = false;
     (async () => {
       const [{ data: profile }, { data: pools }, { data: stocks }] = await Promise.all([
-        supabase.from("profiles").select("full_name, kyc_status, wallet_balance, phone").eq("id", user.id).maybeSingle(),
+        supabase
+          .from("profiles")
+          .select("full_name, kyc_status, wallet_balance, phone")
+          .eq("id", user.id)
+          .maybeSingle(),
         supabase
           .from("user_investments")
           .select(
             "id, pool_id, invested_amount, current_value, units_owned, created_at, investment_pools(name, pool_type, exit_fee_percent, holding_period_days)",
           )
           .eq("user_id", user.id),
-        supabase.from("stock_holdings").select("id, invested_amount, quantity").eq("user_id", user.id),
+        supabase
+          .from("stock_holdings")
+          .select("id, invested_amount, quantity")
+          .eq("user_id", user.id),
       ]);
       if (cancelled) return;
 

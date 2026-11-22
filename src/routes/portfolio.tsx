@@ -51,7 +51,9 @@ function PortfolioPage() {
         supabase.from("profiles").select("wallet_balance").eq("id", user.id).maybeSingle(),
         supabase
           .from("user_investments")
-          .select("id, invested_amount, current_value, units_owned, investment_pools(name, pool_type)")
+          .select(
+            "id, invested_amount, current_value, units_owned, investment_pools(name, pool_type)",
+          )
           .eq("user_id", user.id),
         supabase
           .from("stock_holdings")
@@ -117,15 +119,10 @@ function PortfolioPage() {
   const up = pnl >= 0;
 
   return (
-    <div className="flex flex-col gap-5 px-5 pt-6 pb-28 anim-fade-up">
+    <div className="page enter">
       <header>
-        <p className="t-mono t-sec" style={{ fontSize: 9, letterSpacing: "0.18em" }}>
-          ACCOUNT HOLDINGS
-        </p>
-        <h1 className="t-display t-gold mt-1" style={{ fontSize: 22 }}>
-          Portfolio
-        </h1>
-        <p className="t-serif t-sec mt-2" style={{ fontSize: 13, fontStyle: "italic" }}>
+        <h1 className="t-title">Portfolio</h1>
+        <p className="tx-2 mt-2" style={{ fontSize: 13 }}>
           Recorded pool holdings and stock positions in one place.
         </p>
       </header>
@@ -137,55 +134,67 @@ function PortfolioPage() {
         </>
       ) : (
         <>
-          <div className="glass-gold rounded-2xl p-5 text-center">
-            <p className="t-mono t-muted" style={{ fontSize: 9, letterSpacing: "0.16em" }}>
-              TOTAL PORTFOLIO VALUE
+          <div className="surface-raised rounded-2xl p-5 text-center">
+            <p className="tx-3" style={{ fontSize: 12 }}>
+              Total portfolio value
             </p>
-            <p className="t-display t-gold mt-2" style={{ fontSize: 30 }}>
-              KES {fmt(totalValue)}
-            </p>
-            <p
-              className="t-mono mt-2"
-              style={{ fontSize: 12, color: up ? "var(--gc-success)" : "var(--gc-danger)" }}
-            >
+            <p className="t-figure tx-accent mt-2">KES {fmt(totalValue)}</p>
+            <p className="mt-2" style={{ fontSize: 12, color: up ? "var(--gain)" : "var(--loss)" }}>
               {up ? "▲" : "▼"} KES {fmt(Math.abs(pnl))} ({up ? "+" : "-"}
               {Math.abs(pnlPct).toFixed(2)}%)
             </p>
             <div
               className="flex justify-between mt-4 pt-4"
-              style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
+              style={{ borderTop: "1px solid var(--hairline)" }}
             >
               <div className="flex-1 text-center">
-                <p className="t-mono t-muted" style={{ fontSize: 9 }}>INVESTED</p>
-                <p className="t-serif t-parch" style={{ fontSize: 15 }}>KES {fmt(totalInvested)}</p>
+                <p className="tx-3" style={{ fontSize: 12 }}>
+                  INVESTED
+                </p>
+                <p className="tx-1" style={{ fontSize: 15 }}>
+                  KES {fmt(totalInvested)}
+                </p>
               </div>
               <div className="flex-1 text-center">
-                <p className="t-mono t-muted" style={{ fontSize: 9 }}>WALLET</p>
-                <p className="t-serif t-parch" style={{ fontSize: 15 }}>KES {fmt(wallet)}</p>
+                <p className="tx-3" style={{ fontSize: 12 }}>
+                  WALLET
+                </p>
+                <p className="tx-1" style={{ fontSize: 15 }}>
+                  KES {fmt(wallet)}
+                </p>
               </div>
             </div>
           </div>
 
           <section className="flex flex-col gap-3">
-            <h2 className="t-mono t-sec" style={{ fontSize: 9, letterSpacing: "0.18em" }}>
+            <h2 className="tx-2" style={{ fontSize: 12 }}>
               HOLDINGS ({holdings.length})
             </h2>
 
             {holdings.length === 0 ? (
-              <div className="glass rounded-2xl p-6 text-center">
-                <MapIcon size={32} strokeWidth={1.5} className="t-gold mx-auto mb-3" />
-                <p className="t-serif t-parch" style={{ fontSize: 15 }}>
+              <div className="surface rounded-2xl p-6 text-center">
+                <MapIcon size={32} strokeWidth={1.5} className="tx-2 mx-auto mb-3" />
+                <p className="tx-1" style={{ fontSize: 15 }}>
                   No holdings yet.
                 </p>
-                <p className="t-mono t-muted mt-2" style={{ fontSize: 10 }}>
+                <p className="tx-3 mt-2" style={{ fontSize: 12 }}>
                   Your settled holdings will appear here.
                 </p>
                 <div className="flex gap-2 justify-center mt-4">
-                  <Link to="/pools" className="btn-brass" style={{ padding: "10px 18px", fontSize: 11, textDecoration: "none" }}>
+                  <Link
+                    to="/pools"
+                    className="btn-primary"
+                    style={{ padding: "12px 20px", fontSize: 12, textDecoration: "none" }}
+                  >
                     Pools
                   </Link>
-                  <Link to="/trade" className="btn-brass" style={{ padding: "10px 18px", fontSize: 11, textDecoration: "none" }}>
-                    <TrendingUp size={14} className="inline -mt-0.5 mr-1.5" />Trade
+                  <Link
+                    to="/trade"
+                    className="btn-primary"
+                    style={{ padding: "12px 20px", fontSize: 12, textDecoration: "none" }}
+                  >
+                    <TrendingUp size={14} className="inline -mt-0.5 mr-1.5" />
+                    Trade
                   </Link>
                 </div>
               </div>
@@ -195,24 +204,28 @@ function PortfolioPage() {
                 const dPct = h.invested > 0 ? (d / h.invested) * 100 : 0;
                 const good = d >= 0;
                 return (
-                  <div key={h.key} className="glass rounded-2xl p-4 flex items-center justify-between">
+                  <div
+                    key={h.key}
+                    className="surface rounded-2xl p-4 flex items-center justify-between"
+                  >
                     <div style={{ minWidth: 0 }}>
                       <div className="flex items-center gap-2">
-                        <span className="shrink-0 inline-flex t-gold">{h.kind === "pool" ? <Anchor size={14} /> : <TrendingUp size={14} />}</span>
-                        <span className="t-display t-parch truncate" style={{ fontSize: 15 }}>
+                        <span className="shrink-0 inline-flex tx-accent">
+                          {h.kind === "pool" ? <Anchor size={14} /> : <TrendingUp size={14} />}
+                        </span>
+                        <span className="tx-1 truncate" style={{ fontSize: 15 }}>
                           {h.name}
                         </span>
                       </div>
-                      <p className="t-mono t-muted mt-1" style={{ fontSize: 9 }}>
+                      <p className="tx-3 mt-1" style={{ fontSize: 12 }}>
                         {h.sub} · cost KES {fmt(h.invested)}
                       </p>
                     </div>
                     <div className="text-right shrink-0">
-                      <p className="t-serif t-parch" style={{ fontSize: 15 }}>KES {fmt(h.value)}</p>
-                      <p
-                        className="t-mono"
-                        style={{ fontSize: 10, color: good ? "var(--gc-success)" : "var(--gc-danger)" }}
-                      >
+                      <p className="tx-1" style={{ fontSize: 15 }}>
+                        KES {fmt(h.value)}
+                      </p>
+                      <p style={{ fontSize: 12, color: good ? "var(--gain)" : "var(--loss)" }}>
                         {good ? "+" : "-"}
                         {fmt(Math.abs(d))} ({good ? "+" : "-"}
                         {Math.abs(dPct).toFixed(2)}%)
@@ -226,11 +239,16 @@ function PortfolioPage() {
 
           <Link
             to="/orders"
-            className="glass rounded-2xl px-5 py-4 flex items-center justify-between"
+            className="surface rounded-2xl px-5 py-4 flex items-center justify-between"
             style={{ textDecoration: "none" }}
           >
-            <span className="t-serif t-parch" style={{ fontSize: 14 }}><Receipt size={14} className="inline -mt-0.5 mr-1.5 t-gold" />Order History</span>
-            <span className="t-gold" style={{ fontSize: 14 }}>›</span>
+            <span className="tx-1" style={{ fontSize: 14 }}>
+              <Receipt size={14} className="inline -mt-0.5 mr-1.5 tx-2" />
+              Order History
+            </span>
+            <span className="tx-accent" style={{ fontSize: 14 }}>
+              ›
+            </span>
           </Link>
         </>
       )}

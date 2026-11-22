@@ -14,15 +14,13 @@ export function LegalPage({
   children: ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-5 px-5 pt-6 pb-28 anim-fade-up">
+    <div className="page page-narrow enter">
       <header>
-        <p className="t-mono t-sec" style={{ fontSize: 9, letterSpacing: "0.18em" }}>
+        <p className="tx-2" style={{ fontSize: 12 }}>
           {eyebrow}
         </p>
-        <h1 className="t-display t-gold mt-1" style={{ fontSize: 22 }}>
-          {title}
-        </h1>
-        <p className="t-mono t-muted mt-1" style={{ fontSize: 9, letterSpacing: "0.1em" }}>
+        <h1 className="t-title">{title}</h1>
+        <p className="tx-3 mt-1" style={{ fontSize: 12 }}>
           LAST UPDATED {updated}
         </p>
       </header>
@@ -34,16 +32,17 @@ export function LegalPage({
           border: "1px solid rgba(212,160,60,0.45)",
         }}
       >
-        <p className="t-mono" style={{ fontSize: 10, letterSpacing: "0.12em", color: "var(--gold-300)" }}>
-          <TriangleAlert size={12} className="inline -mt-0.5 mr-1.5" />DRAFT — PENDING LEGAL REVIEW
+        <p style={{ fontSize: 12, color: "var(--gold)" }}>
+          <TriangleAlert size={12} className="inline -mt-0.5 mr-1.5" />
+          Draft — pending legal review
         </p>
-        <p className="t-serif t-sec mt-1" style={{ fontSize: 12, lineHeight: 1.5 }}>
+        <p className="tx-2 mt-1" style={{ fontSize: 12, lineHeight: 1.5 }}>
           This document is a working draft prepared for product development only. It has not been
           reviewed or approved by a qualified Kenyan advocate and is not yet a binding agreement.
         </p>
       </div>
 
-      <article className="glass rounded-2xl p-5 legal-body">{children}</article>
+      <article className="surface rounded-2xl p-5 legal-body">{children}</article>
 
       <nav className="flex flex-wrap gap-2">
         <LegalLink to="/legal/terms" label="Terms" />
@@ -58,16 +57,15 @@ function LegalLink({ to, label }: { to: string; label: string }) {
   return (
     <Link
       to={to}
-      className="t-mono glass rounded-full"
+      className="surface rounded-full"
       style={{
-        fontSize: 9,
-        letterSpacing: "0.12em",
-        padding: "7px 14px",
-        color: "var(--gold-300)",
+        fontSize: 12,
+        padding: "8px 16px",
+        color: "var(--gold)",
         textDecoration: "none",
       }}
     >
-      {label.toUpperCase()}
+      {label}
     </Link>
   );
 }
@@ -75,10 +73,10 @@ function LegalLink({ to, label }: { to: string; label: string }) {
 export function Section({ heading, children }: { heading: string; children: ReactNode }) {
   return (
     <section style={{ marginBottom: 20 }}>
-      <h2 className="t-display t-parch" style={{ fontSize: 15, marginBottom: 6 }}>
+      <h2 className="tx-1" style={{ fontSize: 15, marginBottom: 8 }}>
         {heading}
       </h2>
-      <div className="t-serif t-sec" style={{ fontSize: 13, lineHeight: 1.65 }}>
+      <div className="tx-2" style={{ fontSize: 13, lineHeight: 1.65 }}>
         {children}
       </div>
     </section>

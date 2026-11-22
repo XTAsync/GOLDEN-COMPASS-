@@ -22,7 +22,9 @@ export const Route = createFileRoute("/api/mpesa-status")({
 
           const { data: tx } = await supabaseAdmin
             .from("transactions")
-            .select("id, user_id, pool_id, amount, status, type, mpesa_checkout_id, mpesa_reference")
+            .select(
+              "id, user_id, pool_id, amount, status, type, mpesa_checkout_id, mpesa_reference",
+            )
             .eq("id", txId)
             .maybeSingle();
 
@@ -58,25 +60,25 @@ export const Route = createFileRoute("/api/mpesa-status")({
             return json({ status: "pending" });
           }
 
-          const ts = new Date().toISOString().replace(/[-:T.Z]/g, "").slice(0, 14);
+          const ts = new Date()
+            .toISOString()
+            .replace(/[-:T.Z]/g, "")
+            .slice(0, 14);
           const password = btoa(`${shortcode}${passkey}${ts}`);
 
-          const queryRes = await fetch(
-            mpesaUrls.stkQuery,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${access_token}`,
-              },
-              body: JSON.stringify({
-                BusinessShortCode: shortcode,
-                Password: password,
-                Timestamp: ts,
-                CheckoutRequestID: tx.mpesa_checkout_id,
-              }),
+          const queryRes = await fetch(mpesaUrls.stkQuery, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${access_token}`,
             },
-          );
+            body: JSON.stringify({
+              BusinessShortCode: shortcode,
+              Password: password,
+              Timestamp: ts,
+              CheckoutRequestID: tx.mpesa_checkout_id,
+            }),
+          });
 
           const queryData = (await queryRes.json()) as {
             ResultCode?: string;
@@ -112,5 +114,3 @@ export const Route = createFileRoute("/api/mpesa-status")({
     },
   },
 });
-
-

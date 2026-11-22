@@ -1,9 +1,6 @@
 // Fake Daraja for tests (review decision E4). A drop-in `fetch` that answers STK Query / OAuth
 // from a script, so reconcile and route logic can be exercised without the network.
-export type FakeStkReply =
-  | { ResultCode: string | number }
-  | { errorCode: string }
-  | "throw";
+export type FakeStkReply = { ResultCode: string | number } | { errorCode: string } | "throw";
 
 export function fakeDaraja(replies: Record<string, FakeStkReply>) {
   const calls: Array<{ url: string; checkoutId?: string }> = [];

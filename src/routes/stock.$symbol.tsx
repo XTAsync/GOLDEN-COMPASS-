@@ -27,10 +27,9 @@ interface CompanyInfo {
   };
 }
 
-
 export const Route = createFileRoute("/stock/$symbol")({
   validateSearch: (search: Record<string, unknown>) => ({
-    exchange: typeof search['exchange'] === "string" ? search['exchange'] : undefined,
+    exchange: typeof search["exchange"] === "string" ? search["exchange"] : undefined,
   }),
   head: ({ params }) => {
     const sym = params.symbol.toUpperCase();
@@ -92,39 +91,42 @@ function StockDetail() {
   const fmt = (v?: number | null) =>
     v == null ? "—" : v.toLocaleString(undefined, { maximumFractionDigits: 2 });
   const dayChangeValue =
-    quote && quote.change_pct !== 0
-      ? quote.price - quote.price / (1 + quote.change_pct / 100)
-      : 0;
-
+    quote && quote.change_pct !== 0 ? quote.price - quote.price / (1 + quote.change_pct / 100) : 0;
 
   const card: React.CSSProperties = {
-    padding: 14,
+    padding: 16,
     borderRadius: 16,
-    border: "1px solid rgba(201,168,76,0.22)",
-    background: "rgba(255,255,255,0.04)",
+    border: "1px solid var(--hairline-strong)",
+    background: "var(--ink-3)",
   };
 
   return (
-    <div className="flex flex-col" style={{ minHeight: "100%" }}>
-      <header style={{ padding: "20px 20px 10px" }}>
-        <Link to="/trade" className="t-mono t-sec" style={{ fontSize: 9, letterSpacing: "0.12em" }}>
+    <div className="page enter flex flex-col">
+      <header className="mb-4">
+        <Link to="/trade" className="tx-2" style={{ fontSize: 12 }}>
           ← BACK TO TRADE
         </Link>
-        <div className="flex items-start justify-between" style={{ marginTop: 10 }}>
+        <div className="flex items-start justify-between" style={{ marginTop: 12 }}>
           <div>
-            <h1 className="t-display t-gold" style={{ fontSize: 22 }}>{sym}</h1>
-            <p className="t-serif t-muted" style={{ fontSize: 12 }}>
+            <h1 className="t-title">{sym}</h1>
+            <p className="tx-3" style={{ fontSize: 12 }}>
               {info?.name ?? lookupSymbol(sym)?.name ?? "—"}
             </p>
-            <span className="t-mono t-sec" style={{ fontSize: 9, letterSpacing: "0.12em" }}>
+            <span className="tx-2" style={{ fontSize: 12 }}>
               {exchange}
             </span>
           </div>
           <button
             onClick={() => (watched ? remove(watched.id) : add(sym, exchange))}
             aria-label={watched ? "Remove from watchlist" : "Add to watchlist"}
-            className="t-gold"
-            style={{ background: "none", border: "none", fontSize: 24, cursor: "pointer", opacity: watched ? 1 : 0.5 }}
+            className="tx-accent"
+            style={{
+              background: "none",
+              border: "none",
+              fontSize: 24,
+              cursor: "pointer",
+              opacity: watched ? 1 : 0.5,
+            }}
           >
             <Star size={18} fill={watched ? "currentColor" : "none"} />
           </button>
@@ -132,42 +134,39 @@ function StockDetail() {
 
         {quote ? (
           <div className="flex items-baseline gap-3 flex-wrap" style={{ marginTop: 8 }}>
-            <span className="t-serif t-parch" style={{ fontSize: 28 }}>
+            <span className="tx-1" style={{ fontSize: 28 }}>
               {quote.currency} {fmt(quote.price)}
             </span>
             <span
-              className="t-mono"
               title="Change since the previous close"
-              style={{ fontSize: 13, color: quote.change_pct >= 0 ? "rgb(120,200,140)" : "rgb(220,120,120)" }}
+              style={{ fontSize: 13, color: quote.change_pct >= 0 ? "var(--gain)" : "var(--loss)" }}
             >
               {dayChangeValue >= 0 ? "+" : "−"}
               {fmt(Math.abs(dayChangeValue))} ({quote.change_pct >= 0 ? "+" : ""}
               {quote.change_pct.toFixed(2)}%)
             </span>
             <span
-              className="t-mono"
               style={{
-                fontSize: 9,
-                letterSpacing: "0.12em",
-                padding: "3px 7px",
+                fontSize: 12,
+                padding: "4px 8px",
                 borderRadius: 999,
-                border: `1px solid ${quote.simulated ? "rgba(220,170,90,0.45)" : "rgba(120,200,140,0.45)"}`,
-                background: quote.simulated ? "rgba(220,170,90,0.12)" : "rgba(120,200,140,0.12)",
-                color: quote.simulated ? "rgb(235,200,130)" : "rgb(150,220,170)",
+                border: `1px solid ${quote.simulated ? "var(--warn)" : "var(--gain)"}`,
+                background: "transparent",
+                color: quote.simulated ? "var(--warn)" : "var(--gain)",
               }}
             >
-              {quote.simulated ? "SIMULATED" : "LIVE"}
+              {quote.simulated ? "Simulated" : "Live"}
             </span>
           </div>
         ) : (
-          <div className="flex items-center gap-3" style={{ marginTop: 10 }}>
+          <div className="flex items-center gap-3" style={{ marginTop: 12 }}>
             <div className="skeleton rounded-lg" style={{ height: 26, width: 150 }} />
             <div className="skeleton rounded-lg" style={{ height: 16, width: 110 }} />
           </div>
         )}
       </header>
 
-      <div className="flex flex-col gap-3" style={{ padding: "6px 16px 24px" }}>
+      <div className="flex flex-col gap-3" style={{ padding: "8px 16px 24px" }}>
         <div style={card}>
           <CandlestickChart
             bars={bars}
@@ -179,10 +178,9 @@ function StockDetail() {
           />
         </div>
 
-
         <div style={card}>
-          <p className="t-mono t-sec" style={{ fontSize: 9, letterSpacing: "0.18em", marginBottom: 10 }}>
-            TECHNICALS
+          <p className="tx-2" style={{ fontSize: 12, marginBottom: 12 }}>
+            Technicals
           </p>
           <div className="grid grid-cols-2 gap-3">
             <Stat label="Day range" value={`${fmt(dayLow)} – ${fmt(dayHigh)}`} />
@@ -200,8 +198,8 @@ function StockDetail() {
         </div>
 
         <div style={card}>
-          <p className="t-mono t-sec" style={{ fontSize: 9, letterSpacing: "0.18em", marginBottom: 10 }}>
-            COMPANY PROFILE
+          <p className="tx-2" style={{ fontSize: 12, marginBottom: 12 }}>
+            Company profile
           </p>
           {info?.available ? (
             <div className="grid grid-cols-2 gap-3">
@@ -213,10 +211,17 @@ function StockDetail() {
                 value={info.market_cap != null ? `${fmt(info.market_cap)}M` : "—"}
               />
               <Stat label="P/E (TTM)" value={fmt(info.metrics?.pe_ratio)} />
-              <Stat label="Dividend yield" value={info.metrics?.dividend_yield != null ? `${fmt(info.metrics.dividend_yield)}%` : "—"} />
+              <Stat
+                label="Dividend yield"
+                value={
+                  info.metrics?.dividend_yield != null
+                    ? `${fmt(info.metrics.dividend_yield)}%`
+                    : "—"
+                }
+              />
             </div>
           ) : (
-            <p className="t-serif t-muted" style={{ fontSize: 12 }}>
+            <p className="tx-3" style={{ fontSize: 12 }}>
               {info?.unavailable_reason ?? "Fundamentals are not available for this exchange yet."}
             </p>
           )}
@@ -224,8 +229,13 @@ function StockDetail() {
 
         <Link
           to="/trade"
-          className="btn-brass"
-          style={{ textAlign: "center", padding: "12px 16px", fontSize: 11, textDecoration: "none" }}
+          className="btn-primary"
+          style={{
+            textAlign: "center",
+            padding: "12px 16px",
+            fontSize: 12,
+            textDecoration: "none",
+          }}
         >
           Trade {sym}
         </Link>
@@ -237,10 +247,12 @@ function StockDetail() {
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <p className="t-mono t-muted" style={{ fontSize: 9, letterSpacing: "0.1em", textTransform: "uppercase" }}>
+      <p className="tx-3" style={{ fontSize: 12 }}>
         {label}
       </p>
-      <p className="t-serif t-parch" style={{ fontSize: 13 }}>{value}</p>
+      <p className="tx-1" style={{ fontSize: 13 }}>
+        {value}
+      </p>
     </div>
   );
 }

@@ -1,10 +1,8 @@
 import { createFileRoute, Link, Navigate } from "@tanstack/react-router";
 import { useAuth } from "@/hooks/useAuth";
-import { TiltCard } from "@/components/TiltCard";
 import { Sparkline } from "@/components/Sparkline";
 import { useQuotes } from "@/lib/quote-client";
 import { symbolsByCategory, type SymbolEntry } from "@/lib/symbols";
-import { Globe } from "lucide-react";
 
 export const Route = createFileRoute("/markets")({
   head: () => ({
@@ -28,10 +26,22 @@ export const Route = createFileRoute("/markets")({
 });
 
 const GROUPS: { title: string; caption: string; entries: SymbolEntry[] }[] = [
-  { title: "NSE MOVERS", caption: "Nairobi Securities Exchange", entries: symbolsByCategory("nse").slice(0, 8) },
-  { title: "GLOBAL INDICES", caption: "Broad-market equity ETFs", entries: symbolsByCategory("index") },
-  { title: "GLOBAL TECH", caption: "Large-cap technology", entries: symbolsByCategory("tech") },
-  { title: "AFRICAN BLUE CHIPS", caption: "NGX · JSE · GSE", entries: symbolsByCategory("africa").slice(0, 8) },
+  {
+    title: "NSE movers",
+    caption: "Nairobi Securities Exchange",
+    entries: symbolsByCategory("nse").slice(0, 8),
+  },
+  {
+    title: "Global indices",
+    caption: "Broad-market equity ETFs",
+    entries: symbolsByCategory("index"),
+  },
+  { title: "Global tech", caption: "Large-cap technology", entries: symbolsByCategory("tech") },
+  {
+    title: "African blue chips",
+    caption: "NGX, JSE and GSE",
+    entries: symbolsByCategory("africa").slice(0, 8),
+  },
 ];
 
 function MarketsPage() {
@@ -40,36 +50,17 @@ function MarketsPage() {
   if (!user) return <Navigate to="/login" />;
 
   return (
-    <div className="flex flex-col" style={{ minHeight: "100%" }}>
-      <header style={{ padding: "20px 20px 8px" }}>
-        <div className="flex items-center gap-3">
-          <Globe size={28} strokeWidth={1.5} className="t-gold" />
-          <div>
-            <h1 className="t-display t-gold" style={{ fontSize: 18 }}>Markets</h1>
-            <p className="t-mono t-muted" style={{ fontSize: 9, letterSpacing: "0.1em" }}>
-              AFRICAN &amp; GLOBAL EQUITIES
-            </p>
-          </div>
-        </div>
+    <div className="page enter">
+      <header className="mb-6">
+        <h1 className="t-title">Markets</h1>
+        <p className="tx-2 mt-1">African and global equities</p>
       </header>
 
-      <div className="flex flex-col gap-5" style={{ padding: "8px 0 24px" }}>
-        <p
-          className="t-mono"
-          style={{
-            margin: "0 16px",
-            padding: "8px 12px",
-            borderRadius: 10,
-            border: "1px solid rgba(220,170,90,0.35)",
-            background: "rgba(220,170,90,0.10)",
-            color: "rgb(235,200,130)",
-            fontSize: 9,
-            letterSpacing: "0.08em",
-          }}
-        >
-          SIMULATED TRADING — PRICES MAY BE SANDBOX DATA
-        </p>
+      <p className="surface t-status mb-6" style={{ padding: "12px 16px" }}>
+        Simulated trading. Prices may be sandbox data.
+      </p>
 
+      <div className="flex flex-col gap-8">
         {GROUPS.map((g) => (
           <MarketRow key={g.title} title={g.title} caption={g.caption} entries={g.entries} />
         ))}
@@ -87,36 +78,43 @@ function MarketRow({
   caption: string;
   entries: SymbolEntry[];
 }) {
-  const { quotes } = useQuotes(entries.map((e) => ({ symbol: e.symbol, exchange: e.exchange })), 45_000);
+  const { quotes } = useQuotes(
+    entries.map((e) => ({ symbol: e.symbol, exchange: e.exchange })),
+    45_000,
+  );
 
   return (
     <section className="flex flex-col gap-2">
-      <div style={{ padding: "0 16px" }}>
-        <h2 className="t-mono t-sec" style={{ fontSize: 9, letterSpacing: "0.18em" }}>{title}</h2>
-        <p className="t-serif t-muted" style={{ fontSize: 11 }}>{caption}</p>
+      <div>
+        <h2 className="t-heading">{title}</h2>
+        <p className="tx-3 t-label">{caption}</p>
       </div>
-      <div
-        className="flex gap-3 overflow-x-auto"
-        style={{ padding: "4px 16px 8px", scrollSnapType: "x mandatory" }}
-      >
+      <div className="market-row">
         {entries.map((e) => {
           const state = quotes[e.symbol.toUpperCase()];
           const q = state?.quote;
           const up = (q?.change_pct ?? 0) >= 0;
-          const color = up ? "rgb(120,200,140)" : "rgb(220,120,120)";
+          const color = up ? "var(--gain)" : "var(--loss)";
           return (
-            <TiltCard key={`${e.symbol}-${e.exchange}`} className="shrink-0" max={6}>
+            <div key={`${e.symbol}-${e.exchange}`} className="market-cell">
               <Link
                 to="/stock/$symbol"
                 params={{ symbol: e.symbol }}
                 search={{ exchange: e.exchange }}
-                className="glass-gold flex flex-col rounded-2xl"
-                style={{ width: 156, padding: 12, textDecoration: "none", scrollSnapAlign: "start" }}
+                className="surface-raised flex flex-col"
+                style={{ padding: 12, textDecoration: "none" }}
               >
-                <span className="t-display t-gold" style={{ fontSize: 14 }}>{e.symbol}</span>
+                <span className="tx-1" style={{ fontWeight: 600 }}>
+                  {e.symbol}
+                </span>
                 <span
-                  className="t-serif t-muted"
-                  style={{ fontSize: 10, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}
+                  className="tx-3"
+                  style={{
+                    fontSize: 12,
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
                 >
                   {e.name}
                 </span>
@@ -127,14 +125,16 @@ function MarketRow({
                     <div className="skeleton w-full h-full rounded-lg" />
                   )}
                 </div>
-                <span className="t-serif t-parch" style={{ fontSize: 13 }}>
-                  {q ? `${q.currency} ${q.price.toLocaleString(undefined, { maximumFractionDigits: 2 })}` : "—"}
+                <span className="tx-1">
+                  {q
+                    ? `${q.currency} ${q.price.toLocaleString(undefined, { maximumFractionDigits: 2 })}`
+                    : "—"}
                 </span>
-                <span className="t-mono" style={{ fontSize: 10, color }}>
+                <span className="t-status" style={{ color }}>
                   {q ? `${up ? "+" : ""}${q.change_pct.toFixed(2)}%` : "loading…"}
                 </span>
               </Link>
-            </TiltCard>
+            </div>
           );
         })}
       </div>
