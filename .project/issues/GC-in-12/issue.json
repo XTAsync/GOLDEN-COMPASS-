@@ -1,0 +1,15 @@
+{
+  "id": "GC-in-12",
+  "title": "[T15] M-Pesa go-live: set MPESA_CALLBACK_SECRET, Mike's compliance sign-off, broker credentials",
+  "type": "task",
+  "status": "todo",
+  "priority": "medium",
+  "assignee": "jb.d.nika@gmail.com",
+  "labels": [
+    "loop",
+    "needs-human"
+  ],
+  "parent": null,
+  "created": "2026-11-26T04:20:09.725Z",
+  "updated": "2026-11-26T04:20:09.725Z"
+}

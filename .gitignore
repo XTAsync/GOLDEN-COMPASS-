@@ -36,3 +36,9 @@ dist-ssr
 .env.*
 !.env.example
 .vercel
+.project/issues_index.json
+.project/.version-check-ts
+
+# loop runtime
+loop/runs/
+loop/state/

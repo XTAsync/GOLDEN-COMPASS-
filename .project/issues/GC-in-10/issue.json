@@ -1,0 +1,15 @@
+{
+  "id": "GC-in-10",
+  "title": "[T13] Decide net payout rounding (Math.floor leaves up to KES 0.99 unpaid)",
+  "type": "task",
+  "status": "todo",
+  "priority": "medium",
+  "assignee": "jb.d.nika@gmail.com",
+  "labels": [
+    "loop",
+    "needs-human"
+  ],
+  "parent": null,
+  "created": "2026-11-26T04:20:09.723Z",
+  "updated": "2026-11-26T04:20:09.723Z"
+}

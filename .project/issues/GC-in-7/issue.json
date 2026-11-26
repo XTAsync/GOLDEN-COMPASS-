@@ -1,0 +1,15 @@
+{
+  "id": "GC-in-7",
+  "title": "[T10] P1: durable rate limiter for money endpoints (replace in-memory Map)",
+  "type": "task",
+  "status": "todo",
+  "priority": "medium",
+  "assignee": "jb.d.nika@gmail.com",
+  "labels": [
+    "loop",
+    "needs-human"
+  ],
+  "parent": null,
+  "created": "2026-11-26T04:20:09.719Z",
+  "updated": "2026-11-26T04:20:09.719Z"
+}

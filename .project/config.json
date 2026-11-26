@@ -1,0 +1,12 @@
+{
+  "name": "Golden Compass",
+  "prefix": "GC",
+  "nextId": 1,
+  "statuses": ["backlog", "todo", "in-progress", "review", "done"],
+  "types": ["feature", "bug", "task", "epic"],
+  "priorities": ["critical", "high", "medium", "low"],
+  "labels": ["ui", "backend", "docs", "security", "performance", "devops"],
+  "team": [
+    {"name": "Indra", "email": "jb.d.nika@gmail.com", "slug": "in"}
+  ]
+}

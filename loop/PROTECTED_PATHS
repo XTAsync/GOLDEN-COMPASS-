@@ -1,0 +1,15 @@
+# One extended-regex per line. A match anywhere in the worker's diff fails the iteration.
+# New money / RLS / M-Pesa work is a risk:high task for a human, not for the unattended loop.
+^supabase/
+^drizzle/
+^drizzle\.config\.ts
+^\.env
+^\.github/
+^package(-lock)?\.json$|^bun\.lock|^pnpm-lock\.yaml
+^vite\.config\.ts|^tsconfig\.json
+^src/routes/api/(mpesa|withdraw|admin-resolve|wallet-invest)
+^src/lib/(mpesa|daraja|ledger|fees|limits|aml|mfa|auth)[^/]*\.server\.ts$
+^CLAUDE\.md$|^AGENTS\.md$|^roadmap\.md$|^docs/
+^\.claude/
+^\.project/(server\.ts|hooks|skills|ui|config\.json|VERSION)
+^loop/(loop\.sh|guard\.sh|check\.sh|tracker\.mjs|PROTECTED_PATHS|LINT_BASELINE|TASKS\.md|prompts/)
