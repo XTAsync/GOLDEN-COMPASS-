@@ -5,6 +5,12 @@
       "title": "Steering Files",
       "order": 1,
       "parent": null
+    },
+    {
+      "slug": "loop",
+      "title": "The Golden Compass loop",
+      "order": 2,
+      "parent": null
     }
   ]
 }

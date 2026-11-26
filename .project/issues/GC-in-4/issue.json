@@ -1,0 +1,15 @@
+{
+  "id": "GC-in-4",
+  "title": "[T04] Roadmap 3: shared accessible UI primitives audit: focus rings, aria labels, contrast tokens on buttons, inputs, dialogs",
+  "type": "task",
+  "status": "todo",
+  "priority": "medium",
+  "assignee": "noreply@anthropic.com",
+  "labels": [
+    "loop",
+    "skip-docs"
+  ],
+  "parent": null,
+  "created": "2026-11-26T04:20:09.716Z",
+  "updated": "2026-11-26T04:20:09.716Z"
+}

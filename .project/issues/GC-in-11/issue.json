@@ -1,0 +1,15 @@
+{
+  "id": "GC-in-11",
+  "title": "[T14] P2: untrack .env, add .env.example; delete stray npm-publish workflow",
+  "type": "task",
+  "status": "todo",
+  "priority": "medium",
+  "assignee": "noreply@anthropic.com",
+  "labels": [
+    "loop",
+    "needs-human"
+  ],
+  "parent": null,
+  "created": "2026-11-26T04:20:09.724Z",
+  "updated": "2026-11-26T04:20:09.724Z"
+}

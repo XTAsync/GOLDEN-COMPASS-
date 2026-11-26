@@ -1,0 +1,15 @@
+{
+  "id": "GC-in-1",
+  "title": "[T01] Fix the 5 existing eslint errors (Sparkline conditional useId hook; explicit any in kyc.tsx, money-client.ts, useNotifications.tsx, Sparkline.tsx)",
+  "type": "task",
+  "status": "todo",
+  "priority": "medium",
+  "assignee": "noreply@anthropic.com",
+  "labels": [
+    "loop",
+    "skip-docs"
+  ],
+  "parent": null,
+  "created": "2026-11-26T04:20:09.705Z",
+  "updated": "2026-11-26T04:20:09.705Z"
+}

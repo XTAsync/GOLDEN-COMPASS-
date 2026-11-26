@@ -34,5 +34,10 @@ Don't emit stub sections like "Acceptance criteria: TBD". Include a section only
 
 When you change `ui/`, `server.ts`, `CLAUDE.md`, or `demo/.project/skills/`, sync to `template/` — see the steering page for exact commands. Also run `/bump-version` so existing installs get notified by the update-check hook.
 
+
+## Automated loop
+
+Unattended work runs through `loop/` (see `.project/wiki/pages/loop.md`). Inside a loop run the issue is already open: do not create or edit issues. Humans move loop issues from `review` to `done`.
+
 > **Reminder:** issue → implement → document → ask → done. Never skip documentation.
 <!-- /.project -->

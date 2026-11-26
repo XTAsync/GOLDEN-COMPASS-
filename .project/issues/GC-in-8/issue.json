@@ -1,0 +1,15 @@
+{
+  "id": "GC-in-8",
+  "title": "[T11] P1: server-side audit log writes (remove browser audit insert in admin.kyc.tsx)",
+  "type": "task",
+  "status": "todo",
+  "priority": "medium",
+  "assignee": "noreply@anthropic.com",
+  "labels": [
+    "loop",
+    "needs-human"
+  ],
+  "parent": null,
+  "created": "2026-11-26T04:20:09.720Z",
+  "updated": "2026-11-26T04:20:09.720Z"
+}

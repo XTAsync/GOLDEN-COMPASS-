@@ -1,0 +1,15 @@
+{
+  "id": "GC-in-9",
+  "title": "[T12] Deposit race: store mpesa_checkout_id before STK push; reconciliation job for stuck processing/pending rows",
+  "type": "task",
+  "status": "todo",
+  "priority": "medium",
+  "assignee": "noreply@anthropic.com",
+  "labels": [
+    "loop",
+    "needs-human"
+  ],
+  "parent": null,
+  "created": "2026-11-26T04:20:09.722Z",
+  "updated": "2026-11-26T04:20:09.722Z"
+}
