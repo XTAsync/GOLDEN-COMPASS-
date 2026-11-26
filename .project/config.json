@@ -7,6 +7,6 @@
   "priorities": ["critical", "high", "medium", "low"],
   "labels": ["ui", "backend", "docs", "security", "performance", "devops"],
   "team": [
-    {"name": "noreply", "email": "noreply@anthropic.com", "slug": "in"}
+    {"name": "Indra", "email": "jb.d.nika@gmail.com", "slug": "in"}
   ]
 }
