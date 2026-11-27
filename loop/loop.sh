@@ -92,6 +92,11 @@ $(cat "$ST/feedback-$id" 2>/dev/null)"
     --disallowedTools "Bash(git push:*),Bash(git reset:*),Bash(git checkout:*),Bash(git commit:*),Bash(rm -rf:*),Bash(curl:*),Bash(supabase:*),Bash(npm install:*)" \
     > "$rd/worker.out" 2>&1
   log "worker exit $?"
+  if grep -qiE "hit your .*limit|usage limit|rate limit|overloaded" "$rd/worker.out" "$rd/verifier.out" 2>/dev/null; then
+    git reset -q --hard "$base"; git clean -fdq -- . "${EXCL[@]}"; echo $((att-1)) > "$att_file"
+    trk start "$id" "$title" "$crit" >/dev/null
+    stop "Claude usage/rate limit hit ($(head -c 120 "$rd/worker.out" | tr '\n' ' ')). Attempt not counted; rerun after the reset." 5
+  fi
 
   [ -z "$(git status --porcelain -- . "${EXCL[@]}")" ] && { fail "worker made no changes" worker; continue; }
   bash "$L/guard.sh" > "$rd/guard.out" 2>&1 || { fail "guard: $(grep -m1 -E 'PROTECTED|TOO MANY|SECRET' "$rd/guard.out")" guard; continue; }

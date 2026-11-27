@@ -8,4 +8,4 @@
 
 Details: `.project/wiki/pages/loop.md`. Needs: bash, git, node, `claude` CLI, `timeout`. Run on a clean tree; it works on branch `claude/loop`, never `main`.
 Verify CLI flags first with `claude --help` (-p, --max-turns, --allowedTools, --disallowedTools, --permission-mode).
-Exit codes: 0 done/budget, 2 preflight, 3 stuck, 4 human needed.
+Exit codes: 0 done/budget, 2 preflight, 3 stuck, 4 human needed, 5 Claude usage limit (attempt not counted; rerun after reset).
