@@ -2,7 +2,7 @@
   "id": "GC-in-2",
   "title": "[T02] Unit tests for fee and limit math (fees.server.ts, limits.server.ts) without editing them",
   "type": "task",
-  "status": "todo",
+  "status": "review",
   "priority": "medium",
   "assignee": "jb.d.nika@gmail.com",
   "labels": [
@@ -11,5 +11,5 @@
   ],
   "parent": null,
   "created": "2026-11-26T04:20:09.707Z",
-  "updated": "2026-11-26T04:20:09.707Z"
+  "updated": "2026-11-27T22:33:53.589Z"
 }

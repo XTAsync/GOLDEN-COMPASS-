@@ -4,7 +4,7 @@
 # Humans: tick a risk:high task yourself ([x]) after doing it, or move it down the list.
 
 - [x] T01 | Fix the 5 existing eslint errors (Sparkline conditional useId hook; explicit any in kyc.tsx, money-client.ts, useNotifications.tsx, Sparkline.tsx) | eslint errors 5 -> 0; typecheck, tests, build pass; no behaviour change | risk:low max-files:6
-- [ ] T02 | Unit tests for fee and limit math (fees.server.ts, limits.server.ts) without editing them | new *.test.ts files only; cover boundaries, zero, rounding of Math.floor payout | risk:low max-files:6
+- [x] T02 | Unit tests for fee and limit math (fees.server.ts, limits.server.ts) without editing them | new *.test.ts files only; cover boundaries, zero, rounding of Math.floor payout | risk:low max-files:6
 - [ ] T03 | Unit tests for money-client and phone helpers edge cases | new tests only; no source change | risk:low max-files:6
 - [ ] T04 | Roadmap 3: shared accessible UI primitives audit: focus rings, aria labels, contrast tokens on buttons, inputs, dialogs | no new dependency; tests or a11y assertions added where practical | risk:low max-files:30
 - [ ] T05 | Roadmap 5: tested chart indicators (SMA, EMA, RSI, MACD, Bollinger, VWAP, ATR, stochastic) as pure functions | src/lib/indicators.ts plus tests; no UI wiring | risk:low max-files:8
