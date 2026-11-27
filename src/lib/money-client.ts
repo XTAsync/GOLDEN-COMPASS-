@@ -53,7 +53,7 @@ export async function fetchMoneyConfig(
   return (await res.json()) as MoneyConfig;
 }
 
-export type PostResult = { ok: boolean; status: number; data: Record<string, any> };
+export type PostResult = { ok: boolean; status: number; data: Record<string, unknown> };
 
 export async function postMoney(path: string, body: Record<string, unknown>): Promise<PostResult> {
   const t = await token();

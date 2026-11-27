@@ -86,8 +86,8 @@ function KycPage() {
       await supabase.from("profiles").update({ kyc_status: "pending" }).eq("id", user!.id);
       setSuccess(true);
       setTimeout(() => navigate({ to: "/profile" }), 1200);
-    } catch (err: any) {
-      setError(err.message || "Submission failed");
+    } catch (err: unknown) {
+      setError((err as { message?: string } | null)?.message || "Submission failed");
       setLoading(false);
     }
   };

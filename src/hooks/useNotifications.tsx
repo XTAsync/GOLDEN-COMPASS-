@@ -9,7 +9,7 @@ export interface Notification {
   type: string;
   title: string;
   body: string | null;
-  metadata: any;
+  metadata: unknown;
   read_at: string | null;
   created_at: string;
 }

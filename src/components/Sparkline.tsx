@@ -13,11 +13,11 @@ export function Sparkline({
   height = 60,
   color = "var(--gold)",
 }: SparklineProps) {
+  const gradientId = useId();
   if (data.length < 2) return null;
   const min = Math.min(...data);
   const max = Math.max(...data);
   const range = max - min || 1;
-  const gradientId = useId();
   const stepX = width / (data.length - 1);
 
   const points = data.map((v, i) => {
