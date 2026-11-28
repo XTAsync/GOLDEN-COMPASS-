@@ -2,6 +2,16 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 
+type PoolHoldingRow = Record<string, unknown> & {
+  created_at?: string | null;
+  investment_pools?: {
+    name?: string;
+    pool_type?: string | null;
+    exit_fee_percent?: number | string | null;
+    holding_period_days?: number | string | null;
+  } | null;
+};
+
 export interface PoolHolding {
   id: string;
   pool_id: string;
@@ -85,7 +95,7 @@ export function useAccountSummary(): AccountSummary {
       setPhone(String((profile as { phone?: string | null } | null)?.phone ?? ""));
 
       setPoolHoldings(
-        ((pools ?? []) as unknown as Array<Record<string, any>>).map((p) => ({
+        ((pools ?? []) as unknown as Array<PoolHoldingRow>).map((p) => ({
           id: String(p.id),
           pool_id: String(p.pool_id),
           name: p.investment_pools?.name ?? "Pool",

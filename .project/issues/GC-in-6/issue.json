@@ -2,7 +2,7 @@
   "id": "GC-in-6",
   "title": "[T06] Roadmap 4: market data provider interface + mock provider + watchlist types",
   "type": "task",
-  "status": "todo",
+  "status": "review",
   "priority": "medium",
   "assignee": "jb.d.nika@gmail.com",
   "labels": [
@@ -11,5 +11,5 @@
   ],
   "parent": null,
   "created": "2026-11-26T04:20:09.718Z",
-  "updated": "2026-11-26T04:20:09.718Z"
+  "updated": "2026-11-28T03:35:02.137Z"
 }

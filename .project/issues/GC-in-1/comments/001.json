@@ -1,0 +1,6 @@
+{
+  "id": "001",
+  "author": "Claude Code",
+  "content": "Verified by loop (attempt 1). WHAT CHANGED: Fixed all 5 eslint errors. Sparkline's `useId` now runs before the early return. `any` is replaced with `unknown` or typed shapes in kyc.tsx, money-client.ts, useNotifications.tsx and useAccountSummary.tsx. That last file was the fifth error, not Sparkline's second. HOW TO VERIFY: `npx eslint src --quiet` reports 0 errors. typecheck, `npm run test` (49 pass) and build are green. RISKS: Low, with no behaviour change. `Notification.metadata` and `PostResult.data` are now `unknown`, which typecheck accepts. ",
+  "created": "2026-11-27T22:31:13.005Z"
+}

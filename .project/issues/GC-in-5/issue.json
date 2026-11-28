@@ -2,7 +2,7 @@
   "id": "GC-in-5",
   "title": "[T05] Roadmap 5: tested chart indicators (SMA, EMA, RSI, MACD, Bollinger, VWAP, ATR, stochastic) as pure functions",
   "type": "task",
-  "status": "todo",
+  "status": "review",
   "priority": "medium",
   "assignee": "jb.d.nika@gmail.com",
   "labels": [
@@ -11,5 +11,5 @@
   ],
   "parent": null,
   "created": "2026-11-26T04:20:09.717Z",
-  "updated": "2026-11-26T04:20:09.717Z"
+  "updated": "2026-11-28T03:32:43.468Z"
 }
