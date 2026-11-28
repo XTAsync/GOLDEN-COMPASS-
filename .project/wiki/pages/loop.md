@@ -17,3 +17,7 @@ No open tasks; 15 iterations; 3 hours; 3 failures in a row; a risk:high task; `t
 
 ## Where to look
 `loop/README.md` (commands), `loop/TASKS.md` (queue), `loop/PROGRESS.md` (standing notes), `loop/runs/` (per-attempt logs, git-ignored).
+
+## Run log
+- 2026-11-28: first real run. T01-T06 passed all gates on the first attempt (eslint errors 5 -> 0, 126 tests, build green). Issues GC-in-1..6 are in `review`; move to `done` after reading the diffs. The loop then stopped at T10 (risk:high) as designed.
+- A Claude usage-limit hit stops the loop (exit 5) without counting an attempt; rerun after the reset.
