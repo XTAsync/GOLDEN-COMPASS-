@@ -1,0 +1,6 @@
+{
+  "id": "001",
+  "author": "Claude Code",
+  "content": "Done 2026-11-28: admin_review_kyc() writes record, profile and audit row in one transaction; browser roles lose INSERT on audit_logs. Independent review found no escalation; NITs fixed.",
+  "created": "2026-11-28T09:09:00.923Z"
+}

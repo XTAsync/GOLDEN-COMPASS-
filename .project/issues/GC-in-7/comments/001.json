@@ -1,0 +1,6 @@
+{
+  "id": "001",
+  "author": "Claude Code",
+  "content": "Done 2026-11-28 (attended, not loop): rate_limit_hit() + rate_limit_hits, rateLimitDurable() with in-memory fallback, per-IP on withdraw/STK. SQL + unit tests green.",
+  "created": "2026-11-28T09:09:00.817Z"
+}

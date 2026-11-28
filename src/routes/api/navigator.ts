@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { authenticateRequest } from "@/lib/auth.server";
-import { rateLimit } from "@/lib/rate-limit.server";
+import { rateLimitDurable } from "@/lib/rate-limit.server";
 
 // POST /api/navigator  { messages: [{ role: "user" | "assistant", content: string }] }
 // Streams an education-only answer from Gemini (OpenAI-compatible SSE). It sees no user data:
@@ -44,7 +44,7 @@ export const Route = createFileRoute("/api/navigator")({
       POST: async ({ request }) => {
         const auth = await authenticateRequest(request);
         if (auth instanceof Response) return auth;
-        if (!rateLimit(`navigator:${auth.userId}`, 10, 60_000)) {
+        if (!(await rateLimitDurable(`navigator:${auth.userId}`, 10, 60_000))) {
           return Response.json({ error: "Too many requests" }, { status: 429 });
         }
         const apiKey = process.env.GEMINI_API_KEY;

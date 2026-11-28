@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { rateLimit } from "@/lib/rate-limit.server";
+import { rateLimitDurable } from "@/lib/rate-limit.server";
 import { authenticateRequest, json } from "@/lib/auth.server";
 import { resolveHeldDeposit } from "@/lib/ledger.server";
 
@@ -12,7 +12,7 @@ export const Route = createFileRoute("/api/admin-resolve-deposit")({
           const auth = await authenticateRequest(request);
           if (auth instanceof Response) return auth;
           const { userId } = auth;
-          if (!rateLimit(`resolve:${userId}`, 20, 60_000))
+          if (!(await rateLimitDurable(`resolve:${userId}`, 20, 60_000)))
             return json({ error: "Too many requests" }, 429);
 
           const body = (await request.json()) as { transaction_id?: string; receipt?: string };

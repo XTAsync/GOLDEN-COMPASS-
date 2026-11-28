@@ -13,6 +13,7 @@
     "test": "vitest run",
     "format": "prettier --write .",
     "test:sql": "bash scripts/test-sql.sh",
+    "test:sql:scratch": "bash scripts/sql-scratch.sh",
     "test:concurrency": "bash scripts/test-concurrency.sh"
   },
   "dependencies": {

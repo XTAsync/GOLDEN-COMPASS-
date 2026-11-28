@@ -1,0 +1,6 @@
+{
+  "id": "001",
+  "author": "Claude Code",
+  "content": "Already fixed before this session: callback inbox + attach_checkout_id (20261027120000), reconcile-deposits job, stuck-processing alert. Checklist in docs updated; true concurrency test passes.",
+  "created": "2026-11-28T09:09:01.022Z"
+}

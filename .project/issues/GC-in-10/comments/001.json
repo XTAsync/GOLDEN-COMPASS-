@@ -1,0 +1,6 @@
+{
+  "id": "001",
+  "author": "Claude Code",
+  "content": "Decided by owner: round the fee up. Already implemented in quote_withdrawal (whole-shilling gross, fee = ceil), tested as E7. No code change; docs corrected.",
+  "created": "2026-11-28T09:12:06.070Z"
+}
