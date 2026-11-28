@@ -1,0 +1,6 @@
+{
+  "id": "001",
+  "author": "Claude Code",
+  "content": "Verified by loop (attempt 1). D: Added `src/lib/indicators.ts` with pure SMA, EMA, RSI, MACD, Bollinger, VWAP, ATR and stochastic functions. Outputs are null-padded and align 1:1 with the input. Added `src/lib/indicators.test.ts`. No UI wiring. HOW TO VERIFY: `npx vitest run src/lib/indicators.test.ts`. Typecheck and eslint on both files were clean, and all 14 test files (122 tests) passed. RISKS: Low. The new code is isolated and unused. It uses Wilder smoothing for RSI and ATR and population standard deviation for Bollinger, so values may differ slightly from other charting tools. ",
+  "created": "2026-11-28T03:32:43.423Z"
+}
