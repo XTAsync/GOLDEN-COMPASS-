@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { rateLimit } from "@/lib/rate-limit.server";
+import { rateLimitDurable } from "@/lib/rate-limit.server";
 import { authenticateRequest, json } from "@/lib/auth.server";
 import { requireFreshAal2 } from "@/lib/mfa.server";
 import { checkTransactionLimit } from "@/lib/limits.server";
@@ -20,7 +20,7 @@ export const Route = createFileRoute("/api/wallet-invest")({
           const authResult = await authenticateRequest(request);
           if (authResult instanceof Response) return authResult;
           const { userId, claims } = authResult;
-          if (!rateLimit(`invest:${userId}`, 10, 60_000))
+          if (!(await rateLimitDurable(`invest:${userId}`, 10, 60_000)))
             return json({ error: "Too many requests" }, 429);
 
           const mfaBlock = await requireFreshAal2(userId, claims);

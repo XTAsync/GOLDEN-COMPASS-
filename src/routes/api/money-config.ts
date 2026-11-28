@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { rateLimit } from "@/lib/rate-limit.server";
+import { rateLimitDurable } from "@/lib/rate-limit.server";
 import { authenticateRequest } from "@/lib/auth.server";
 import { moneyConfig } from "@/lib/ledger.server";
 
@@ -17,7 +17,7 @@ export const Route = createFileRoute("/api/money-config")({
         const auth = await authenticateRequest(request);
         if (auth instanceof Response) return auth;
         const { userId } = auth;
-        if (!rateLimit(`money-config:${userId}`, 30, 60_000)) {
+        if (!(await rateLimitDurable(`money-config:${userId}`, 30, 60_000))) {
           return Response.json({ error: "Too many requests" }, { status: 429, headers: noStore });
         }
         const url = new URL(request.url);

@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { rateLimit } from "@/lib/rate-limit.server";
+import { clientIp, rateLimitDurable } from "@/lib/rate-limit.server";
 import { normaliseKenyanPhone } from "@/lib/phone";
 import { authenticateRequest, json } from "@/lib/auth.server";
 import { requireFreshAal2 } from "@/lib/mfa.server";
@@ -28,7 +28,11 @@ export const Route = createFileRoute("/api/withdraw-request")({
               { error: "Real withdrawals are disabled pending compliance approval." },
               403,
             );
-          if (!rateLimit(userId, 5, 60_000)) return json({ error: "Too many requests" }, 429);
+          if (
+            !(await rateLimitDurable(`withdraw:${userId}`, 5, 60_000)) ||
+            !(await rateLimitDurable(`withdraw-ip:${clientIp(request)}`, 20, 60_000))
+          )
+            return json({ error: "Too many requests" }, 429);
 
           const mfaBlock = await requireFreshAal2(userId, claims);
           if (mfaBlock) return mfaBlock;

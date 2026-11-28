@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { rateLimit } from "@/lib/rate-limit.server";
+import { clientIp, rateLimitDurable } from "@/lib/rate-limit.server";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { normaliseKenyanPhone } from "@/lib/phone";
 import { authenticateRequest, json } from "@/lib/auth.server";
@@ -24,7 +24,11 @@ export const Route = createFileRoute("/api/mpesa-stk")({
           if (!mayStartMpesaPayment(await isMpesaLiveEnabled())) {
             return json({ error: "M-Pesa payments are disabled in this environment." }, 403);
           }
-          if (!rateLimit(userId, 5, 60_000)) return json({ error: "Too many requests" }, 429);
+          if (
+            !(await rateLimitDurable(`stk:${userId}`, 5, 60_000)) ||
+            !(await rateLimitDurable(`stk-ip:${clientIp(request)}`, 20, 60_000))
+          )
+            return json({ error: "Too many requests" }, 429);
 
           const body = (await request.json()) as { amount?: number; phone?: string };
           const amount = Math.floor(Number(body.amount));
