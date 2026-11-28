@@ -3,10 +3,10 @@ DO $$
 DECLARE i int; ok boolean; n int;
 BEGIN
   FOR i IN 1..3 LOOP
-    IF NOT public.rate_limit_hit('t:a', 3, 3600) THEN RAISE EXCEPTION 'hit % should be allowed', i; END IF;
+    IF NOT public.rate_limit_hit('t:a', 3, 86400) THEN RAISE EXCEPTION 'hit % should be allowed', i; END IF;
   END LOOP;
-  IF public.rate_limit_hit('t:a', 3, 3600) THEN RAISE EXCEPTION '4th hit should be refused'; END IF;
-  IF NOT public.rate_limit_hit('t:b', 3, 3600) THEN RAISE EXCEPTION 'keys must be independent'; END IF;
+  IF public.rate_limit_hit('t:a', 3, 86400) THEN RAISE EXCEPTION '4th hit should be refused'; END IF;
+  IF NOT public.rate_limit_hit('t:b', 3, 86400) THEN RAISE EXCEPTION 'keys must be independent'; END IF;
   BEGIN PERFORM public.rate_limit_hit('', 3, 60); RAISE EXCEPTION 'empty key accepted';
   EXCEPTION WHEN raise_exception THEN IF SQLERRM = 'empty key accepted' THEN RAISE; END IF; END;
   BEGIN PERFORM public.rate_limit_hit('x', 0, 60); RAISE EXCEPTION 'zero max accepted';

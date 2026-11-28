@@ -9,7 +9,7 @@ BEGIN
   IF v_actor IS NULL OR NOT (public.has_role(v_actor, 'admin') OR public.has_role(v_actor, 'compliance')) THEN
     RAISE EXCEPTION 'not allowed' USING ERRCODE = '42501';
   END IF;
-  IF p_decision NOT IN ('approved', 'rejected') THEN RAISE EXCEPTION 'bad decision'; END IF;
+  IF p_decision IS NULL OR p_decision NOT IN ('approved', 'rejected') THEN RAISE EXCEPTION 'bad decision'; END IF;
   IF p_decision = 'rejected' AND length(btrim(coalesce(p_notes, ''))) = 0 THEN
     RAISE EXCEPTION 'a rejection reason is required';
   END IF;
@@ -25,6 +25,7 @@ BEGIN
      SET status = p_decision, reviewed_by = v_actor, review_notes = coalesce(p_notes, '')
    WHERE id = p_record_id;
   UPDATE public.profiles SET kyc_status = p_decision WHERE id = v_rec.user_id;
+  IF NOT FOUND THEN RAISE EXCEPTION 'profile not found for kyc record'; END IF;
 
   SELECT email INTO v_email FROM auth.users WHERE id = v_actor;
   INSERT INTO public.audit_logs (action, actor_email, entity_type, entity_id, metadata)

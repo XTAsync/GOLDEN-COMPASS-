@@ -1,6 +1,7 @@
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { clientIp, rateLimit, rateLimitDurable } from "./rate-limit.server";
 
+afterEach(() => vi.restoreAllMocks());
 const rpcOk = (allowed: boolean) => ({
   rpc: vi.fn().mockResolvedValue({ data: allowed, error: null }),
 });

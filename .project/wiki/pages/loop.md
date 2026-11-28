@@ -21,3 +21,5 @@ No open tasks; 15 iterations; 3 hours; 3 failures in a row; a risk:high task; `t
 ## Run log
 - 2026-11-28: first real run. T01-T06 passed all gates on the first attempt (eslint errors 5 -> 0, 126 tests, build green). Issues GC-in-1..6 are in `review`; move to `done` after reading the diffs. The loop then stopped at T10 (risk:high) as designed.
 - A Claude usage-limit hit stops the loop (exit 5) without counting an attempt; rerun after the reset.
+- 2026-11-28 (attended): T10 durable rate limiter and T11 audited KYC review done by hand because they change SQL and money endpoints. T12 and T14 were already done (docs were stale). Open: T13 payout rounding (product decision), T15 M-Pesa go-live (owner), and applying migrations 20261128090000 and 20261128100000 to golden-compass-prod.
+- `npm run test:sql:scratch` builds a throwaway Postgres from all migrations and runs the SQL and concurrency tests (needs a superuser role named postgres).

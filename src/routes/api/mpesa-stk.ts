@@ -26,7 +26,8 @@ export const Route = createFileRoute("/api/mpesa-stk")({
           }
           if (
             !(await rateLimitDurable(`stk:${userId}`, 5, 60_000)) ||
-            !(await rateLimitDurable(`stk-ip:${clientIp(request)}`, 20, 60_000))
+            (clientIp(request) !== "unknown" &&
+              !(await rateLimitDurable(`stk-ip:${clientIp(request)}`, 20, 60_000)))
           )
             return json({ error: "Too many requests" }, 429);
 

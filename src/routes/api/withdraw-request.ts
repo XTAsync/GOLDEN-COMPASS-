@@ -30,7 +30,8 @@ export const Route = createFileRoute("/api/withdraw-request")({
             );
           if (
             !(await rateLimitDurable(`withdraw:${userId}`, 5, 60_000)) ||
-            !(await rateLimitDurable(`withdraw-ip:${clientIp(request)}`, 20, 60_000))
+            (clientIp(request) !== "unknown" &&
+              !(await rateLimitDurable(`withdraw-ip:${clientIp(request)}`, 20, 60_000)))
           )
             return json({ error: "Too many requests" }, 429);
 

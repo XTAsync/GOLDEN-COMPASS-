@@ -49,7 +49,10 @@ export async function rateLimitDurable(
   }
 }
 
-/** Best-effort client IP behind Cloudflare / Vercel; "unknown" when no proxy header is present. */
+/**
+ * Best-effort client IP behind Cloudflare / Vercel; "unknown" when no proxy header is present.
+ * Callers must NOT apply a per-IP limit to "unknown" (everyone would share one bucket).
+ */
 export function clientIp(request: Request): string {
   const h = request.headers;
   const ip =
