@@ -1,0 +1,6 @@
+{
+  "id": "001",
+  "author": "Claude Code",
+  "content": "Verified by loop (attempt 1). WHAT CHANGED: Added `src/lib/market/` with `types.ts` (provider interface, instrument, quote and watchlist types), `mock-provider.ts` (deterministic, offline, built on `SYMBOLS`) and `mock-provider.test.ts` (4 tests). HOW TO VERIFY: `npm run typecheck`, `npx vitest run` (15 files, 126 tests pass) and `npx eslint src/lib/market` (clean). RISKS: Low. New files only and nothing imports them yet. Vitest prints a \"Vite servers won't exit\" warning after the run. ",
+  "created": "2026-11-28T03:35:02.102Z"
+}
