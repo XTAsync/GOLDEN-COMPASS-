@@ -12,7 +12,12 @@ export function rateLimit(key: string, maxRequests = 10, windowMs = 60_000): boo
   return true;
 }
 
-type RpcClient = { rpc: (fn: string, args: Record<string, unknown>) => PromiseLike<{ data: unknown; error: unknown }> };
+type RpcClient = {
+  rpc: (
+    fn: string,
+    args: Record<string, unknown>,
+  ) => PromiseLike<{ data: unknown; error: unknown }>;
+};
 
 /**
  * Shared (database-backed) fixed-window limiter, via rate_limit_hit(). Returns true when allowed.
@@ -26,13 +31,17 @@ export async function rateLimitDurable(
   client?: RpcClient,
 ): Promise<boolean> {
   try {
-    const c = client ?? ((await import("@/integrations/supabase/client.server")).supabaseAdmin as unknown as RpcClient);
+    const c =
+      client ??
+      ((await import("@/integrations/supabase/client.server"))
+        .supabaseAdmin as unknown as RpcClient);
     const { data, error } = await c.rpc("rate_limit_hit", {
       p_key: key,
       p_max: maxRequests,
       p_window_seconds: Math.max(1, Math.ceil(windowMs / 1000)),
     });
-    if (error || typeof data !== "boolean") throw error ?? new Error("unexpected rate_limit_hit result");
+    if (error || typeof data !== "boolean")
+      throw error ?? new Error("unexpected rate_limit_hit result");
     return data;
   } catch (err) {
     console.error("rate limiter fell back to in-memory:", err instanceof Error ? err.message : err);
@@ -43,6 +52,9 @@ export async function rateLimitDurable(
 /** Best-effort client IP behind Cloudflare / Vercel; "unknown" when no proxy header is present. */
 export function clientIp(request: Request): string {
   const h = request.headers;
-  const ip = h.get("cf-connecting-ip") || h.get("x-real-ip") || h.get("x-forwarded-for")?.split(",")[0]?.trim();
+  const ip =
+    h.get("cf-connecting-ip") ||
+    h.get("x-real-ip") ||
+    h.get("x-forwarded-for")?.split(",")[0]?.trim();
   return (ip || "unknown").slice(0, 64);
 }

@@ -1,13 +1,19 @@
 import { describe, expect, it, vi } from "vitest";
 import { clientIp, rateLimit, rateLimitDurable } from "./rate-limit.server";
 
-const rpcOk = (allowed: boolean) => ({ rpc: vi.fn().mockResolvedValue({ data: allowed, error: null }) });
+const rpcOk = (allowed: boolean) => ({
+  rpc: vi.fn().mockResolvedValue({ data: allowed, error: null }),
+});
 
 describe("rateLimitDurable", () => {
   it("uses the shared limiter and passes key, max and window seconds", async () => {
     const c = rpcOk(true);
     await expect(rateLimitDurable("withdraw:u1", 5, 60_000, c)).resolves.toBe(true);
-    expect(c.rpc).toHaveBeenCalledWith("rate_limit_hit", { p_key: "withdraw:u1", p_max: 5, p_window_seconds: 60 });
+    expect(c.rpc).toHaveBeenCalledWith("rate_limit_hit", {
+      p_key: "withdraw:u1",
+      p_max: 5,
+      p_window_seconds: 60,
+    });
   });
 
   it("refuses when the database says the key is over its limit", async () => {

@@ -86,18 +86,18 @@ function AdminKycPage() {
     setBusy(row.id);
     try {
       const notes = decision === "rejected" ? prompt("Rejection reason?") || "" : "";
-      await supabase
-        .from("kyc_records")
-        .update({ status: decision, reviewed_by: user!.id, review_notes: notes })
-        .eq("id", row.id);
-      await supabase.from("profiles").update({ kyc_status: decision }).eq("id", row.user_id);
-      await supabase.from("audit_logs").insert({
-        action: `kyc_${decision}`,
-        actor_email: user!.email,
-        entity_type: "kyc_record",
-        entity_id: row.id,
-        metadata: { user_id: row.user_id, notes },
+      const { data, error } = await supabase.rpc("admin_review_kyc", {
+        p_record_id: row.id,
+        p_decision: decision,
+        p_notes: notes,
       });
+      const res = data as { ok?: boolean; error?: string } | null;
+      if (error || !res?.ok) {
+        alert(
+          error?.message ||
+            (res?.error === "already_reviewed" ? "Already reviewed." : "Review failed."),
+        );
+      }
       await load();
     } finally {
       setBusy(null);

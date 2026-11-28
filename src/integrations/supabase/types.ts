@@ -792,6 +792,14 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
+      admin_review_kyc: {
+        Args: { p_record_id: string; p_decision: string; p_notes?: string };
+        Returns: Json;
+      };
+      rate_limit_hit: {
+        Args: { p_key: string; p_max: number; p_window_seconds: number };
+        Returns: boolean;
+      };
       credit_wallet: {
         Args: { p_amount: number; p_user_id: string };
         Returns: number;
