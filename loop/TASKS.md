@@ -12,6 +12,6 @@
 - [x] T10 | P1: durable rate limiter for money endpoints (replace in-memory Map) | needs DB design + human review | risk:high
 - [x] T11 | P1: server-side audit log writes (remove browser audit insert in admin.kyc.tsx) | touches RLS and KYC flow | risk:high
 - [x] T12 | Deposit race: store mpesa_checkout_id before STK push; reconciliation job for stuck processing/pending rows | money flow | risk:high
-- [ ] T13 | Decide net payout rounding (Math.floor leaves up to KES 0.99 unpaid) | product decision | risk:high
+- [x] T13 | Decide net payout rounding (Math.floor leaves up to KES 0.99 unpaid) | product decision | risk:high
 - [x] T14 | P2: untrack .env, add .env.example; delete stray npm-publish workflow | protected paths | risk:high
 - [ ] T15 | M-Pesa go-live: set MPESA_CALLBACK_SECRET, Mike's compliance sign-off, broker credentials | owner actions | risk:high
