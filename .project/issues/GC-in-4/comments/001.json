@@ -1,0 +1,6 @@
+{
+  "id": "001",
+  "author": "Claude Code",
+  "content": "Verified by loop (attempt 1). al and I can't grant it from here. WHAT CHANGED: Focus rings in `button`, `input`, `textarea`, `checkbox`, `radio-group`, `toggle`, `slider` and `select` are now 2px with an offset. The `dialog` and `sheet` close buttons use `focus-visible`. I added `src/components/ui/primitives-a11y.test.ts` to guard this. HOW TO VERIFY: Run `npm run typecheck`, `npm test` and `npx eslint src/components/ui`. I never ran them, so run them before merging. RISKS: Only class strings changed, so risk is low. I did not check the contrast tokens and made no contrast changes. ",
+  "created": "2026-11-28T03:30:02.961Z"
+}
